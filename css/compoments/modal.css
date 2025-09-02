@@ -1,0 +1,681 @@
+/* Модальное окно */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--black-60-opacity);
+    backdrop-filter: blur(20px);
+    cursor: pointer;
+}
+
+.modal-container {
+    position: relative;
+    background-color: var(--background-color);
+    border-radius: var(--border-radius-lg);
+    max-width: 1000px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal.active .modal-container {
+    transform: translateY(0) scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 11;
+    transition: all 0.3s ease;
+    border: var(--border);
+    border-radius: 50%;
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+}
+
+.modal-close i,
+.lightbox-close i {
+    font-weight: 600;
+    color: var(--white);
+}
+
+.modal-close:hover,
+.lightbox-close:hover,
+.lightbox-nav:hover {
+    border-color: var(--border-color-hover);
+}
+
+.modal-close:hover i,
+.lightbox-close:hover i,
+.lightbox-nav:hover i {
+    color: var(--secondary-color-hover);
+}
+
+/* Контент */
+.modal-content {
+    padding: 40px;
+    min-height: min-content;
+}
+
+/* Заголовок модального окна */
+.modal-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.modal-header h3 {
+    margin-bottom: 20px;
+}
+
+/* Основное изображение */
+.modal-image-main {
+    margin-bottom: 40px;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+}
+
+.modal-image-main img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-md);
+
+}
+
+/* Секции модального окна */
+.modal-section {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+}
+
+.modal-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.modal-section h4 {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-section h4 i {
+    color: var(--secondary-color);
+}
+
+.modal-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.modal-section li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    color: var(--black-70);
+    line-height: 1.6;
+}
+
+.modal-section li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+    font-size: 1.8rem;
+    line-height: 1;
+    top: -2px;
+}
+
+/* Challenges Grid */
+.challenges-grid {
+    display: grid;
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.challenge-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+    border: var(--border);
+    border-radius: var(--border-radius-md);
+}
+
+.challenge-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--secondary-color);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+}
+
+.challenge-content h5 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+
+/* Process Steps */
+.process-steps {
+    display: grid;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.process-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+    border: var(--border);
+    border-radius: var(--border-radius-md);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--secondary-color);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.step-content h5 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+
+/* Technologies */
+.technologies-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.tech-tag {
+    padding: 10px 20px;
+    background: var(--secondary-color-10);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius-max);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+    background: var(--secondary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* Results */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--gap-between-cards-desktop);
+    margin-top: 25px;
+}
+
+.result-item {
+    text-align: center;
+    padding: 24px;
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+    border: var(--border);
+    border-radius: var(--border-radius-md);
+}
+
+.result-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 8px;
+}
+
+.result-text {
+    font-size: 0.9rem;
+    color: var(--black-70);
+}
+
+/* Gallery */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--border-radius-xs);
+    transition: all 0.3s ease;
+    cursor: zoom-in;
+    object-position: top;
+}
+
+.gallery-grid img:hover {
+    transform: var(--transform-scale);
+}
+
+.case-study-content h5 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+
+/* Лайтбокс для полноэкранного просмотра */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--black-60-opacity);
+    backdrop-filter: blur(20px);
+    cursor: pointer;
+}
+
+.lightbox-content {
+    position: relative;
+    z-index: 2;
+    max-width: 80vw;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightbox-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.lightbox-image {
+    max-width: 80vw;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: var(--border-radius-xs);
+    transition: transform 0.3s ease;
+}
+
+.lightbox-caption {
+    margin-top: 20px;
+    color: var(--white);
+    text-align: center;
+    font-size: var(--font-size-p-md);
+    max-width: 80%;
+}
+
+.lightbox-close {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 11;
+    transition: all 0.3s ease;
+    border: var(--border);
+    border-radius: 50%;
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+}
+
+.lightbox-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 11;
+    transition: all 0.3s ease;
+    border: var(--border);
+    border-radius: 50%;
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+    color: var(--white);
+    font-size: 1.2rem;
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
+
+.lightbox-counter {
+    color: var(--white);
+    font-size: var(--font-size-p-sm);
+}
+
+/* Анимации для лайтбокса */
+@keyframes lightboxFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.lightbox.active {
+    animation: lightboxFadeIn 0.3s ease forwards;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.lightbox-image {
+    animation: zoomIn 0.3s ease;
+}
+
+/* Стили для индикатора пагинации (точек) */
+.lightbox-pagination {
+    display: none;
+}
+
+.lightbox-pagination-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--white-40);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0;
+}
+
+.lightbox-pagination-dot.active {
+    background-color: var(--white);
+    transform: scale(1.2);
+}
+
+.lightbox-nav {
+    display: flex;
+}
+
+/* Стили скролла для модального окна */
+.modal-content-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) var(--white-20);
+}
+
+/* Стили скролла для Webkit браузеров */
+.modal-content-wrapper::-webkit-scrollbar {
+    width: 4px;
+}
+
+.modal-content-wrapper::-webkit-scrollbar-track {
+    background: var(--white-20);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-max);
+    margin: 4px 0;
+}
+
+.modal-content-wrapper::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    border-radius: var(--border-radius-max);
+    border: 2px solid var(--white);
+    transition: all 0.3s ease;
+}
+
+.modal-content-wrapper::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--secondary-color-hover), var(--black));
+    transform: scale(1.05);
+}
+
+.modal-content-wrapper::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(135deg, var(--secondary-color-active), var(--black));
+}
+
+.modal-content-wrapper::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+.modal-container {
+    overflow: hidden !important;
+}
+
+.modal-content-wrapper {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Анимации для модального скролла */
+@media (prefers-reduced-motion: no-preference) {
+    .modal-content-wrapper::-webkit-scrollbar-thumb {
+        animation: scrollbarPulse 3s ease-in-out infinite;
+    }
+}
+
+/* Для Firefox  */
+@supports (scrollbar-width: thin) {
+    .modal-content-wrapper {
+        scrollbar-width: thin !important;
+        scrollbar-color: var(--secondary-color) var(--white-20) !important;
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .modal-content {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal {
+        padding: 15px;
+    }
+
+    .modal-container {
+        max-height: 95vh;
+        border-radius: 20px;
+    }
+
+    .modal-content-wrapper {
+        border-radius: 20px;
+    }
+
+    .modal-content {
+        padding: 30px 25px;
+    }
+
+    .modal-header h3 {
+        font-size: 2rem;
+    }
+
+    .modal-section h4 {
+        font-size: 1.2rem;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .modal-actions .btn {
+        width: 100%;
+    }
+
+    .modal-close {
+        width: 40px;
+        height: 40px;
+        top: 15px;
+        right: 15px;
+    }
+
+    /* Адаптивность для лайтбокса */
+    .lightbox-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .lightbox-caption {
+        display: none;
+    }
+
+    .lightbox-nav {
+        display: none;
+    }
+
+    .lightbox-pagination {
+        bottom: 0;
+    }
+
+    .lightbox-pagination {
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 10;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal {
+        padding: 10px;
+    }
+
+    .modal-content {
+        padding: 25px 20px;
+    }
+
+    .modal-header h3 {
+        font-size: 1.8rem;
+    }
+
+    .modal-section h4 {
+        font-size: 1.1rem;
+    }
+
+    .modal-section li {
+        font-size: var(--font-size-p-sm);
+    }
+
+    .challenge-item {
+        flex-direction: column;
+    }
+
+    .process-step {
+        flex-direction: column;
+    }
+
+    .challenge-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .modal-close {
+        width: 36px;
+        height: 36px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .modal-content-wrapper::-webkit-scrollbar {
+        width: 6px;
+    }
+}

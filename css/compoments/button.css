@@ -5,9 +5,8 @@
 }
 
 .btn {
-    display: inline-block;
     padding: 16px 32px;
-    border-radius: 500px;
+    border-radius: var(--border-radius-max);
     text-decoration: none;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -20,36 +19,40 @@
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-color-hover);
+    background-color: var(--secondary-color-hover);
     transform: translateY(-3px);
+}
+
+.btn-primary:active {
+    background-color: var(--secondary-color-active);
 }
 
 .btn-secondary {
     background-color: var(--white);
     color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    border: var(--border);
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
 }
 
 .btn-secondary:hover {
-    color: var(--primary-color-hover);
+    color: var(--secondary-color-hover);
     transform: translateY(-3px);
-    border: 2px solid var(--primary-color-hover);
+    border-color: var(--border-color-hover);
+}
+
+.btn-secondary:active {
+    color: var(--secondary-color-active);
+    border: 1px solid var(--secondary-color-active);
 }
 
 /* Адаптивность */
-@media (max-width: 900px) {
-
+@media (max-width: 480px) {
     .cta-buttons {
         justify-content: center;
-    }
-
-}
-
-@media (max-width: 600px) {
-
-    .cta-buttons {
         flex-direction: column;
-        gap: 15px;
+        gap: 14px;
+        width: 100%;
     }
 
     .btn {

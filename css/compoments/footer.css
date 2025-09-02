@@ -1,0 +1,18 @@
+.footer {
+    background: var(--white-40);
+    backdrop-filter: blur(100px);
+    border-top: var(--border);
+    margin-top: 0;
+    position: relative;
+}
+
+.footer-copyright p,
+.footer-copyright span {
+    font-size: var(--font-size-p-sm);
+    max-width: none;
+    margin: 0;
+    text-align: center;
+    color: var(--black-70);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}

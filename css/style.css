@@ -1,36 +1,23 @@
 @import url("./imports.css");
 
-:root {
-    --white: #fff;
-    --black: #2d3436;
-    --primary-color: #4a54e1;
-    --primary-color-hover: #5762ff;
-    --primary-color-100: #f5f5fa;
-    --primary-color-200: #eeeeff;
-    --primary-color-active: #323aa2;
-    --light-black: #636e72;
-    --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    --font-size-p-lg: 1.2rem;
-    --font-size-p-md: 1rem;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Manrope', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 400;
+    font-size: 16px;
 }
 
 body {
-    background-color: var(--white);
+    background-color: var(--background-color);
     color: var(--black);
     line-height: 1.6;
     padding-top: 80px;
 }
 
 section {
-    padding: 40px 4%;
+    padding: 60px 4%;
     margin: 0 auto;
 }
 
@@ -39,38 +26,212 @@ section {
 }
 
 h1 {
-    font-size: 4.4rem;
+    font-size: 5.1rem;
     font-weight: 300;
-    margin-bottom: 10px;
-    color: var(--black);
+    margin-bottom: 40px;
+    line-height: 110%;
+    text-align: center;
 }
 
 h2 {
-    font-size: 2.4rem;
-    margin: 40px 0 20px;
-    color: var(--black);
-
+    font-size: 4.2rem;
+    font-weight: 200;
+    margin-bottom: 20px;
+    line-height: 110%;
+    text-align: center;
 }
 
 h3 {
+    font-size: 2.4rem;
+    font-weight: 300;
+    margin-bottom: 40px;
+    text-align: center;
+    line-height: 140%;
+}
+
+h4 {
     font-size: 1.4rem;
-    color: var(--black);
+    margin-bottom: 10px;
+    line-height: 140%;
 }
 
 p {
     font-size: var(--font-size-p-md);
     margin-bottom: 16px;
-    color: var(--light-black);
+    color: var(--black-70);
+    max-width: 720px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+p:last-child {
+    margin-bottom: 0px;
+}
+
+.tag {
+    padding: 5px 14px 7px;
+    background: var(--white-40);
+    border-radius: var(--border-radius-max);
+    font-size: 0.9rem;
+}
+
+.subtitle {
+    font-size: var(--font-size-p-lg);
+}
+
+/* Кастомный скролл */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--white-20);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-max);
+    margin: 4px 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    border-radius: var(--border-radius-max);
+    border: 2px solid var(--white);
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--secondary-color-hover), var(--black));
+    transform: scale(1.05);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(135deg, var(--secondary-color-active), var(--black));
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* Для Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) var(--white-20);
+}
+
+/* Плавная прокрутка для всего сайта */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Анимация появления скроллбара при наведении */
+body:hover ::-webkit-scrollbar-thumb {
+    opacity: 1;
+}
+
+/* Дополнительные эффекты для скролла */
+@media (prefers-reduced-motion: no-preference) {
+    ::-webkit-scrollbar-thumb {
+        animation: scrollbarPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes scrollbarPulse {
+
+        0%,
+        100% {
+            opacity: 0.9;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+}
+
+/* Эффект при скролле для всего тела */
+body {
+    overflow-x: hidden;
+    transition: scrollbar-color 0.3s ease;
+}
+
+/* Стиль для контейнеров с собственным скроллом */
+.scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) var(--white-20);
+}
+
+.scroll-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: var(--white-20);
+    border-radius: var(--border-radius-max);
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: var(--border-radius-max);
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color-hover);
+    border: 1px solid transparent;
+    background-clip: content-box;
 }
 
 /* Адаптивность */
 @media (max-width: 900px) {
+    section {
+        padding: 40px 4%;
+    }
+}
 
+@media (max-width: 768px) {
     h1 {
-        font-size: 2.5rem;
+        font-size: 4rem;
     }
 
     h2 {
-        font-size: 1.8rem;
+        font-size: 3rem;
     }
+
+    h3 {
+        font-size: 2rem;
+    }
+
+    h4 {
+        font-size: 1.2rem;
+    }
+
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+        margin: 2px 0;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-width: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 3.4rem;
+    }
+
+    p {
+        font-size: var(--font-size-p-sm);
+        margin-bottom: 14px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    .subtitle {
+        font-size: var(--font-size-p-md);
+    }
+
 }

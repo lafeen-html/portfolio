@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NK</title>
     <link type="image/x-icon" href="./images/logo.svg" rel="shortcut icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,64 +11,68 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="./js/script.js" defer></script>
+    <script src="./js/main.js" defer></script>
 </head>
 
 <body>
     <!-- Шапка -->
     <div id="header"></div>
 
+    <div class="hero-video">
+        <video preload="auto" autoplay playsinline loop muted>
+            <source src="./video/video1.mp4" type="video/mp4">
+        </video>
+    </div>
+
     <!-- Главная секция -->
     <section class="hero wrapper">
-        <div class="hero-content">
-            <h1>UI/UX designer</h1>
-            <p>Добро пожаловать! Меня зовут Наталья. Специализируюсь на дизайне сайтов, мобильных приложений, CRM-систем
-                и баннеров.</p>
-
-            <div class="cta-buttons">
-                <a href="./pages/projects.html" class="btn btn-secondary">
-                    Посмотреть работы
-                </a>
-                <a href="./pages/contacts.html" class="btn btn-primary">
-                    Связаться со мной
-                </a>
-            </div>
-
-        </div>
-        <div class="hero-image">
-            <img src="./images/pictures/portrait.png" alt="Портрет">
+        <h1>Я — UI/UX дизайнер</h1>
+        <p class="subtitle">А это значит, что вы попали...</p>
+        <p class="subtitle">к тому, кто создает интерфейсы с заботой о людях. Открыто, искренне и с вниманием к деталям.
+        </p>
+        <div class="cta-buttons">
+            <a href="/pages/projects.html" class="btn btn-secondary">
+                Посмотреть работы
+            </a>
+            <a href="/pages/contacts.html" class="btn btn-primary">
+                Связаться со мной
+            </a>
         </div>
     </section>
 
     <!-- Направления деятельности -->
-<section class="directions-section wrapper">
-    <h2>Направления деятельности</h2>
-    <div class="directions-grid">
-        <a href="./pages/projects.html?category=sites" class="direction-item" data-category="sites">
-            <div class="direction-icon"><i class="fas fa-laptop"></i></div>
-            <div class="direction-name">Сайты</div>
-        </a>
-        <a href="./pages/projects.html?category=mobile" class="direction-item" data-category="mobile">
-            <div class="direction-icon"><i class="fas fa-mobile-alt"></i></div>
-            <div class="direction-name">Мобильные приложения</div>
-        </a>
-        <a href="./pages/projects.html?category=crm" class="direction-item" data-category="crm">
-            <div class="direction-icon"><i class="fas fa-chart-line"></i></div>
-            <div class="direction-name">CRM-системы</div>
-        </a>
-        <a href="./pages/projects.html?category=presentations" class="direction-item" data-category="presentations">
-            <div class="direction-icon"><i class="fas fa-desktop"></i></div>
-            <div class="direction-name">Презентации</div>
-        </a>
-        <a href="./pages/projects.html?category=banners" class="direction-item" data-category="banners">
-            <div class="direction-icon"><i class="fas fa-image"></i></div>
-            <div class="direction-name">Баннеры</div>
-        </a>
-        <a href="./pages/projects.html?category=mentoring" class="direction-item" data-category="mentoring">
-            <div class="direction-icon"><i class="fa-solid fa-person-chalkboard"></i></div>
-            <div class="direction-name">Наставничество</div>
-        </a>
-    </div>
-</section>
+    <section class="directions-section wrapper">
+        <h3>Чем занимаюсь</h3>
+        <div class="directions-grid">
+            <a href="/pages/projects.html?category=sites" class="direction-item" data-category="sites">
+                <div class="direction-icon"><img src="./images/icons/sites.svg" alt="sites"></div>
+                <div class="direction-name">Сайты</div>
+            </a>
+            <a href="/pages/projects.html?category=mobile" class="direction-item" data-category="mobile">
+                <div class="direction-icon"><img src="./images/icons/mobile.svg" alt="mobile"></i></div>
+                <div class="direction-name">Мобильные приложения</div>
+            </a>
+            <a href="/pages/projects.html?category=crm" class="direction-item" data-category="crm">
+                <div class="direction-icon"><img src="./images/icons/crm.svg" alt="crm"></div>
+                <div class="direction-name">CRM-системы</div>
+            </a>
+            <a href="/pages/projects.html?category=presentations" class="direction-item" data-category="presentations">
+                <div class="direction-icon"><img src="./images/icons/presentations.svg" alt="presentations"></div>
+                <div class="direction-name">Презентации</div>
+            </a>
+            <a href="/pages/projects.html?category=other" class="direction-item" data-category="other">
+                <div class="direction-icon"><img src="./images/icons/other.svg" alt="other"></div>
+                <div class="direction-name">Прочее</div>
+            </a>
+            <a href="/pages/projects.html?category=mentoring" class="direction-item" data-category="mentoring">
+                <div class="direction-icon"><img src="./images/icons/mentoring.svg" alt="mentoring"></i></div>
+                <div class="direction-name">Наставничество</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <div id="footer"></div>
 
 </body>
 

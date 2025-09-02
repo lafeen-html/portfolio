@@ -1,0 +1,195 @@
+.presentations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: var(--gap-between-cards-desktop);
+    margin-top: 40px;
+    margin-bottom: var(--margin-bottom-page-1920);
+}
+
+.presentation-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+    border: var(--border);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation-delay: calc(var(--delay, 0) * 0.1s);
+}
+
+.presentation-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-color-hover);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.presentation-image-container {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.presentation-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.presentation-card:hover .presentation-image {
+    transform: scale(1.1);
+}
+
+.presentation-card:hover .project-action-btn {
+    transform: translateY(0);
+}
+
+.presentation-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--black-60-opacity);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.presentation-card:hover .presentation-overlay {
+    opacity: 1;
+}
+
+
+
+.presentation-details {
+    padding: 24px 24px 34px;
+    text-align: center;
+}
+
+.presentation-description {
+    max-width: none;
+    line-height: 1.6;
+}
+
+.presentation-card:hover .presentation-description {
+    opacity: 1;
+}
+
+/* Индикатор загрузки */
+.view-pdf-btn.loading {
+    position: relative;
+    padding-right: 45px;
+}
+
+.view-pdf-btn.loading::after {
+    content: '';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    margin-top: -9px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--white);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Анимация появления карточек */
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.presentation-card {
+    animation: slideUpFade 0.6s ease forwards;
+    opacity: 0;
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+    .presentations-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    .presentation-image-container {
+        height: 200px;
+    }
+
+    .presentation-details {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 640px) {
+    .presentations-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .presentation-image-container {
+        height: 180px;
+    }
+
+    .view-pdf-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .presentation-title {
+        font-size: 1.2rem;
+    }
+}
+
+/* Стили для недоступных PDF */
+.view-pdf-btn[href="#"] {
+    background: var(--black-40);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.view-pdf-btn[href="#"]:hover {
+    transform: translateY(0) !important;
+    box-shadow: none !important;
+    background: var(--black-40);
+}
+
+/* Анимация вращения */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Плавное появление overlay */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.view-pdf-btn {
+    animation: fadeInUp 0.4s ease-out;
+}

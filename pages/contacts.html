@@ -3,19 +3,112 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NK</title>
-    <link type="image/x-icon" href="/images/logo.svg" rel="shortcut icon">
+    <link type="image/x-icon" href="../images/logo.svg" rel="shortcut icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script src="/js/script.js" defer></script>
+    <script src="../js/script.js" defer></script>
+    <script src="../js/contacts.js" defer></script>
 </head>
 
 <body>
     <!-- Шапка -->
-     <div id="header"></div>
+    <div id="header"></div>
+
+    <!-- Основной контент -->
+    <main class="contacts-container">
+        <section class="contacts-hero">
+            <h2>Давайте создавать вместе</h2>
+            <p class="subtitle">Готова обсудить ваш проект, ответить на вопросы или просто пообщаться о дизайне. Пишите
+                — буду рада
+                знакомству!</p>
+        </section>
+
+        <section class="contacts-content">
+            <!-- Контактные карточки -->
+            <div class="contacts-grid">
+                <!-- Телеграм -->
+                <div class="contact-card telegram-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <h4>Telegram</h4>
+                    <p>Быстрый способ связаться со мной для обсуждения проектов.</p>
+                    <a href="https://t.me/la_feen" target="_blank" class="btn btn-primary">
+                        Написать в Telegram
+                    </a>
+                </div>
+
+                <!-- Behance -->
+                <div class="contact-card behance-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-icon">
+                        <i class="fab fa-behance"></i>
+                    </div>
+                    <h4>Behance</h4>
+                    <p>Здесь можно посмотреть ещё больше моих работ.</p>
+                    <a href="https://www.behance.net/my-ndesign" target="_blank" class="btn btn-secondary">
+                        Перейти в Behance
+                    </a>
+                </div>
+
+                <!-- Дополнительный контакт -->
+                <div class="contact-card email-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4>Email</h4>
+                    <p>Для официальных предложений и подробных обсуждений.</p>
+                    <a href="mailto:lafee@mail.ru" class="btn btn-secondary">
+                        Написать письмо
+                    </a>
+                </div>
+
+                <!-- Мой канал -->
+                <div class="contact-card location-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="contact-icon">
+                        <img src="../images/pictures/telegram-chanel.png" alt="">
+                    </div>
+                    <h4>Форма и суть</h4>
+                    <p>Авторский канал о дизайне: идеи, практики, размышления, кейсы.</p>
+                    <a href="https://t.me/formasut" target="_blank" class="btn btn-secondary">
+                        Узнать про дизайн
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Дополнительный раздел с анимацией -->
+            <section class="contacts-extra wrapper" data-aos="fade-up" data-aos-delay="500">
+                <div class="response-time">
+                    <h3>Часы работы</h3>
+                    <p>Обычно отвечаю в течение 2-4 часов в рабочее время.</p>
+                    <div class="time-slots">
+                        <div class="time-slot">
+                            <span>Пн-Пт</span>
+                            <span>С 10:00 до 19:00</span>
+                        </div>
+                        <div class="time-slot">
+                            <span>Сб-Вс</span>
+                            <span>По договорённости</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="availability-status">
+                    <div class="status-indicator"></div>
+                    <p>Сейчас открыта к новым проектам.</p>
+                </div>
+            </section>
+
+        </section>
+
+    </main>
+
+    <!-- Подвал -->
+    <div id="footer"></div>
 
 </body>
 

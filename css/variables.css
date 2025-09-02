@@ -1,0 +1,40 @@
+:root {
+    /* Основные цвета */
+    --white: #fff;
+    --white-40: rgba(255, 255, 255, 0.4);
+    --white-20: rgba(255, 255, 255, 0.2);
+    --black: #201E1F;
+    --black-60-opacity: rgba(32, 30, 31, 0.6);
+    --black-70: #636262;
+    --black-60: #797879;
+    --black-40: #A6A5A5;
+    --black-20: #D2D2D2;
+    --primary-color: var(--black);
+    --secondary-color: #FE572A;
+    --secondary-color-10: #FFEEEA;
+    --secondary-color-4: #FFF8F6;
+    --secondary-color-hover: #FE572A;
+    --secondary-color-active: #E0390C;
+    --background-color: #dfe5ef;
+
+    /* Шрифты */
+    --font-size-p-lg: 1.2rem;
+    --font-size-p-md: 1.1rem;
+    --font-size-p-sm: 0.9rem;
+
+    /* Отступы */
+    --margin-bottom-page-1920: 60px;
+    --gap-between-cards-desktop: 20px;
+    --gap-between-cards-mobile: 10px;
+
+    /* Оформление */
+    --card-bg: var(--white-40);
+    --border: 1px solid var(--white-40);
+    --border-radius-lg: 30px;
+    --border-radius-md: 20px;
+    --border-radius-xs: 4px;
+    --border-radius-max: 500px;
+    --border-color-hover: var(--white);
+    --box-shadow-hover: 0 8px 30px var(--white-40);
+    --transform-scale: scale(1.1);
+}

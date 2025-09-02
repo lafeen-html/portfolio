@@ -3,15 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NK</title>
-    <link type="image/x-icon" href="/images/logo.svg" rel="shortcut icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NK - Мои проекты</title>
+    <link type="image/x-icon" href="../images/logo.svg" rel="shortcut icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages/projects.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script src="/js/script.js" defer></script>
-    <script src="/js/projects.js" defer></script>
+    <script src="../js/script.js" defer></script>
+    <script src="../js/projects.js" defer></script>
+    <script src="../js/modal-manager.js" defer></script>
+    <script src="../js/presentations.js" defer></script>
+    <script src="../js/other.js" defer></script>
 </head>
 
 <body>
@@ -21,8 +25,9 @@
     <!-- Основной контент -->
     <main class="projects-container">
         <section class="projects-hero">
-            <h1>Мои проекты</h1>
-            <p>Здесь собраны работы, которые демонстрируют мой подход к дизайну и внимание к деталям.</p>
+            <h2>Мои проекты</h2>
+            <p class="subtitle">Здесь работы, в которые я вложила не только навыки, но и частичку души. Каждый проект —
+                это история, решение и эмоция.</p>
         </section>
 
         <!-- Таббары -->
@@ -30,22 +35,28 @@
             <div class="tabs-container">
                 <div class="tabs-scroll">
                     <div class="tabs">
-                        <button class="tab-button active" data-category="sites">
+                        <button class="tab-button active" data-category="sites" data-file="sites.html">
+                            <img src="../images/icons/sites.svg" class="tab-icon" alt="sites">
                             <span>Сайты</span>
                         </button>
-                        <button class="tab-button" data-category="mobile">
+                        <button class="tab-button" data-category="mobile" data-file="mobile.html">
+                            <img src="../images/icons/mobile.svg" class="tab-icon" alt="mobile">
                             <span>Мобильные приложения</span>
                         </button>
-                        <button class="tab-button" data-category="crm">
+                        <button class="tab-button" data-category="crm" data-file="crm.html">
+                            <img src="../images/icons/crm.svg" class="tab-icon" alt="crm">
                             <span>CRM-системы</span>
                         </button>
-                        <button class="tab-button" data-category="presentations">
+                        <button class="tab-button" data-category="presentations" data-file="presentations.html">
+                            <img src="../images/icons/presentations.svg" class="tab-icon" alt="presentations">
                             <span>Презентации</span>
                         </button>
-                        <button class="tab-button" data-category="banners">
-                            <span>Баннеры</span>
+                        <button class="tab-button" data-category="other" data-file="other.html">
+                            <img src="../images/icons/other.svg" class="tab-icon" alt="other">
+                            <span>Прочее</span>
                         </button>
-                        <button class="tab-button" data-category="mentoring">
+                        <button class="tab-button" data-category="mentoring" data-file="mentoring.html">
+                            <img src="../images/icons/mentoring.svg" class="tab-icon" alt="mentoring">
                             <span>Наставничество</span>
                         </button>
                     </div>
@@ -55,188 +66,43 @@
 
         <!-- Контент табов -->
         <section class="projects-content">
-            <!-- Сайты -->
-            <div class="tab-content active" id="sites-content">
-                <div class="projects-grid">
-                    <!-- Карточка 1 -->
-                    <article class="project-card">
-                        <div class="project-image">
-                            <img src="/images/projects/sites/dynaOl.png" alt="">
-                            <div class="project-overlay">
-                                <a href="https://www.behance.net/gallery/231064869/DynaOL" target="_blank" class="view-project">
-                                    <i class="fas fa-eye"></i>
-                                    Смотреть проект
-                                </a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3>DynaOL</h3>
-                            <p>Платформа самообслуживания, сочетающая гибкость и простоту с надежностью корпоративных систем.</p>
-                            <div class="project-tags">
-                                <span class="tag">OLAP</span>
-                                <span class="tag">Web Design</span>
-                                <span class="tag">Figma</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Карточка 2 -->
-                    <article class="project-card">
-                        <div class="project-image">
-                            <img src="/images/projects/sites/rabotaYou.png" alt="">
-                            <div class="project-overlay">
-                                <a href="https://www.behance.net/gallery/224315595/Job-search-site" target="_blank" class="view-project">
-                                    <i class="fas fa-eye"></i>
-                                    Смотреть проект
-                                </a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3>RabotaYou</h3>
-                            <p>Сайт по поиску работы.</p>
-                            <div class="project-tags">
-                                <span class="tag">E-commerce</span>
-                                <span class="tag">UI Design</span>
-                                <span class="tag">Adobe XD</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Карточка 3 -->
-                    <article class="project-card">
-                        <div class="project-image">
-                            <img src="/images/projects/sites/usupovo-village.png" alt="">
-                            <div class="project-overlay">
-                                <a href="https://www.usupovo-village.ru/" target="_blank" class="view-project">
-                                    <i class="fas fa-arrow-up-right-from-square"></i>
-                                    Перейти на сайт
-                                </a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3>Юсупово Village</h3>
-                            <p>Сайт коттеджного посёлка бизнес-класса.</p>
-                            <div class="project-tags">
-                                <span class="tag">Landing Page</span>
-                                <span class="tag">UX Research</span>
-                                <span class="tag">Sketch</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Карточка 4 -->
-                    <article class="project-card">
-                        <div class="project-image">
-                            <img src="/images/projects/sites/metall-naves.png" alt="">
-                            <div class="project-overlay">
-                                <a href="https://metall-naves.ru/" target="_blank" class="view-project">
-                                    <i class="fas fa-arrow-up-right-from-square"></i>
-                                    Перейти на сайт
-                                </a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3>Металл Навес</h3>
-                            <p>Сайт производителя навесов и откатных ворот.</p>
-                            <div class="project-tags">
-                                <span class="tag">Web App</span>
-                                <span class="tag">Prototyping</span>
-                                <span class="tag">User Testing</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Карточка 5 -->
-                    <article class="project-card">
-                        <div class="project-image">
-                            <img src="/images/projects/sites/lesanti.png" alt="Блог путешественника">
-                            <div class="project-overlay">
-                                <a href="https://le-santi.com/" target="_blank" class="view-project">
-                                    <i class="fas fa-arrow-up-right-from-square"></i>
-                                    Перейти на сайт
-                                </a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3>Le Santi</h3>
-                            <p>Сайт для бренда уходовой косметики.</p>
-                            <div class="project-tags">
-                                <span class="tag">Blog Design</span>
-                                <span class="tag">Visual Design</span>
-                                <span class="tag">WordPress</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Карточка 6
-                    <article class="project-card">
-                        <div class="project-image">
-                            <img src="../images/projects/site-6.jpg" alt="Промо-сайт для мероприятия">
-                            <div class="project-overlay">
-                                <a href="../pages/project-detail.html?id=6" class="view-project">
-                                    <i class="fas fa-eye"></i>
-                                    Смотреть проект
-                                </a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3>Промо-сайт TechConference 2023</h3>
-                            <p>Дизайн промо-сайта для IT-конференции с системой регистрации и интерактивной программой.
-                            </p>
-                            <div class="project-tags">
-                                <span class="tag">Event</span>
-                                <span class="tag">Interactive</span>
-                                <span class="tag">Animation</span>
-                            </div>
-                        </div>
-                    </article>
-                     -->
-
-                </div>
+            <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Загрузка проектов...</p>
             </div>
 
-            <!-- Остальные табы (изначально скрыты) -->
-            <div class="tab-content" id="mobile-content">
-                <div class="empty-state">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Мобильные приложения</h3>
-                    <p>Проекты в этом разделе скоро появятся</p>
-                </div>
-            </div>
-
-            <div class="tab-content" id="crm-content">
-                <div class="empty-state">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>CRM-системы</h3>
-                    <p>Проекты в этом разделе скоро появятся</p>
-                </div>
-            </div>
-
-            <div class="tab-content" id="presentations-content">
-                <div class="empty-state">
-                    <i class="fas fa-desktop"></i>
-                    <h3>Презентации</h3>
-                    <p>Проекты в этом разделе скоро появятся</p>
-                </div>
-            </div>
-
-            <div class="tab-content" id="banners-content">
-                <div class="empty-state">
-                    <i class="fas fa-image"></i>
-                    <h3>Баннеры</h3>
-                    <p>Проекты в этом разделе скоро появятся</p>
-                </div>
-            </div>
-
-            <div class="tab-content" id="mentoring-content">
-                <div class="empty-state">
-                    <i class="fa-solid fa-person-chalkboard"></i>
-                    <h3>Наставничество</h3>
-                    <p>Проекты в этом разделе скоро появятся</p>
-                </div>
-            </div>
+            <!-- Контент будет загружаться динамически -->
+            <div id="tab-content-container"></div>
         </section>
     </main>
+
+    <!-- Подвал -->
+    <div id="footer"></div>
+
+    <div id="modals-container"></div>
+
+    <!-- Лайтбокс для полноэкранного просмотра -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-overlay"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <!-- Скрываем навигацию на мобильных -->
+            <button class="lightbox-nav lightbox-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-nav lightbox-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="lightbox-image-container">
+                <img class="lightbox-image" src="" alt="">
+            </div>
+            <!-- Контейнер для пагинации -->
+            <div class="lightbox-pagination"></div>
+            <div class="lightbox-caption"></div>
+        </div>
+    </div>
 
 </body>
 

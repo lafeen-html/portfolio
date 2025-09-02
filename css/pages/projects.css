@@ -1,3 +1,18 @@
+/* Плавная прокрутка для табов */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading state */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: slideIn 0.5s ease;
+}
+
 /* Анимация переключения табов */
 .tab-content {
     opacity: 0;
@@ -10,41 +25,10 @@
     transform: translateY(0);
 }
 
-/* Анимация для карточек при смене таба */
-.projects-grid {
-    transition: opacity 0.3s ease;
-    margin-bottom: 120px;
-}
-
-.projects-container {
-    padding: 0 4%;
-    margin: 0 auto 0;
-    min-height: calc(100vh - 80px);
-}
-
-.projects-hero {
-    text-align: center;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease forwards;
-}
-
-.projects-hero h1 {
-    font-size: 3.5rem;
-    font-weight: 300;
-    margin-bottom: 20px;
-    color: var(--black);
-}
-
-.projects-hero p {
-    font-size: var(--font-size-p-lg);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
 /* Табы */
 .tabs-section {
-    margin-bottom: -80px;
+    margin-top: -80px;
+    margin-bottom: -120px;
 }
 
 .tabs-container {
@@ -64,10 +48,11 @@
 
 .tabs {
     display: flex;
-    gap: 15px;
-    padding: 5px;
-    background: var(--primary-color-100);
-    border-radius: 50px;
+    gap: 4px;
+    padding: 4px;
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+    border-radius: 500px;
     width: max-content;
     margin: 0 auto;
 }
@@ -75,21 +60,18 @@
 .tab-button {
     display: flex;
     align-items: center;
-    gap: 8px;
     padding: 12px 24px;
     border: none;
     background: transparent;
-    border-radius: 30px;
+    border-radius: var(--border-radius-max);
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 0.95rem;
-    color: var(--light-black);
     white-space: nowrap;
 }
 
 .tab-button:hover {
-    background: var(--primary-color-200);
-    color: var(--primary-color);
+    color: var(--secondary-color-hover);
+    background-color: var(--white-40);
 }
 
 .tab-button.active {
@@ -97,39 +79,75 @@
     color: var(--white);
 }
 
-.tab-button i {
-    font-size: 1.1rem;
+.tab-img {
+    height: 60px;
+    width: 60px;
+    margin-bottom: 24px;
+}
+
+.tab-icon {
+    display: none;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: grayscale(100%) saturate(0) contrast(4) opacity(1);
+}
+
+.tab-button.active .tab-icon {
+    filter: brightness(0) invert(1);
+}
+
+.projects-grid {
+    transition: opacity 0.3s ease;
+    margin-bottom: var(--margin-bottom-page-1920);
+}
+
+.projects-container {
+    margin: 0 auto 0;
+    min-height: calc(100vh - 80px);
+}
+
+.projects-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
 }
 
 /* Сетка проектов */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+    gap: var(--gap-between-cards-desktop);
     margin-top: 30px;
 }
 
 .project-card {
-    background: var(--white);
-    border-radius: 20px;
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+    border: var(--border);
+    border-radius: var(--border-radius-md);
     overflow: hidden;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 0.6s ease forwards;
     animation-delay: calc(var(--delay, 0) * 0.1s);
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    border-color: var(--border-color-hover);
+    box-shadow: var(--box-shadow-hover);
 }
 
 .project-image {
     position: relative;
     overflow: hidden;
     height: 250px;
+    padding: 2px 2px 0 2px;
 }
 
 .project-image img {
@@ -137,10 +155,11 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    border-radius: 18px 18px 0 0;
 }
 
 .project-card:hover .project-image img {
-    transform: scale(1.05);
+    transform: var(--transform-scale);
 }
 
 .project-overlay {
@@ -149,7 +168,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(45, 52, 54, 0.8);
+    background: var(--black-60-opacity);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -161,32 +180,49 @@
     opacity: 1;
 }
 
-.view-project {
-    display: inline-flex;
+.project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
     align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.project-action-btn {
+    display: flex;
     gap: 8px;
-    padding: 12px 24px;
-    background: var(--primary-color);
-    color: var(--white);
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    border-radius: 25px;
     transition: all 0.3s ease;
     transform: translateY(20px);
 }
 
-.project-card:hover .view-project {
+.project-card:hover .project-action-btn {
     transform: translateY(0);
 }
 
-.view-project:hover {
-    background: var(--primary-color-hover);
-    transform: translateY(-2px);
+.project-action-btn:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.project-action-btn:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.project-action-btn:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.project-action-btn:nth-child(4) {
+    transition-delay: 0.4s;
 }
 
 .project-info {
-     display: flex;
-     flex-direction: column;
-    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px 34px;
 }
 
 .project-info h3 {
@@ -195,8 +231,6 @@
 }
 
 .project-info p {
-    color: var(--light-black);
-    line-height: 1.6;
     min-height: 52px;
 }
 
@@ -206,25 +240,55 @@
     gap: 8px;
 }
 
-.tag {
-    padding: 6px 12px;
-    background: rgba(74, 84, 225, 0.1);
-    color: var(--primary-color);
-    border-radius: 15px;
-    font-size: 0.85rem;
+/* Бейдж "Новое" */
+.project-new-badge::before {
+    content: '🔥';
+    margin-right: 4px;
+    font-size: 1em;
+}
+
+.project-new-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 14px 6px;
+    border-radius: var(--border-radius-max);
+    font-size: 0.8rem;
     font-weight: 500;
+    z-index: 3;
+    animation: pulse 2s infinite;
+    background-color: var(--white);
+    color: var(--primary-color);
+}
+
+/* Анимация пульсации бейджа */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.04);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* Состояние пустого раздела */
 .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     padding: 80px 20px;
-    color: var(--light-black);
+    color: var(--black-600);
 }
 
 .empty-state i {
     font-size: 4rem;
-    color: rgba(74, 84, 225, 0.2);
+    color: var(--primary-color);
     margin-bottom: 20px;
 }
 
@@ -254,51 +318,91 @@
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateX(-20px);
+        transform: translateY(30px);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
+}
+
+/* Состояние загрузки */
+.loading-state {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--white-40);
+    border-top: 3px solid var(--secondary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Состояние ошибки */
+.error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--black-600);
+}
+
+.error-state i {
+    font-size: 4rem;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+.error-state h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--black);
+}
+
+.error-state p {
+    font-size: 1.1rem;
 }
 
 /* Адаптивность */
 @media (max-width: 1024px) {
+    .tabs-section {
+        margin-top: -40px;
+        margin-bottom: -60px;
+    }
+
     .projects-grid {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 25px;
     }
 }
 
 @media (max-width: 768px) {
-    .projects-container {
-        padding: 30px 20px;
-        margin-top: 70px;
-    }
-
-    .projects-hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .projects-hero p {
-        font-size: 1.1rem;
-    }
-
     .tabs {
-        border-radius: 15px;
-        padding: 10px;
+        padding: 4px;
         width: 100%;
     }
 
     .tab-button {
         justify-content: center;
-        border-radius: 10px;
-    }
-
-    .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
     }
 
     .project-image {
@@ -309,41 +413,59 @@
         padding: 20px;
     }
 
-    .project-info h3 {
-        font-size: 1.3rem;
+    .project-action-btn {
+        padding: 10px 26px;
+    }
+
+    .btn.project-action-btn {
+        width: auto;
+    }
+
+    .project-info p {
+        min-height: 26px;
+        font-size: var(--font-size-p-sm);
+    }
+
+    .project-new-badge {
+        top: 8px;
+        right: 8px;
+        padding: 4px 10px;
+        font-size: 0.75rem;
     }
 }
 
 @media (max-width: 480px) {
-    .projects-hero h1 {
-        font-size: 2rem;
+    .tab-button {
+        flex-direction: column;
+        padding: 10px;
+        min-width: auto;
     }
 
-    .project-card {
-        border-radius: 15px;
+    .tab-icon {
+        display: block;
+    }
+
+    .tab-button span {
+        display: none;
+    }
+
+    .tabs {
+        justify-content: space-between;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: var(--gap-between-cards-mobile);
     }
 
     .project-info {
-        padding: 15px;
+        padding: 14px;
     }
 
-    .view-project {
-        padding: 10px 20px;
-        font-size: 0.9rem;
+    .project-new-badge {
+        top: 6px;
+        right: 6px;
+        padding: 3px 8px;
+        font-size: 0.7rem;
     }
-}
-
-/* Плавная прокрутка для табов */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Loading state */
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-    animation: slideIn 0.5s ease;
 }

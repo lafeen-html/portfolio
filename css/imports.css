@@ -1,7 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import url("./variables.css");
 @import url("./compoments/header.css");
+@import url("./compoments/footer.css");
 @import url("./compoments/button.css");
+@import url("./compoments/modal.css");
+@import url("./compoments/accordion.css");
+@import url("./compoments/presentations.css");
+@import url("./compoments/other.css");
+@import url("./compoments/mentoring.css");
 @import url("./pages/main.css");
-@import url("./pages/about.css");
 @import url("./pages/projects.css");
+@import url("./pages/about.css");
 @import url("./pages/contacts.css");

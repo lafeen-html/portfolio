@@ -1,0 +1,110 @@
+/* FAQ */
+.accordion-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.accordion {
+    max-width: 800px;
+    margin-bottom: var(--margin-bottom-page-1920);
+}
+
+.accordion-item {
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+    border: var(--border);
+    border-radius: var(--border-radius-md);
+}
+
+.accordion-item:hover {
+    border-color: var(--border-color-hover);
+}
+
+.accordion-item.open {
+    border-color: var(--border-color-hover);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.accordion-item h4 {
+    margin-bottom: 0;
+    font-size: 1.2rem;
+}
+
+.accordion-item.open h4 {
+    color: var(--secondary-color);
+}
+
+.accordion-btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+}
+
+.accordion-btn:hover {
+    color: var(--secondary-color);
+}
+
+.accordion-item.open .accordion-btn {
+    color: var(--secondary-color);
+}
+
+.accordion-btn i {
+    transition: transform 0.3s ease;
+}
+
+.accordion-btn h4 {
+    margin-right: 20px;
+}
+
+.accordion-item.open .accordion-btn i {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.accordion-item.open .accordion-content {
+    max-height: 500px;
+}
+
+.accordion-content p {
+    padding: 0 20px 18px 20px;
+    margin: 0;
+    max-width: 780px;
+}
+
+@media (max-width: 900px) {
+    .accordion {
+        max-width: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .accordion-section {
+        margin-bottom: 0;
+    }
+
+    .accordion-btn {
+        padding: 16px;
+    }
+
+    .accordion-content p {
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 16px;
+    }
+}
