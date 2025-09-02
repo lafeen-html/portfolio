@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
             headerElement.innerHTML = `
                 <header class="header">
                     <nav class="nav">
-                        <a href="index.html" class="nav-links">Главная</a>
+                        <a href="projects.html" class="nav-links">Проекты</a>
                         <a href="about.html" class="nav-links">О нас</a>
                         <a href="contact.html" class="nav-links">Контакты</a>
                     </nav>
