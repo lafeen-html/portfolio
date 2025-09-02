@@ -1,14 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Проверяем, существует ли элемент header
     const headerElement = document.getElementById('header');
 
     if (!headerElement) {
         console.error('Элемент с id "header" не найден на странице!');
-        return; // Прекращаем выполнение
+        return;
     }
 
+    // Определяем базовый путь в зависимости от окружения
+    const isGithubPages = window.location.hostname.includes('github.io');
+    const basePath = isGithubPages ? '/portfolio' : ''; // Замените your-repo-name на имя вашего репозитория
+
     // Загружаем header.html
-    fetch('../header.html')
+    fetch(`${basePath}/header.html`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Не удалось загрузить header.html');
@@ -16,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.text();
         })
         .then(html => {
-            // Вставляем содержимое header.html в div#header
             headerElement.innerHTML = html;
             highlightCurrentPage();
             initMobileMenu();
@@ -29,11 +31,16 @@ document.addEventListener('DOMContentLoaded', function () {
             headerElement.innerHTML = `
                 <header class="header">
                     <nav class="nav">
-                        <a href="projects.html" class="nav-links">Проекты</a>
-                        <a href="about.html" class="nav-links">О нас</a>
-                        <a href="contact.html" class="nav-links">Контакты</a>
+                        <div class="logo"><a href="${basePath}/index.html"><img src="${basePath}/images/logo.svg" alt="Логотип"></a></div>
+                        <ul class="nav-links">
+                            <li><a href="${basePath}/pages/projects.html">Проекты</a></li>
+                            <li><a href="${basePath}/pages/about.html">Обо мне</a></li>
+                            <li><a href="${basePath}/pages/contacts.html">Контакты</a></li>
+                        </ul>
+                        <div class="burger">
+                            <i class="fas fa-bars"></i>
+                        </div>
                     </nav>
-                    <div class="burger">☰</div>
                 </header>
             `;
             highlightCurrentPage();
@@ -42,15 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
             initAnimations();
         });
 
-    // Функция подсветки текущей страницы
     function highlightCurrentPage() {
         setTimeout(() => {
-            // Определяем текущую страницу по URL
             const path = window.location.pathname;
             let currentPage = '';
 
-            if (path === '/' || path.endsWith('index.html') || path.endsWith('/index.html')) {
-                currentPage = 'home';
+            if (path === '/' || path.endsWith('index.html') || path.includes('/index.html')) {
+                currentPage = 'index';
             } else if (path.includes('about.html')) {
                 currentPage = 'about';
             } else if (path.includes('contacts.html')) {
@@ -59,23 +64,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 currentPage = 'projects';
             }
 
-            console.log('Определенная страница:', currentPage);
-
-            // Находим и подсвечиваем соответствующую ссылку
-            const navLinks = document.querySelectorAll('.nav-links a');
+            const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('data-page') === currentPage) {
                     link.classList.add('active');
-                    console.log('Подсвечена:', link.textContent);
                 }
             });
-        }, 0);
+        }, 100);
     }
 
-    // Функция инициализации мобильного меню
     function initMobileMenu() {
-        // Ждем немного, чтобы DOM обновился после вставки шапки
         setTimeout(() => {
             const burger = document.querySelector('.burger');
             const nav = document.querySelector('.nav');
@@ -88,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     burger.classList.toggle('active');
                 });
 
-                // Закрытие меню при клике вне его области
                 document.addEventListener('click', function (e) {
                     if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
                         navLinks.classList.remove('active');
@@ -96,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
 
-                // Закрытие меню при клике на ссылку
                 const links = document.querySelectorAll('.nav-link');
                 links.forEach(link => {
                     link.addEventListener('click', function () {
@@ -104,10 +101,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         burger.classList.remove('active');
                     });
                 });
-            } else {
-                console.warn('Элементы мобильного меню не найдены');
             }
-        }, 100);
+        }, 200);
     }
 
     // Плавная прокрутка - инициализация после загрузки шапки
@@ -156,26 +151,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Плавный переход при клике на карточки направлений
     const directionItems = document.querySelectorAll('.direction-item');
-    
+
     directionItems.forEach(item => {
-        item.addEventListener('click', function(e) {
+        item.addEventListener('click', function (e) {
             e.preventDefault();
-            
+
             const href = this.getAttribute('href');
-            
+
             // Добавляем анимацию перехода
             document.body.style.opacity = '0.7';
             document.body.style.transition = 'opacity 0.3s ease';
-            
+
             setTimeout(() => {
                 window.location.href = href;
             }, 300);
         });
     });
-    
+
     // Восстанавливаем opacity при возврате на страницу
     if (document.body.style.opacity === '0.7') {
         setTimeout(() => {
