@@ -1,3 +1,6 @@
+// Кэш базового пути для повторного использования
+let CACHED_BASE_PATH = null;
+
 document.addEventListener('DOMContentLoaded', function () {
     // Основная инициализация
     initializePage();
@@ -23,14 +26,38 @@ function isGitHubPages() {
     return window.location.hostname.includes('github.io');
 }
 
+// Пытаемся определить базовый путь по пути к текущему скрипту (устойчиво к вложенным папкам)
+function detectBasePathFromScript() {
+    const scripts = document.getElementsByTagName('script');
+    for (let i = 0; i < scripts.length; i++) {
+        const src = scripts[i].getAttribute('src') || '';
+        if (src.endsWith('/js/script.js') || src.includes('/js/script.js')) {
+            try {
+                const url = new URL(src, document.baseURI || window.location.href);
+                // Обрезаем "/js/script.js"
+                const base = url.pathname.replace(/\/?js\/script\.js$/, '');
+                if (base) return base;
+            } catch (_) {
+                // игнорируем
+            }
+        }
+    }
+    // Фоллбек: первая директория после корня как база репозитория
+    const path = window.location.pathname;
+    const parts = path.split('/').filter(Boolean);
+    return parts.length > 0 ? `/${parts[0]}` : '';
+}
+
 // Определяем базовый путь
 function getBasePath() {
     const path = window.location.pathname;
     
     if (isGitHubPages()) {
-        // На GitHub Pages - путь включает имя репозитория
-        const repoName = path.split('/')[1];
-        return repoName ? `/${repoName}` : '';
+        // На GitHub Pages - берём базу по реальному пути скрипта (поддержка вложенных путей)
+        if (CACHED_BASE_PATH !== null) return CACHED_BASE_PATH;
+        const detected = detectBasePathFromScript();
+        CACHED_BASE_PATH = detected || '';
+        return CACHED_BASE_PATH;
     } else {
         // Локально - относительные пути
         if (path.includes('/pages/')) {
@@ -45,6 +72,7 @@ function getBasePath() {
 function fixAllPaths() {
     const basePath = getBasePath();
     const isGH = isGitHubPages();
+    const basePrefix = `${basePath}/`;
     
     // Исправляем ссылки
     const links = document.querySelectorAll('a:not(.nav-link):not(.logo a)');
@@ -57,10 +85,16 @@ function fixAllPaths() {
                     const newHref = href.replace('./', basePath + '/');
                     link.setAttribute('href', newHref);
                 } else if (href.startsWith('/')) {
-                    const newHref = href.replace(/^\//, basePath + '/');
-                    link.setAttribute('href', newHref);
+                    // Пропускаем, если уже начинается с basePath
+                    if (!href.startsWith(basePrefix)) {
+                        const newHref = href.replace(/^\//, basePath + '/');
+                        link.setAttribute('href', newHref);
+                    }
                 } else if (!href.startsWith('/')) {
-                    link.setAttribute('href', basePath + '/' + href);
+                    // Пропускаем, если уже начинается с basePath
+                    if (!href.startsWith(basePrefix)) {
+                        link.setAttribute('href', basePath + '/' + href);
+                    }
                 }
             } else {
                 // Локально - относительные пути
@@ -83,10 +117,14 @@ function fixAllPaths() {
                     const newSrc = src.replace('./', basePath + '/');
                     img.setAttribute('src', newSrc);
                 } else if (src.startsWith('/')) {
-                    const newSrc = src.replace(/^\//, basePath + '/');
-                    img.setAttribute('src', newSrc);
+                    if (!src.startsWith(basePrefix)) {
+                        const newSrc = src.replace(/^\//, basePath + '/');
+                        img.setAttribute('src', newSrc);
+                    }
                 } else if (!src.startsWith('/')) {
-                    img.setAttribute('src', basePath + '/' + src);
+                    if (!src.startsWith(basePrefix)) {
+                        img.setAttribute('src', basePath + '/' + src);
+                    }
                 }
             } else {
                 // Локально - относительные пути
@@ -108,10 +146,14 @@ function fixAllPaths() {
                     const newSrc = src.replace('./', basePath + '/');
                     video.setAttribute('src', newSrc);
                 } else if (src.startsWith('/')) {
-                    const newSrc = src.replace(/^\//, basePath + '/');
-                    video.setAttribute('src', newSrc);
+                    if (!src.startsWith(basePrefix)) {
+                        const newSrc = src.replace(/^\//, basePath + '/');
+                        video.setAttribute('src', newSrc);
+                    }
                 } else if (!src.startsWith('/')) {
-                    video.setAttribute('src', basePath + '/' + src);
+                    if (!src.startsWith(basePrefix)) {
+                        video.setAttribute('src', basePath + '/' + src);
+                    }
                 }
             } else {
                 if (src.startsWith('/')) {
