@@ -1,36 +1,40 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Инициализация табов
-    initTabs();
-
-    // Инициализация анимаций карточек
-    initCardAnimations();
-
-    // Инициализация ленивой загрузки изображений
-    initLazyLoading();
-
-    // Обработка параметров URL
-    handleUrlParams();
-});
-
-// Новая функция для обработки параметров URL
-function handleUrlParams() {
+    // Сначала обрабатываем параметры URL
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('category');
 
-    if (category) {
-        // Ждем немного, чтобы DOM полностью загрузился
-        setTimeout(() => {
-            activateTabByCategory(category);
+    // Исправляем пути изображений проектов
+    fixProjectImages();
 
-            // Плавная прокрутка к табам
-            setTimeout(() => {
-                document.querySelector('.tabs-section').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }, 300);
-        }, 100);
-    }
+    // Инициализируем табы с учетом категории
+    initTabs(category);
+    initCardAnimations();
+    initLazyLoading();
+});
+
+// Исправляем пути изображений проектов
+function fixProjectImages() {
+    const basePath = window.location.pathname.includes('/pages/') ? '..' : '.';
+    const projectImages = document.querySelectorAll('.project-image img');
+    
+    projectImages.forEach(img => {
+        const src = img.getAttribute('src');
+        if (src && !src.startsWith('http') && !src.startsWith('data:')) {
+            // Если путь уже начинается с ../, оставляем как есть
+            if (src.startsWith('../')) {
+                return;
+            }
+            // Если путь начинается с ./, исправляем в зависимости от basePath
+            if (src.startsWith('./')) {
+                const newSrc = src.replace('./', basePath === '.' ? './' : '../');
+                img.setAttribute('src', newSrc);
+                return;
+            }
+            // Если путь абсолютный (начинается с /) или без префикса
+            const newSrc = basePath === '.' ? `./${src.replace(/^\//, '')}` : `../${src.replace(/^\//, '')}`;
+            img.setAttribute('src', newSrc);
+        }
+    });
 }
 
 // Функция активации таба по категории
@@ -40,27 +44,40 @@ function activateTabByCategory(category) {
 
     if (tabButton && tabContent) {
         // Убираем активный класс у всех кнопок и контента
-        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-button').forEach(btn => {
+            btn.classList.remove('active');
+            btn.style.opacity = '0.7';
+        });
+        
         document.querySelectorAll('.tab-content').forEach(content => {
             content.classList.remove('active');
-            content.style.opacity = '0';
+            content.style.display = 'none';
         });
 
         // Активируем нужный таб
         tabButton.classList.add('active');
+        tabButton.style.opacity = '1';
         tabContent.classList.add('active');
-
-        // Плавное появление контента
-        setTimeout(() => {
-            tabContent.style.opacity = '1';
-        }, 40);
+        tabContent.style.display = 'block';
     }
 }
 
-// Обновляем функцию initTabs для сохранения истории
-function initTabs() {
+// Инициализация табов
+function initTabs(initialCategory) {
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
+
+    // Активируем начальную категорию или первую
+    if (initialCategory) {
+        activateTabByCategory(initialCategory);
+    } else {
+        // Активируем первый таб, если категория не указана
+        const firstTab = tabButtons[0];
+        const firstCategory = firstTab?.getAttribute('data-category');
+        if (firstCategory) {
+            activateTabByCategory(firstCategory);
+        }
+    }
 
     tabButtons.forEach(button => {
         button.addEventListener('click', function () {
@@ -68,49 +85,52 @@ function initTabs() {
 
             // Обновляем URL без перезагрузки страницы
             const url = new URL(window.location);
-            url.searchParams.set('category', category);
+            if (category) {
+                url.searchParams.set('category', category);
+            } else {
+                url.searchParams.delete('category');
+            }
             window.history.pushState({}, '', url);
 
-            // Убираем активный класс у всех кнопок
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            // Добавляем активный класс текущей кнопке
-            this.classList.add('active');
-
-            // Скрываем все содержимое табов
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                content.style.opacity = '0';
-            });
-
-            // Показываем выбранное содержимое
-            const targetContent = document.getElementById(`${category}-content`);
-            if (targetContent) {
-                setTimeout(() => {
-                    targetContent.classList.add('active');
-                    targetContent.style.opacity = '1';
-                }, 50);
-            }
+            activateTabByCategory(category);
         });
     });
 
     // Обработка кнопок назад/вперед
     window.addEventListener('popstate', function () {
-        handleUrlParams();
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+        if (category) {
+            activateTabByCategory(category);
+        } else {
+            // Активируем первый таб, если категория не указана
+            const firstTab = tabButtons[0];
+            const firstCategory = firstTab?.getAttribute('data-category');
+            if (firstCategory) {
+                activateTabByCategory(firstCategory);
+            }
+        }
     });
 }
 
+// Анимации карточек проектов
 function initCardAnimations() {
     const projectCards = document.querySelectorAll('.project-card');
-
+    
+    // Устанавливаем задержки для анимации
     projectCards.forEach((card, index) => {
         card.style.setProperty('--delay', index);
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     });
 
-    // Intersection Observer для анимаций при скролле
+    // Intersection Observer для анимации при скролле
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.animationPlayState = 'running';
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
                 observer.unobserve(entry.target);
             }
         });
@@ -119,51 +139,88 @@ function initCardAnimations() {
         rootMargin: '0px 0px -50px 0px'
     });
 
+    // Наблюдаем за всеми карточками
     projectCards.forEach(card => {
         observer.observe(card);
     });
 }
 
+// Ленивая загрузка изображений
 function initLazyLoading() {
     if ('IntersectionObserver' in window) {
         const lazyImages = document.querySelectorAll('.project-image img');
-
+        
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const img = entry.target;
-                    img.src = img.src;
+                    // Загружаем изображение (если уже не загружено)
+                    if (img.getAttribute('src') !== img.getAttribute('src')) {
+                        img.src = img.getAttribute('src');
+                    }
                     img.classList.add('loaded');
                     imageObserver.unobserve(img);
                 }
             });
+        }, {
+            threshold: 0.1,
+            rootMargin: '50px 0px 50px 0px'
         });
 
+        // Наблюдаем за всеми изображениями
         lazyImages.forEach(img => {
+            // Устанавливаем placeholder, если нужно
+            if (!img.getAttribute('src')) {
+                img.setAttribute('src', 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOHB4IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5Mb2FkaW5nLi4uPC90ZXh0Pjwvc3ZnPg==');
+            }
             imageObserver.observe(img);
         });
     }
 }
 
-// Плавное появление элементов при загрузке
+// Обработка ошибок загрузки изображений
+function handleImageErrors() {
+    const images = document.querySelectorAll('.project-image img');
+    
+    images.forEach(img => {
+        img.addEventListener('error', function() {
+            console.warn('Не удалось загрузить изображение:', this.src);
+            // Устанавливаем placeholder при ошибке
+            this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOHB4IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
+            this.alt = 'Изображение не найдено';
+        });
+    });
+}
+
+// Плавное появление страницы
 window.addEventListener('load', function () {
     document.body.classList.add('loaded');
-
-    // Анимация для hero секции
-    const hero = document.querySelector('.projects-hero');
-    if (hero) {
-        setTimeout(() => {
-            hero.style.opacity = '1';
-            hero.style.transform = 'translateY(0)';
-        }, 100);
-    }
-});
-
-// Обработка ошибок загрузки изображений
-document.querySelectorAll('.project-image img').forEach(img => {
-    img.addEventListener('error', function () {
-        this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOHB4IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
-        this.alt = 'Изображение не найдено';
+    
+    // Добавляем обработчики ошибок изображений после загрузки
+    handleImageErrors();
+    
+    // Принудительно запускаем анимации для видимых элементов
+    const visibleCards = document.querySelectorAll('.project-card');
+    visibleCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }
     });
 });
-("./");
+
+// Обновление табов при изменении размера окна (для адаптивности)
+window.addEventListener('resize', function () {
+    // Переинициализируем анимации при изменении размера
+    initCardAnimations();
+});
+
+// Экспортируем функции для глобального доступа (если нужно)
+window.projectsModule = {
+    activateTabByCategory,
+    initTabs,
+    initCardAnimations,
+    initLazyLoading,
+    fixProjectImages
+};
