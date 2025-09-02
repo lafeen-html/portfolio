@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Загружаем header.html
-    fetch('/header.html')
+    fetch('../header.html')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Не удалось загрузить header.html');
