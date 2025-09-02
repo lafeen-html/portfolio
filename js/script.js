@@ -13,6 +13,105 @@ function initializePage() {
     
     // Инициализируем только направления
     initDirections();
+    
+    // Исправляем все пути на странице
+    fixAllPaths();
+}
+
+// Определяем, находимся ли мы на GitHub Pages
+function isGitHubPages() {
+    return window.location.hostname.includes('github.io');
+}
+
+// Определяем базовый путь
+function getBasePath() {
+    const path = window.location.pathname;
+    
+    if (isGitHubPages()) {
+        // На GitHub Pages - путь включает имя репозитория
+        const repoName = path.split('/')[1];
+        return repoName ? `/${repoName}` : '';
+    } else {
+        // Локально - относительные пути
+        if (path.includes('/pages/')) {
+            return '..';
+        } else {
+            return '.';
+        }
+    }
+}
+
+// Исправляем все пути на странице
+function fixAllPaths() {
+    const basePath = getBasePath();
+    const isGH = isGitHubPages();
+    
+    // Исправляем ссылки
+    const links = document.querySelectorAll('a:not(.nav-link):not(.logo a)');
+    links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('mailto:')) {
+            if (isGH) {
+                // На GitHub Pages - абсолютные пути
+                if (href.startsWith('./')) {
+                    const newHref = href.replace('./', basePath + '/');
+                    link.setAttribute('href', newHref);
+                } else if (!href.startsWith('/')) {
+                    link.setAttribute('href', basePath + '/' + href);
+                }
+            } else {
+                // Локально - относительные пути
+                if (href.startsWith('/')) {
+                    const newHref = href.replace('/', basePath + '/');
+                    link.setAttribute('href', newHref);
+                }
+            }
+        }
+    });
+    
+    // Исправляем изображения
+    const images = document.querySelectorAll('img:not([src^="http"]):not([src^="data:"])');
+    images.forEach(img => {
+        const src = img.getAttribute('src');
+        if (src && !src.startsWith('http')) {
+            if (isGH) {
+                // На GitHub Pages - абсолютные пути
+                if (src.startsWith('./')) {
+                    const newSrc = src.replace('./', basePath + '/');
+                    img.setAttribute('src', newSrc);
+                } else if (!src.startsWith('/')) {
+                    img.setAttribute('src', basePath + '/' + src);
+                }
+            } else {
+                // Локально - относительные пути
+                if (src.startsWith('/')) {
+                    const newSrc = src.replace('/', basePath + '/');
+                    img.setAttribute('src', newSrc);
+                }
+            }
+        }
+    });
+    
+    // Исправляем видео
+    const videos = document.querySelectorAll('video source');
+    videos.forEach(video => {
+        const src = video.getAttribute('src');
+        if (src && !src.startsWith('http')) {
+            if (isGH) {
+                if (src.startsWith('./')) {
+                    const newSrc = src.replace('./', basePath + '/');
+                    video.setAttribute('src', newSrc);
+                } else if (!src.startsWith('/')) {
+                    video.setAttribute('src', basePath + '/' + src);
+                }
+            } else {
+                if (src.startsWith('/')) {
+                    const newSrc = src.replace('/', basePath + '/');
+                    video.setAttribute('src', newSrc);
+                }
+            }
+        }
+    });
 }
 
 // Загрузка шапки
@@ -23,35 +122,43 @@ function loadHeader() {
         return;
     }
 
-    // Определяем базовый путь
-    const isPagesFolder = window.location.pathname.includes('/pages/');
-    const basePath = isPagesFolder ? '..' : '.';
+    const basePath = getBasePath();
+    const isGH = isGitHubPages();
     
-    fetch(`${basePath}/header.html`)
+    fetch(`${isGH ? '' : basePath}/header.html`)
         .then(response => {
             if (!response.ok) throw new Error('Не удалось загрузить header.html');
             return response.text();
         })
         .then(html => {
-            // Заменяем плейсхолдеры на реальные пути
             let processedHtml = html;
             
-            if (isPagesFolder) {
-                // Мы в папке pages
+            if (isGH) {
+                // GitHub Pages - абсолютные пути
                 processedHtml = processedHtml
-                    .replace(/MAIN_PAGE/g, '../index.html')
-                    .replace(/LOGO_PATH/g, '../images/logo.svg')
-                    .replace(/PROJECTS_PAGE/g, 'projects.html')
-                    .replace(/ABOUT_PAGE/g, 'about.html')
-                    .replace(/CONTACTS_PAGE/g, 'contacts.html');
+                    .replace(/MAIN_PAGE/g, `${basePath}/index.html`)
+                    .replace(/LOGO_PATH/g, `${basePath}/images/logo.svg`)
+                    .replace(/PROJECTS_PAGE/g, `${basePath}/pages/projects.html`)
+                    .replace(/ABOUT_PAGE/g, `${basePath}/pages/about.html`)
+                    .replace(/CONTACTS_PAGE/g, `${basePath}/pages/contacts.html`);
             } else {
-                // Мы на главной странице
-                processedHtml = processedHtml
-                    .replace(/MAIN_PAGE/g, 'index.html')
-                    .replace(/LOGO_PATH/g, 'images/logo.svg')
-                    .replace(/PROJECTS_PAGE/g, 'pages/projects.html')
-                    .replace(/ABOUT_PAGE/g, 'pages/about.html')
-                    .replace(/CONTACTS_PAGE/g, 'pages/contacts.html');
+                // Локально - относительные пути
+                const isPagesFolder = window.location.pathname.includes('/pages/');
+                if (isPagesFolder) {
+                    processedHtml = processedHtml
+                        .replace(/MAIN_PAGE/g, '../index.html')
+                        .replace(/LOGO_PATH/g, '../images/logo.svg')
+                        .replace(/PROJECTS_PAGE/g, 'projects.html')
+                        .replace(/ABOUT_PAGE/g, 'about.html')
+                        .replace(/CONTACTS_PAGE/g, 'contacts.html');
+                } else {
+                    processedHtml = processedHtml
+                        .replace(/MAIN_PAGE/g, 'index.html')
+                        .replace(/LOGO_PATH/g, 'images/logo.svg')
+                        .replace(/PROJECTS_PAGE/g, 'pages/projects.html')
+                        .replace(/ABOUT_PAGE/g, 'pages/about.html')
+                        .replace(/CONTACTS_PAGE/g, 'pages/contacts.html');
+                }
             }
             
             headerElement.innerHTML = processedHtml;
@@ -60,23 +167,46 @@ function loadHeader() {
         })
         .catch(error => {
             console.error('Ошибка загрузки шапки:', error);
-            createFallbackHeader(isPagesFolder);
+            createFallbackHeader();
         });
 }
 
-// Резервная шапка при ошибке загрузки
-function createFallbackHeader(isPagesFolder) {
+// Резервная шапка
+function createFallbackHeader() {
     const headerElement = document.getElementById('header');
     if (!headerElement) return;
     
-    if (isPagesFolder) {
-        // Мы в папке pages
+    const basePath = getBasePath();
+    const isGH = isGitHubPages();
+    const isPagesFolder = window.location.pathname.includes('/pages/');
+    
+    if (isGH) {
+        headerElement.innerHTML = `
+            <header class="header">
+                <nav class="nav">
+                    <div class="logo">
+                        <a href="${basePath}/index.html">
+                            <img src="${basePath}/images/logo.svg" alt="Логотип">
+                        </a>
+                    </div>
+                    <ul class="nav-links">
+                        <li><a href="${basePath}/pages/projects.html" class="nav-link">Проекты</a></li>
+                        <li><a href="${basePath}/pages/about.html" class="nav-link">Обо мне</a></li>
+                        <li><a href="${basePath}/pages/contacts.html" class="nav-link">Контакты</a></li>
+                    </ul>
+                    <div class="burger">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </nav>
+            </header>
+        `;
+    } else if (isPagesFolder) {
         headerElement.innerHTML = `
             <header class="header">
                 <nav class="nav">
                     <div class="logo">
                         <a href="../index.html">
-                            <img src="../images/logo.svg" alt="Логотип">
+                            <img src="../images/logo.svg" alt="Лogoтип">
                         </a>
                     </div>
                     <ul class="nav-links">
@@ -91,7 +221,6 @@ function createFallbackHeader(isPagesFolder) {
             </header>
         `;
     } else {
-        // Мы на главной странице
         headerElement.innerHTML = `
             <header class="header">
                 <nav class="nav">
@@ -117,7 +246,7 @@ function createFallbackHeader(isPagesFolder) {
     initMobileMenu();
 }
 
-// Подсветка текущей страницы в навигации
+// Остальные функции без изменений
 function highlightCurrentPage() {
     const path = window.location.pathname;
     let currentPage = '';
@@ -146,7 +275,6 @@ function highlightCurrentPage() {
     });
 }
 
-// Мобильное меню
 function initMobileMenu() {
     const burger = document.querySelector('.burger');
     const navLinks = document.querySelector('.nav-links');
@@ -165,7 +293,6 @@ function initMobileMenu() {
             }
         });
 
-        // Закрытие меню при клике на ссылку
         const links = document.querySelectorAll('.nav-link');
         links.forEach(link => {
             link.addEventListener('click', function () {
@@ -176,7 +303,6 @@ function initMobileMenu() {
     }
 }
 
-// Плавная прокрутка
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -197,15 +323,11 @@ function initSmoothScroll() {
     });
 }
 
-// Инициализация направлений деятельности
 function initDirections() {
     const directionItems = document.querySelectorAll('.direction-item');
     
-    if (!directionItems.length) {
-        return;
-    }
+    if (!directionItems.length) return;
 
-    // Анимация появления только для направлений
     directionItems.forEach((item, index) => {
         item.style.opacity = '0';
         item.style.transform = 'translateY(30px)';
@@ -217,7 +339,6 @@ function initDirections() {
         }, 150 + index * 100);
     });
 
-    // Обработчики hover
     directionItems.forEach(item => {
         item.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-8px)';
@@ -230,34 +351,23 @@ function initDirections() {
         });
     });
 
-    // Обработчики кликов
     directionItems.forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
-            
             const href = this.getAttribute('href');
-            if (!href) return;
-
-            // Немедленный переход
-            window.location.href = href;
+            if (href) window.location.href = href;
         });
     });
 }
 
-// Обработка полной загрузки страницы
 window.addEventListener('load', function() {
-    // Убираем мерцание - страница всегда видима
     document.body.style.opacity = '1';
-    
-    // Повторная инициализация направлений после полной загрузки
     setTimeout(initDirections, 100);
 });
 
-// Обработка ошибок изображений
 document.querySelectorAll('img').forEach(img => {
     img.addEventListener('error', function() {
         console.warn('Не удалось загрузить изображение:', this.src);
-        // Можно добавить плейсхолдер при ошибке
         this.style.backgroundColor = '#f5f5f5';
     });
 });
