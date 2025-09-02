@@ -79,6 +79,8 @@ function fixAllPaths() {
     links.forEach(link => {
         const href = link.getAttribute('href');
         if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('mailto:')) {
+            // Не трогаем ссылки, которые уже указывают на родительскую директорию
+            if (href.startsWith('../')) return;
             if (isGH) {
                 // На GitHub Pages - абсолютные пути
                 if (href.startsWith('./')) {
@@ -111,6 +113,8 @@ function fixAllPaths() {
     images.forEach(img => {
         const src = img.getAttribute('src');
         if (src && !src.startsWith('http')) {
+            // Не трогаем изображения, указывающие на родительскую директорию
+            if (src.startsWith('../')) return;
             if (isGH) {
                 // На GitHub Pages - абсолютные пути
                 if (src.startsWith('./')) {
@@ -141,6 +145,8 @@ function fixAllPaths() {
     videos.forEach(video => {
         const src = video.getAttribute('src');
         if (src && !src.startsWith('http')) {
+            // Не трогаем видео, указывающие на родительскую директорию
+            if (src.startsWith('../')) return;
             if (isGH) {
                 if (src.startsWith('./')) {
                     const newSrc = src.replace('./', basePath + '/');
