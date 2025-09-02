@@ -7,15 +7,15 @@ function initializePage() {
     // Загружаем шапку
     loadHeader();
     
+    // Исправляем все пути на странице
+    fixAllPaths();
+
     // Инициализируем основные функции
     initMobileMenu();
     initSmoothScroll();
     
     // Инициализируем только направления
     initDirections();
-    
-    // Исправляем все пути на странице
-    fixAllPaths();
 }
 
 // Определяем, находимся ли мы на GitHub Pages
@@ -56,6 +56,9 @@ function fixAllPaths() {
                 if (href.startsWith('./')) {
                     const newHref = href.replace('./', basePath + '/');
                     link.setAttribute('href', newHref);
+                } else if (href.startsWith('/')) {
+                    const newHref = href.replace(/^\//, basePath + '/');
+                    link.setAttribute('href', newHref);
                 } else if (!href.startsWith('/')) {
                     link.setAttribute('href', basePath + '/' + href);
                 }
@@ -79,6 +82,9 @@ function fixAllPaths() {
                 if (src.startsWith('./')) {
                     const newSrc = src.replace('./', basePath + '/');
                     img.setAttribute('src', newSrc);
+                } else if (src.startsWith('/')) {
+                    const newSrc = src.replace(/^\//, basePath + '/');
+                    img.setAttribute('src', newSrc);
                 } else if (!src.startsWith('/')) {
                     img.setAttribute('src', basePath + '/' + src);
                 }
@@ -100,6 +106,9 @@ function fixAllPaths() {
             if (isGH) {
                 if (src.startsWith('./')) {
                     const newSrc = src.replace('./', basePath + '/');
+                    video.setAttribute('src', newSrc);
+                } else if (src.startsWith('/')) {
+                    const newSrc = src.replace(/^\//, basePath + '/');
                     video.setAttribute('src', newSrc);
                 } else if (!src.startsWith('/')) {
                     video.setAttribute('src', basePath + '/' + src);
@@ -125,7 +134,7 @@ function loadHeader() {
     const basePath = getBasePath();
     const isGH = isGitHubPages();
     
-    fetch(`${isGH ? '' : basePath}/header.html`)
+    fetch(`${basePath}/header.html`)
         .then(response => {
             if (!response.ok) throw new Error('Не удалось загрузить header.html');
             return response.text();
@@ -164,6 +173,8 @@ function loadHeader() {
             headerElement.innerHTML = processedHtml;
             highlightCurrentPage();
             initMobileMenu();
+            // После вставки хедера ещё раз правим пути внутри него
+            fixAllPaths();
         })
         .catch(error => {
             console.error('Ошибка загрузки шапки:', error);
@@ -244,6 +255,8 @@ function createFallbackHeader() {
     
     highlightCurrentPage();
     initMobileMenu();
+    // После вставки резервного хедера правим пути внутри него
+    fixAllPaths();
 }
 
 // Остальные функции без изменений
