@@ -6,9 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // Определяем базовый путь в зависимости от окружения
-    const isGithubPages = window.location.hostname.includes('github.io');
-    const basePath = isGithubPages ? '/portfolio' : ''; // Замените your-repo-name на имя вашего репозитория
+    // Определяем базовый путь автоматически
+    const basePath = window.location.pathname.includes('/pages/') ? '..' : '.';
 
     // Загружаем header.html
     fetch(`${basePath}/header.html`)
@@ -20,6 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(html => {
             headerElement.innerHTML = html;
+            
+            // Обновляем все ссылки в шапке
+            updateHeaderLinks(basePath);
+            
             highlightCurrentPage();
             initMobileMenu();
             initSmoothScroll();
@@ -49,12 +52,32 @@ document.addEventListener('DOMContentLoaded', function () {
             initAnimations();
         });
 
+    function updateHeaderLinks(basePath) {
+        // Обновляем все ссылки и изображения в шапке
+        const links = headerElement.querySelectorAll('a');
+        const images = headerElement.querySelectorAll('img');
+        
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && !href.startsWith('http') && !href.startsWith('#')) {
+                link.setAttribute('href', `${basePath}${href.replace(/^\./, '')}`);
+            }
+        });
+        
+        images.forEach(img => {
+            const src = img.getAttribute('src');
+            if (src && !src.startsWith('http')) {
+                img.setAttribute('src', `${basePath}${src.replace(/^\./, '')}`);
+            }
+        });
+    }
+
     function highlightCurrentPage() {
         setTimeout(() => {
             const path = window.location.pathname;
             let currentPage = '';
 
-            if (path === '/' || path.endsWith('index.html') || path.includes('/index.html')) {
+            if (path.endsWith('/') || path.endsWith('index.html') || path.includes('/index.html')) {
                 currentPage = 'index';
             } else if (path.includes('about.html')) {
                 currentPage = 'about';
