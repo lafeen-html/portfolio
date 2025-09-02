@@ -11,11 +11,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="../js/script.js" defer></script>
+    <script src="../js/about.js" defer></script>
 </head>
 
 <body>
     <!-- Шапка -->
-     <div id="header"></div>
+    <div id="header"></div>
 
     <!-- Обо мне -->
     <section id="about" class="wrapper">
@@ -36,6 +37,80 @@
         </div>
     </section>
 
+    <!-- FAQ -->
+    <section class="wrapper">
+        <h2>Ответы на часто задаваемые вопросы</h2>
+        <div class="faq">
+            <div class="faq-item open">
+                <button class="faq-question" aria-expanded="true">
+                    <h4>Как я пришла в профессию дизайнера?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Мой путь не был линейным. Более 7 лет я работала менеджером в IT-компаниях, что дало мне глубокое
+                        понимание бизнес-процессов, работы с командой и видения продукта в целом. Это осознание и тяга к
+                        творчеству привели меня в UI/UX дизайн, где я наконец смогла совместить аналитическое мышление с
+                        визуальным творчеством. Я целенаправленно освоила необходимые инструменты и полностью
+                        погрузилась в профессию.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <h4>Какой опыт коммерческой работы в дизайне?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Я коммерчески работаю в дизайне <span class="experience-years" data-start-year="2021">4</span>
+                        года. Мой опыт включает позиции дизайнера в студиях и ведущего дизайнера в продукте (FinTech).
+                        До этого у меня был 6-летний опыт в управлении IT-проектами, который я активно использую для
+                        создания более осмысленных и реализуемых дизайн-решений.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <h4>Как происходит рабочий процесс на проектах?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Мой процесс всегда начинается с погружения в бизнес-задачу и аудиторию, чему очень способствует
+                        мой бэкграунд менеджера. Далее: анализ → гипотезы → прототипирование → UI-дизайн (с обязательным
+                        использованием auto layout и компонентов) → тесное взаимодействие с разработчиками и
+                        тестировщиками на этапе передачи. Я привыкла работать с метриками и всегда оцениваю дизайн с
+                        точки зрения его реализуемости и эффективности.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <h4>Какую роль обычно выполняю в команде?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Я — дизайнер, который часто выступает мостом между менеджментом и разработкой. Я самостоятельно
+                        веду полный цикл дизайн-работы: от исследования до контроля реализации. Благодаря опыту в
+                        проектах и знанию основ HTML/CSS, я говорю с разработчиками на одном языке, что ускоряет процесс
+                        и улучшает конечный результат. Это сайт я сделала сама на чистом HTML, CSS и JS 🙂 </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <h4>В чём моя суперсила как дизайнера?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Прежде всего, это системное мышление и понимание бизнеса. Я не просто рисую интерфейсы. Я вижу
+                        продукт целиком, понимаю его бизнес-логику, ограничения разработки и могу предложить решение,
+                        которое будет не только красивым и удобным, но и реализуемым, и эффективным с точки зрения
+                        достижения бизнес-целей.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <!-- Инструменты -->
     <section class="wrapper">
         <h2>Используемые инструменты</h2>
@@ -45,16 +120,16 @@
                 <div class="tool-name">Figma</div>
             </div>
             <div class="tool-item">
-                <div class="tool-icon"><img src="/images/logos/recraft.svg" alt="Recraft AI"></div>
-                <div class="tool-name">Recraft AI</div>
-            </div>
-            <div class="tool-item">
                 <div class="tool-icon"><img src="/images/logos/photoshop.svg" alt="Adobe Photoshop"></div>
                 <div class="tool-name">Adobe Photoshop</div>
             </div>
             <div class="tool-item">
                 <div class="tool-icon"><img src="/images/logos/illustator.svg" alt="Adobe Illustrator"></div>
                 <div class="tool-name">Adobe Illustrator</div>
+            </div>
+            <div class="tool-item">
+                <div class="tool-icon"><img src="/images/logos/recraft.svg" alt="Recraft AI"></div>
+                <div class="tool-name">Recraft AI</div>
             </div>
             <div class="tool-item">
                 <div class="tool-icon"><img src="/images/logos/powerpoint.svg" alt="MS PowerPoint"></div>

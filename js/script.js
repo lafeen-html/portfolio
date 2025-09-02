@@ -9,16 +9,25 @@ document.addEventListener('DOMContentLoaded', function () {
 function initializePage() {
     // Загружаем шапку
     loadHeader();
-    
+
     // Исправляем все пути на странице
     fixAllPaths();
 
     // Инициализируем основные функции
     initMobileMenu();
     initSmoothScroll();
-    
+
     // Инициализируем только направления
     initDirections();
+
+    // Инициализируем анимацию карточек инструментов (страница Обо мне)
+    initToolsReveal();
+
+    // Инициализируем FAQ (страница Обо мне)
+    initAboutFaq();
+
+    // Обновляем количество лет опыта (страница Обо мне)
+    updateExperienceYears();
 }
 
 // Определяем, находимся ли мы на GitHub Pages
@@ -51,7 +60,7 @@ function detectBasePathFromScript() {
 // Определяем базовый путь
 function getBasePath() {
     const path = window.location.pathname;
-    
+
     if (isGitHubPages()) {
         // На GitHub Pages - берём базу по реальному пути скрипта (поддержка вложенных путей)
         if (CACHED_BASE_PATH !== null) return CACHED_BASE_PATH;
@@ -73,7 +82,7 @@ function fixAllPaths() {
     const basePath = getBasePath();
     const isGH = isGitHubPages();
     const basePrefix = `${basePath}/`;
-    
+
     // Исправляем ссылки
     const links = document.querySelectorAll('a:not(.nav-link):not(.logo a)');
     links.forEach(link => {
@@ -107,7 +116,7 @@ function fixAllPaths() {
             }
         }
     });
-    
+
     // Исправляем изображения
     const images = document.querySelectorAll('img:not([src^="http"]):not([src^="data:"])');
     images.forEach(img => {
@@ -139,7 +148,7 @@ function fixAllPaths() {
             }
         }
     });
-    
+
     // Исправляем видео
     const videos = document.querySelectorAll('video source');
     videos.forEach(video => {
@@ -181,7 +190,7 @@ function loadHeader() {
 
     const basePath = getBasePath();
     const isGH = isGitHubPages();
-    
+
     fetch(`${basePath}/header.html`)
         .then(response => {
             if (!response.ok) throw new Error('Не удалось загрузить header.html');
@@ -189,7 +198,7 @@ function loadHeader() {
         })
         .then(html => {
             let processedHtml = html;
-            
+
             if (isGH) {
                 // GitHub Pages - абсолютные пути
                 processedHtml = processedHtml
@@ -217,7 +226,7 @@ function loadHeader() {
                         .replace(/CONTACTS_PAGE/g, 'pages/contacts.html');
                 }
             }
-            
+
             headerElement.innerHTML = processedHtml;
             highlightCurrentPage();
             initMobileMenu();
@@ -234,11 +243,11 @@ function loadHeader() {
 function createFallbackHeader() {
     const headerElement = document.getElementById('header');
     if (!headerElement) return;
-    
+
     const basePath = getBasePath();
     const isGH = isGitHubPages();
     const isPagesFolder = window.location.pathname.includes('/pages/');
-    
+
     if (isGH) {
         headerElement.innerHTML = `
             <header class="header">
@@ -300,7 +309,7 @@ function createFallbackHeader() {
             </header>
         `;
     }
-    
+
     highlightCurrentPage();
     initMobileMenu();
     // После вставки резервного хедера правим пути внутри него
@@ -326,7 +335,7 @@ function highlightCurrentPage() {
     navLinks.forEach(link => {
         link.classList.remove('active');
         const linkHref = link.getAttribute('href') || '';
-        
+
         if ((currentPage === 'projects' && linkHref.includes('projects.html')) ||
             (currentPage === 'about' && linkHref.includes('about.html')) ||
             (currentPage === 'contacts' && linkHref.includes('contacts.html')) ||
@@ -386,7 +395,7 @@ function initSmoothScroll() {
 
 function initDirections() {
     const directionItems = document.querySelectorAll('.direction-item');
-    
+
     if (!directionItems.length) return;
 
     directionItems.forEach((item, index) => {
@@ -401,19 +410,19 @@ function initDirections() {
     });
 
     directionItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
+        item.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-8px)';
             this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.15)';
         });
 
-        item.addEventListener('mouseleave', function() {
+        item.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0)';
             this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
         });
     });
 
     directionItems.forEach(item => {
-        item.addEventListener('click', function(e) {
+        item.addEventListener('click', function (e) {
             e.preventDefault();
             const href = this.getAttribute('href');
             if (href) window.location.href = href;
@@ -421,13 +430,13 @@ function initDirections() {
     });
 }
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     document.body.style.opacity = '1';
     setTimeout(initDirections, 100);
 });
 
 document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('error', function() {
+    img.addEventListener('error', function () {
         console.warn('Не удалось загрузить изображение:', this.src);
         this.style.backgroundColor = '#f5f5f5';
     });

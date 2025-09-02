@@ -57,6 +57,10 @@ h3 {
     color: var(--black);
 }
 
+h4 {
+    font-size: 1.2rem;
+}
+
 p {
     font-size: var(--font-size-p-md);
     margin-bottom: 16px;
