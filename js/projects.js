@@ -3,17 +3,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('category');
 
-    // Исправляем пути изображений проектов
-    fixProjectImages();
+    ProjectImages();
 
     // Инициализируем табы с учетом категории
     initTabs(category);
     initCardAnimations();
     initLazyLoading();
+    initProjectActions();
 });
 
-// Исправляем пути изображений проектов
-function fixProjectImages() {
+// Изображения проектов
+function ProjectImages() {
     const basePath = window.location.pathname.includes('/pages/') ? '..' : '.';
     const projectImages = document.querySelectorAll('.project-image img');
     
@@ -178,6 +178,37 @@ function initLazyLoading() {
     }
 }
 
+// Инициализация действий для проектов
+function initProjectActions() {
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    projectCards.forEach(card => {
+        const actions = card.querySelectorAll('.project-action-btn');
+        
+        // Если есть только одно действие - делаем его прямой ссылкой
+        if (actions.length === 1) {
+            const action = actions[0];
+            card.style.cursor = 'pointer';
+            
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('.project-action-btn')) {
+                    window.open(action.href, action.target);
+                }
+            });
+        }
+        // Если несколько действий - показываем модальное окно
+        else if (actions.length > 1) {
+            card.style.cursor = 'pointer';
+            
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('.project-action-btn')) {
+                    showProjectModal(actions, card.querySelector('h3').textContent);
+                }
+            });
+        }
+    });
+}
+
 // Обработка ошибок загрузки изображений
 function handleImageErrors() {
     const images = document.querySelectorAll('.project-image img');
@@ -186,7 +217,7 @@ function handleImageErrors() {
         img.addEventListener('error', function() {
             console.warn('Не удалось загрузить изображение:', this.src);
             // Устанавливаем placeholder при ошибке
-            this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOHB4IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
+            this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSI gaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOHB4IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
             this.alt = 'Изображение не найдено';
         });
     });
@@ -222,5 +253,5 @@ window.projectsModule = {
     initTabs,
     initCardAnimations,
     initLazyLoading,
-    fixProjectImages
+    ProjectImages
 };

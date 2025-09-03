@@ -19,15 +19,6 @@ function initializePage() {
 
     // Инициализируем только направления
     initDirections();
-
-    // Инициализируем анимацию карточек инструментов (страница Обо мне)
-    initToolsReveal();
-
-    // Инициализируем FAQ (страница Обо мне)
-    initAboutFaq();
-
-    // Обновляем количество лет опыта (страница Обо мне)
-    updateExperienceYears();
 }
 
 // Определяем, находимся ли мы на GitHub Pages
@@ -117,7 +108,7 @@ function fixAllPaths() {
         }
     });
 
-    // Исправляем изображения
+    // Изображения
     const images = document.querySelectorAll('img:not([src^="http"]):not([src^="data:"])');
     images.forEach(img => {
         const src = img.getAttribute('src');
@@ -149,7 +140,7 @@ function fixAllPaths() {
         }
     });
 
-    // Исправляем видео
+    // Видео
     const videos = document.querySelectorAll('video source');
     videos.forEach(video => {
         const src = video.getAttribute('src');
@@ -230,7 +221,6 @@ function loadHeader() {
             headerElement.innerHTML = processedHtml;
             highlightCurrentPage();
             initMobileMenu();
-            // После вставки хедера ещё раз правим пути внутри него
             fixAllPaths();
         })
         .catch(error => {
@@ -316,7 +306,7 @@ function createFallbackHeader() {
     fixAllPaths();
 }
 
-// Остальные функции без изменений
+
 function highlightCurrentPage() {
     const path = window.location.pathname;
     let currentPage = '';
@@ -407,18 +397,6 @@ function initDirections() {
             item.style.opacity = '1';
             item.style.transform = 'translateY(0)';
         }, 150 + index * 100);
-    });
-
-    directionItems.forEach(item => {
-        item.addEventListener('mouseenter', function () {
-            this.style.transform = 'translateY(-8px)';
-            this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.15)';
-        });
-
-        item.addEventListener('mouseleave', function () {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
-        });
     });
 
     directionItems.forEach(item => {

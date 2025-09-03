@@ -1,3 +1,15 @@
+/* Анимация появления элементов */
+.fade-in-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .about {
     display: flex;
     justify-content: space-between;
@@ -20,8 +32,8 @@
 }
 
 .about-video video {
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     transform: scale(1.005);
     object-fit: cover;
 }
@@ -34,103 +46,101 @@
 }
 
 /* FAQ */
-.faq {
-    margin-top: 40px;
+.accordion {
+    margin: 40px 0 120px 0;
     max-width: 800px;
 }
 
-.faq-item {
+.accordion-item {
     background: var(--white);
     border: 1px solid rgba(20, 20, 20, 0.08);
     border-radius: 14px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+    margin-bottom: 14px;
     overflow: hidden;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.faq-item + .faq-item {
-    margin-top: 14px;
-}
-
-.faq-item.open {
+.accordion-item.open {
     border-color: rgba(74, 84, 225, 0.18);
     box-shadow: 0 10px 32px rgba(74, 84, 225, 0.10);
 }
 
-.faq-question {
+.accordion-btn {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 16px;
     padding: 18px 20px;
     background: transparent;
     border: none;
     cursor: pointer;
     font: inherit;
     text-align: left;
-}
-
-.faq-question:hover {
-    color: var(--primary-color);
-}
-
-.faq-question h4 {
     font-weight: 500;
-    max-width: 740px;
-    margin-right: auto;
+    color: var(--black);
 }
 
-.faq-item.open .faq-question h4 {
+.accordion-btn:hover {
     color: var(--primary-color);
 }
 
-.faq-question i {
-    transition: transform 0.3s ease;
+.accordion-item.open .accordion-btn {
+    color: var(--primary-color);
 }
 
-.faq-item.open .faq-question i {
+.accordion-btn i {
+    transition: transform 0.4s ease;
+}
+
+.accordion-btn h4 {
+    font-weight: 500;
+    margin-right: 20px;
+}
+
+.accordion-item.open .accordion-btn i {
     transform: rotate(180deg);
 }
 
-.faq-answer {
-    padding: 0 20px;
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.35s ease;
-}
-
-.faq-answer > div {
+.accordion-content {
+    max-height: 0;
     overflow: hidden;
-    min-height: 0; /* Ключевое свойство - позволяет сжиматься до 0 */
+    transition: max-height 0.5s ease;
 }
 
-.faq-answer p {
-    max-width: 740px;
+.accordion-item.open .accordion-content {
+    max-height: 500px;
+}
+
+.accordion-content p {
+    padding: 0 20px 18px 20px;
     margin: 0;
-    padding: 6px 0 18px 0;
-}
-
-.faq-item.open .faq-answer {
-    grid-template-rows: 1fr;
+    max-width: 740px;
 }
 
 @media (max-width: 600px) {
-    .faq-question {
+
+    .faq-question,
+    .accordion-btn {
         padding: 16px;
     }
 
-    .faq-answer {
+    .faq-answer-content,
+    .accordion-content p {
         padding-left: 16px;
         padding-right: 16px;
+        padding-bottom: 16px;
     }
-    
-    .faq-answer p {
-        padding: 6px 0 16px 0;
+
+    .faq-answer-content p {
+        padding: 6px 0 0 0;
     }
 }
 
 /* Инструменты */
+.tools-margin {
+    margin-top: -60px;
+}
+
 .tool-item {
     position: relative;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.62));
@@ -150,16 +160,6 @@
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.68));
     -webkit-backdrop-filter: blur(8px) saturate(140%) brightness(1.03);
     backdrop-filter: blur(8px) saturate(140%) brightness(1.03);
-}
-
-.tool-item:hover::before {
-    opacity: 1;
-}
-
-.tool-item:hover::after {
-    opacity: 0.22;
-    /* дымчатое свечение, не забирает контраст у контента */
-    background-position: 75% 25%;
 }
 
 .tool-icon img {
@@ -182,26 +182,21 @@
     z-index: 1;
 }
 
-/* При наведении карточки делаем иконку цветной */
 .tool-item:hover .tool-icon img {
     filter: none;
     opacity: 1;
 }
 
-/* Уменьшаем анимации для пользователей с предпочитаемым снижением движения */
 @media (prefers-reduced-motion: reduce) {
 
     .tool-item,
     .tool-item:hover,
     .tool-icon img,
-    .tool-item:hover .tool-icon img,
-    .tool-item::after,
-    .tool-item:hover::after {
+    .tool-item:hover .tool-icon img {
         transition: none;
     }
 }
 
-/* Анимация появления карточек инструментов */
 .tool-item {
     opacity: 0;
     transform: translateY(16px);
@@ -213,7 +208,6 @@
     transition: transform 600ms ease, opacity 600ms ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
-/* Адаптивность */
 @media (max-width: 900px) {
     .about {
         flex-direction: column;
@@ -226,7 +220,6 @@
 }
 
 @media (max-width: 600px) {
-
     .tools-grid {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 20px;
@@ -239,6 +232,4 @@
     .tool-icon {
         font-size: 2rem;
     }
-
 }
-

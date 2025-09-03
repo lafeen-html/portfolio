@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-    initAboutFaq();
     updateExperienceYears();
     initToolsReveal();
+    initFaq();
+    initFadeInAnimations();
 });
 
-// Анимация появления карточек инструментов на странице Обо мне
+// Анимация появления карточек инструментов
 function initToolsReveal() {
     const toolItems = document.querySelectorAll('.tools-grid .tool-item');
     if (!toolItems.length) return;
@@ -25,11 +26,9 @@ function initToolsReveal() {
 
         toolItems.forEach(item => observer.observe(item));
     } else {
-        // Фоллбек без Observer
         toolItems.forEach(item => item.classList.add('tool-visible'));
     }
 
-    // Эффект "подсветки" под курсором внутри карточки
     document.querySelectorAll('.tool-item').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -41,106 +40,33 @@ function initToolsReveal() {
     });
 }
 
-// FAQ аккордеон на странице Обо мне
-function initAboutFaq() {
-    const faqItems = document.querySelectorAll('.faq .faq-item');
-    if (!faqItems.length) return;
+// FAQ
+function initFaq() {
+    const accordionItems = document.querySelectorAll('.accordion-item');
+    if (!accordionItems.length) return;
 
-    const openItem = (item) => {
-        const answer = item.querySelector('.faq-answer');
-        const btn = item.querySelector('.faq-question');
-        if (!answer || !btn) return;
+    // Открываем первый элемент по умолчанию
+    accordionItems[0].classList.add('open');
 
-        item.classList.add('open');
-        btn.setAttribute('aria-expanded', 'true');
-
-        // Временно открываем для измерения полной высоты
-        answer.style.height = 'auto';
-        const fullHeight = answer.getBoundingClientRect().height;
-        answer.style.height = '0px';
-
-        // Принудительный reflow
-        void answer.offsetHeight;
-
-        // Анимируем до полной высоты
-        requestAnimationFrame(() => {
-            answer.style.height = `${fullHeight}px`;
-        });
-
-        // После анимации переводим в auto для адаптивности
-        const onTransitionEnd = (e) => {
-            if (e.propertyName === 'height' && item.classList.contains('open')) {
-                answer.style.height = 'auto';
-                answer.removeEventListener('transitionend', onTransitionEnd);
-            }
-        };
-        answer.addEventListener('transitionend', onTransitionEnd);
-    };
-
-    const closeItem = (item) => {
-        const answer = item.querySelector('.faq-answer');
-        const btn = item.querySelector('.faq-question');
-        if (!answer || !btn) return;
-
-        // Получаем текущую высоту
-        const currentHeight = answer.getBoundingClientRect().height;
-        answer.style.height = `${currentHeight}px`;
-
-        // Принудительный reflow
-        void answer.offsetHeight;
-
-        // Анимируем до 0
-        requestAnimationFrame(() => {
-            answer.style.height = '0px';
-        });
-
-        btn.setAttribute('aria-expanded', 'false');
-        item.classList.remove('open');
-    };
-
-    faqItems.forEach((item) => {
-        const btn = item.querySelector('.faq-question');
-        const answer = item.querySelector('.faq-answer');
-        if (!btn || !answer) return;
-
-        // Начальная установка
-        if (item.classList.contains('open')) {
-            // Для открытого по умолчанию сразу ставим auto
-            answer.style.height = 'auto';
-            btn.setAttribute('aria-expanded', 'true');
-        } else {
-            answer.style.height = '0px';
-            btn.setAttribute('aria-expanded', 'false');
-        }
+    accordionItems.forEach((item) => {
+        const btn = item.querySelector('.accordion-btn');
+        if (!btn) return;
 
         btn.addEventListener('click', () => {
-            const isOpen = item.classList.contains('open');
+            const isCurrentlyOpen = item.classList.contains('open');
 
-            // Закрываем все
-            faqItems.forEach(other => {
-                if (other !== item) {
-                    closeItem(other);
-                }
+            // Закрываем все элементы
+            accordionItems.forEach(otherItem => {
+                otherItem.classList.remove('open');
             });
 
-            // Переключаем текущий
-            if (!isOpen) {
-                openItem(item);
-            } else {
-                closeItem(item);
-            }
-        });
-
-        // Адаптация при изменении размера окна
-        window.addEventListener('resize', () => {
-            if (item.classList.contains('open')) {
-                // При ресайзе поддерживаем auto для адаптивности
-                answer.style.height = 'auto';
+            // Если элемент был закрыт - открываем его
+            if (!isCurrentlyOpen) {
+                item.classList.add('open');
             }
         });
     });
 }
-
 
 // Динамическое обновление лет опыта
 function updateExperienceYears() {
@@ -153,8 +79,6 @@ function updateExperienceYears() {
     const now = new Date();
     let years = now.getFullYear() - startYear;
 
-    // Уточняем по месяцу/дню: считаем опыт полных лет
-    // Если старт позже текущей даты по месяцу/дню — уменьшаем на 1
     const started = new Date(startYear, 0, 1);
     const anniversary = new Date(now.getFullYear(), started.getMonth(), started.getDate());
     if (now < anniversary) {
@@ -162,4 +86,30 @@ function updateExperienceYears() {
     }
 
     el.textContent = String(years);
+}
+
+// Анимация плавного появления элементов
+function initFadeInAnimations() {
+    const fadeElements = document.querySelectorAll('.fade-in-element');
+    
+    if (!fadeElements.length) return;
+    
+    // Функция для проверки видимости элемента
+    function checkFadeElements() {
+        fadeElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementTop < window.innerHeight - elementVisible) {
+                // Применяем задержку из CSS переменной, если она есть
+                const delay = getComputedStyle(element).getPropertyValue('--delay') || '0s';
+                element.style.transitionDelay = delay;
+                element.classList.add('visible');
+            }
+        });
+    }
+    
+    // Проверяем при загрузке и скролле
+    checkFadeElements();
+    window.addEventListener('scroll', checkFadeElements);
 }
