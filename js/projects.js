@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function ProjectImages() {
     const basePath = window.location.pathname.includes('/pages/') ? '..' : '.';
     const projectImages = document.querySelectorAll('.project-image img');
-    
+
     projectImages.forEach(img => {
         const src = img.getAttribute('src');
         if (src && !src.startsWith('http') && !src.startsWith('data:')) {
@@ -48,7 +48,7 @@ function activateTabByCategory(category) {
             btn.classList.remove('active');
             btn.style.opacity = '0.7';
         });
-        
+
         document.querySelectorAll('.tab-content').forEach(content => {
             content.classList.remove('active');
             content.style.display = 'none';
@@ -116,7 +116,7 @@ function initTabs(initialCategory) {
 // Анимации карточек проектов
 function initCardAnimations() {
     const projectCards = document.querySelectorAll('.project-card');
-    
+
     // Устанавливаем задержки для анимации
     projectCards.forEach((card, index) => {
         card.style.setProperty('--delay', index);
@@ -149,7 +149,7 @@ function initCardAnimations() {
 function initLazyLoading() {
     if ('IntersectionObserver' in window) {
         const lazyImages = document.querySelectorAll('.project-image img');
-        
+
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -181,30 +181,12 @@ function initLazyLoading() {
 // Инициализация действий для проектов
 function initProjectActions() {
     const projectCards = document.querySelectorAll('.project-card');
-    
+
     projectCards.forEach(card => {
         const actions = card.querySelectorAll('.project-action-btn');
-        
-        // Если есть только одно действие - делаем его прямой ссылкой
-        if (actions.length === 1) {
-            const action = actions[0];
+        // Показываем варианты просмотра проекта
+        if (actions.length >= 1) {
             card.style.cursor = 'pointer';
-            
-            card.addEventListener('click', function(e) {
-                if (!e.target.closest('.project-action-btn')) {
-                    window.open(action.href, action.target);
-                }
-            });
-        }
-        // Если несколько действий - показываем модальное окно
-        else if (actions.length > 1) {
-            card.style.cursor = 'pointer';
-            
-            card.addEventListener('click', function(e) {
-                if (!e.target.closest('.project-action-btn')) {
-                    showProjectModal(actions, card.querySelector('h3').textContent);
-                }
-            });
         }
     });
 }
@@ -212,9 +194,9 @@ function initProjectActions() {
 // Обработка ошибок загрузки изображений
 function handleImageErrors() {
     const images = document.querySelectorAll('.project-image img');
-    
+
     images.forEach(img => {
-        img.addEventListener('error', function() {
+        img.addEventListener('error', function () {
             console.warn('Не удалось загрузить изображение:', this.src);
             // Устанавливаем placeholder при ошибке
             this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSI gaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOHB4IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
@@ -226,10 +208,10 @@ function handleImageErrors() {
 // Плавное появление страницы
 window.addEventListener('load', function () {
     document.body.classList.add('loaded');
-    
+
     // Добавляем обработчики ошибок изображений после загрузки
     handleImageErrors();
-    
+
     // Принудительно запускаем анимации для видимых элементов
     const visibleCards = document.querySelectorAll('.project-card');
     visibleCards.forEach(card => {

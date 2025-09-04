@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initToolsReveal();
     initFaq();
     initFadeInAnimations();
+    initEducationAnimations();
 });
 
 // Анимация появления карточек инструментов
@@ -38,6 +39,35 @@ function initToolsReveal() {
             card.style.setProperty('--my', y + '%');
         });
     });
+}
+
+// Анимация для секции образования
+function initEducationAnimations() {
+    const educationItems = document.querySelectorAll('.education-item');
+    
+    if (!educationItems.length) return;
+    
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    obs.unobserve(entry.target);
+                    
+                    // Добавляем небольшую задержку между элементами
+                    const index = Array.from(educationItems).indexOf(entry.target);
+                    entry.target.style.transitionDelay = `${index * 0.1}s`;
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        educationItems.forEach(item => observer.observe(item));
+    } else {
+        educationItems.forEach((item, index) => {
+            item.classList.add('visible');
+            item.style.transitionDelay = `${index * 0.1}s`;
+        });
+    }
 }
 
 // FAQ
@@ -113,3 +143,29 @@ function initFadeInAnimations() {
     checkFadeElements();
     window.addEventListener('scroll', checkFadeElements);
 }
+
+// Обработка ошибок загрузки изображений
+function handleEducationImageErrors() {
+    const educationImages = document.querySelectorAll('.education-image img');
+    
+    educationImages.forEach(img => {
+        img.addEventListener('error', function() {
+            this.style.opacity = '0.7';
+            this.style.filter = 'grayscale(100%)';
+        });
+    });
+}
+
+// Инициализация при полной загрузке
+window.addEventListener('load', function() {
+    handleEducationImageErrors();
+    
+    // Принудительно показываем видимые элементы образования
+    const educationItems = document.querySelectorAll('.education-item');
+    educationItems.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+            item.classList.add('visible');
+        }
+    });
+});
