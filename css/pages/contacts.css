@@ -20,7 +20,6 @@
     font-size: var(--font-size-p-lg);
     max-width: 640px;
     margin: 0 auto;
-    color: var(--light-black);
 }
 
 /* Сетка контактов */
@@ -36,7 +35,7 @@
     border-radius: 20px;
     padding: 40px 30px;
     text-align: center;
-    border: 1px solid rgba(20, 20, 20, 0.08);
+    border: var(--border);
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
@@ -46,8 +45,8 @@
 
 .contact-card:hover {
     transform: translateY(-8px);
-    border-color: rgba(74, 84, 225, 0.18);
-    box-shadow: 0 15px 35px rgba(74, 84, 225, 0.12);
+    border-color: var(--border-color-hover);
+    box-shadow: var(--box-shadow-hover);
 }
 
 .contact-card:hover::before {
@@ -104,7 +103,6 @@
 }
 
 .contact-card p {
-    color: var(--light-black);
     margin-bottom: 25px;
     min-height: 60px;
 }
@@ -114,7 +112,7 @@
     display: flex;
     flex-direction: column;
     background: var(--primary-color-100);
-    border-radius: 20px;
+    border-radius: var(--border-radius-md);
     padding: 40px;
     text-align: center;
     margin-bottom: var(--margin-bottom-page-1920);
@@ -194,13 +192,12 @@
 
 .time-slot span:first-child {
     font-weight: 500;
-    color: var(--black);
     display: block;
     margin-bottom: 5px;
 }
 
 .time-slot span:last-child {
-    color: var(--light-black);
+    color: var(--black-600);
 }
 
 /* Анимации */

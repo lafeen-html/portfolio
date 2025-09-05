@@ -73,7 +73,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 0.95rem;
-    color: var(--light-black);
+    color: var(--black-600);
     white-space: nowrap;
 }
 
@@ -101,20 +101,19 @@
 
 .project-card {
     background: var(--white);
-    border-radius: 20px;
+    border-radius: var(--border-radius-md);
     overflow: hidden;
-
     transition: all 0.4s ease;
     opacity: 0;
     transform: translateY(20px);
     animation-delay: calc(var(--delay, 0) * 0.1s);
-    border: 1px solid rgba(20, 20, 20, 0.08);
+    border: var(--border);
 }
 
 .project-card:hover {
     transform: translateY(-8px);
-    border-color: rgba(74, 84, 225, 0.18);
-    box-shadow: 0 10px 32px rgba(74, 84, 225, 0.10);
+    border-color: var(--border-color-hover);
+    box-shadow: var(--box-shadow-hover);
 }
 
 .project-image {
@@ -140,7 +139,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(11, 11, 24, 0.8);
+    background: rgba(10, 12, 38, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -211,7 +210,6 @@
 }
 
 .project-info p {
-    color: var(--light-black);
     line-height: 1.6;
     min-height: 52px;
 }
@@ -223,12 +221,11 @@
 }
 
 .tag {
-    padding: 6px 12px;
-    background: rgba(74, 84, 225, 0.1);
+    padding: 5px 14px 7px;
+    background: var(--primary-color-200);
     color: var(--primary-color);
-    border-radius: 15px;
-    font-size: 0.85rem;
-    font-weight: 500;
+    border-radius: var(--border-radius-max);
+    font-size: 0.86rem;
 }
 
 /* Состояние пустого раздела */
@@ -238,7 +235,7 @@
     align-items: center;
     text-align: center;
     padding: 80px 20px;
-    color: var(--light-black);
+    color: var(--black-600);
 }
 
 .empty-state i {

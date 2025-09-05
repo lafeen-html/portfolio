@@ -7,7 +7,7 @@
 .btn {
     display: inline-block;
     padding: 16px 32px;
-    border-radius: 500px;
+    border-radius: var(--border-radius-max);
     text-decoration: none;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -24,6 +24,10 @@
     transform: translateY(-3px);
 }
 
+.btn-primary:active {
+    background-color: var(--primary-color-active);
+}
+
 .btn-secondary {
     background-color: var(--white);
     color: var(--primary-color);
@@ -34,6 +38,11 @@
     color: var(--primary-color-hover);
     transform: translateY(-3px);
     border: 1px solid var(--primary-color-hover);
+}
+
+.btn-secondary:active {
+    color: var(--primary-color-active);
+    border: 1px solid var(--primary-color-active);
 }
 
 /* Адаптивность */

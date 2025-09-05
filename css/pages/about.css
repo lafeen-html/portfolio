@@ -13,24 +13,25 @@
 .about {
     display: flex;
     justify-content: space-between;
-    margin-top: 40px;
+    margin-bottom: 40px;
+    min-height: 60vh;
+    align-items: flex-end;
 }
 
 .about-content {
-    flex: 1;
-    padding-left: 40px;
+    flex: 1.1;
+    padding-right: 40px;
 }
 
-.about-video {
-    flex: 1;
-    text-align: center;
+.about-image {
+    display: flex;
+    flex: 1.1;
+    justify-content: center;
 }
 
-.about-video video {
-    width: 100%;
-    height: 100%;
-    transform: scale(1.005);
-    object-fit: cover;
+.about-image img {
+    width: 80%;
+    height: 80%;
 }
 
 /* Секция образования */
@@ -48,20 +49,6 @@
     flex-direction: column;
     gap: 40px;
     position: relative;
-}
-
-.education-timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin-right: auto;
-    margin-left: auto;
-    left: 0;
-    right: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--primary-color), rgba(74, 84, 225, 0.2));
-    z-index: -1;
 }
 
 .education-item {
@@ -136,7 +123,7 @@
 
 .education-specialty {
     font-size: 1.1rem;
-    color: var(--light-black);
+    color: var(--black-600);
     margin-bottom: 15px;
     font-weight: 500;
 }
@@ -153,7 +140,7 @@
     align-items: center;
     gap: 6px;
     font-size: 0.9rem;
-    color: var(--light-black);
+    color: var(--black-600);
 }
 
 .education-year::before {
@@ -165,7 +152,6 @@
 }
 
 .education-description {
-    color: var(--light-black);
     line-height: 1.6;
 }
 
@@ -379,8 +365,6 @@
     }
 }
 
-
-
 @media (max-width: 900px) {
     .about {
         flex-direction: column;
@@ -388,7 +372,7 @@
 
     .about-content {
         padding-left: 0;
-        margin-top: 40px;
+        margin-bottom: 40px;
     }
 
     .tool-item .tool-icon img {
