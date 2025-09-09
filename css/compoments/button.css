@@ -50,11 +50,9 @@
 @media (max-width: 600px) {
     .cta-buttons {
         justify-content: center;
-    }
-
-    .cta-buttons {
         flex-direction: column;
         gap: 14px;
+        width: 100%;
     }
 
     .btn {
