@@ -16,9 +16,6 @@ function initializePage() {
     // Инициализируем основные функции
     initMobileMenu();
     initSmoothScroll();
-
-    // Инициализируем только направления
-    initDirections();
 }
 
 // Определяем, находимся ли мы на GitHub Pages
@@ -382,40 +379,3 @@ function initSmoothScroll() {
         });
     });
 }
-
-function initDirections() {
-    const directionItems = document.querySelectorAll('.direction-item');
-
-    if (!directionItems.length) return;
-
-    directionItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(30px)';
-        item.style.transition = 'all 0.6s ease';
-
-        setTimeout(() => {
-            item.style.opacity = '1';
-            item.style.transform = 'translateY(0)';
-        }, 150 + index * 100);
-    });
-
-    directionItems.forEach(item => {
-        item.addEventListener('click', function (e) {
-            e.preventDefault();
-            const href = this.getAttribute('href');
-            if (href) window.location.href = href;
-        });
-    });
-}
-
-window.addEventListener('load', function () {
-    document.body.style.opacity = '1';
-    setTimeout(initDirections, 100);
-});
-
-document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('error', function () {
-        console.warn('Не удалось загрузить изображение:', this.src);
-        this.style.backgroundColor = '#f5f5f5';
-    });
-});

@@ -9,10 +9,11 @@
 }
 
 body {
-    background-color: var(--white);
+    background-color: #dfe5ef;
     color: var(--black);
     line-height: 1.6;
     padding-top: 80px;
+    font-size: 1rem;
 }
 
 section {
@@ -25,29 +26,38 @@ section {
 }
 
 h1 {
-    font-size: 4.4rem;
-    font-weight: 300;
+    font-size: 5.1rem;
+    font-weight: 200;
     margin-bottom: 40px;
     line-height: 120%;
+    text-align: center;
 }
 
 h2 {
-    font-size: 2.4rem;
-    margin-bottom: 40px;
+    font-size: 4.2rem;
+    font-weight: 200;
+    margin-bottom: 20px;
+    line-height: 120%;
+    text-align: center;
 }
 
 h3 {
-    font-size: 1.4rem;
+    font-size: 2.4rem;
+    font-weight: 300;
+    margin-bottom: 40px;
+    text-align: center;
+    line-height: 150%;
 }
 
 h4 {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
 }
 
 p {
     font-size: var(--font-size-p-md);
     margin-bottom: 16px;
-    color: var(--black-600);
+    color: var(--black-70);
     max-width: 720px;
 }
 
@@ -55,15 +65,30 @@ p:last-child {
     margin-bottom: 0px;
 }
 
+.tag {
+    padding: 5px 14px 7px;
+    background: var(--secondary-color-4);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius-max);
+    font-size: 0.86rem;
+}
+
 /* Адаптивность */
 @media (max-width: 900px) {
+    section {
+        padding: 40px 4%;
+    }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 4rem;
     }
 
     h2 {
-        font-size: 1.8rem;
+        font-size: 3rem;
+    }
+
+    h3 {
+        font-size: 2rem;
     }
 }
 
@@ -74,6 +99,6 @@ p:last-child {
 
     p {
         font-size: var(--font-size-p-sm);
-        margin-bottom: 8px;
+        margin-bottom: 14px;
     }
 }

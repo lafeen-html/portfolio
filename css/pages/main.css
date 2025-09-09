@@ -1,45 +1,51 @@
 /* Основные секции */
 .hero {
     display: flex;
-    justify-content: space-between;
-    min-height: 60vh;
-    align-items: flex-end;
+    flex-direction: column;
+    align-items: center;
 }
 
-.hero-content {
-    flex: 1.1;
-    padding-left: 40px;
+.hero p {
+    max-width: 500px;
+    text-align: center;
 }
 
 .hero-video {
-    flex: 1;
-    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
 }
 
 .hero-video video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
 }
 
 .highlight {
     color: var(--primary-color);
 }
 
-/* Сетки направлений */
+/* Направления деятельности */
 .directions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    gap: var(--gap-between-cards-desktop);
     margin-bottom: var(--margin-bottom-page-1920);
 }
 
 .direction-item {
     display: flex;
     flex-direction: column;
-    background: var(--white);
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
     border-radius: var(--border-radius-md);
-    padding: 24px 2px;
+    padding: 26px 2px;
     text-align: center;
     border: var(--border);
 }
@@ -49,40 +55,44 @@
     text-decoration: none;
     color: inherit;
     display: block;
+    color: var(--black-70);
 }
 
 .direction-item:hover {
     transform: translateY(-4px);
-    color: var(--primary-color);
+    color: var(--secondary-color);
     border-color: var(--border-color-hover);
     box-shadow: var(--box-shadow-hover);
 }
 
 .direction-icon {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    color: var(--primary-color);
+    margin-bottom: 10px;
     transition: transform 0.3s ease;
 }
 
-.direction-item:hover .direction-icon {
-    transform: scale(1.1);
+.direction-icon img {
+    height: 3.3rem;
+    filter: grayscale(100%) saturate(0) contrast(4) opacity(1);
+    transition: filter 0.35s ease, transform 0.4s ease, opacity 0.35s ease;
 }
 
-.direction-name {
-    font-size: 1rem;
+.direction-item:hover .direction-icon img {
+    transform: scale(1.1);
+    filter: none;
+    opacity: 1;
 }
 
 /* Адаптивность */
-@media (max-width: 900px) {
-
-    .hero {
-        flex-direction: column-reverse;
+@media (max-width: 768px) {
+    .hero-video {
+        position: fixed;
+        width: 100%;
+        height: 100%;
     }
 
-    .hero-content {
-        padding-left: 0;
-        margin-bottom: 40px;
+    .hero-video video {
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
     }
 }
 
@@ -90,7 +100,7 @@
 
     .directions-grid {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 10px;
+        gap: var(--gap-between-cards-mobile);
     }
 
     .direction-item {
@@ -105,4 +115,18 @@
         font-size: 0.9rem;
     }
 
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+    .hero-video video {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+    .hero-video video {
+        width: 100%;
+        height: 100%;
+    }
 }
