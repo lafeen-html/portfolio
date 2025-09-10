@@ -13,3 +13,7 @@
     text-align: center;
     color: var(--black-70);
 }
+
+.footer-copyright span {
+ font-size: var(--font-size-p-sm);
+}
