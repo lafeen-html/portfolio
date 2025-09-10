@@ -36,15 +36,15 @@
     z-index: 1;
 }
 
-.directions-section {
-    margin-bottom: 0 !important;
-}
-
 .highlight {
     color: var(--primary-color);
 }
 
 /* Направления деятельности */
+.directions-section {
+    margin-bottom: var(--margin-bottom-page-1920);
+}
+
 .directions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
