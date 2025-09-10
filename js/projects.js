@@ -65,7 +65,6 @@ function activateTabByCategory(category) {
 // Инициализация табов
 function initTabs(initialCategory) {
     const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
 
     // Активируем начальную категорию или первую
     if (initialCategory) {

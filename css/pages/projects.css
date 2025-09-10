@@ -1,3 +1,18 @@
+/* Плавная прокрутка для табов */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading state */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: slideIn 0.5s ease;
+}
+
 /* Анимация переключения табов */
 .tab-content {
     opacity: 0;
@@ -33,7 +48,7 @@
 
 .tabs {
     display: flex;
-    gap: 16px;
+    gap: 4px;
     padding: 4px;
     background: var(--card-bg);
     backdrop-filter: blur(100px);
@@ -45,11 +60,10 @@
 .tab-button {
     display: flex;
     align-items: center;
-    gap: 8px;
     padding: 12px 24px;
     border: none;
     background: transparent;
-    border-radius: 500px;
+    border-radius: var(--border-radius-max);
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
@@ -57,7 +71,7 @@
 
 .tab-button:hover {
     color: var(--secondary-color-hover);
-    background-color: var(--white);
+    background-color: var(--white-40);
 }
 
 .tab-button.active {
@@ -65,8 +79,10 @@
     color: var(--white);
 }
 
-.tab-button i {
-    font-size: 1.1rem;
+.tab-img {
+    height: 60px;
+    width: 60px;
+    margin-bottom: 24px;
 }
 
 /* Анимация для карточек при смене таба */
@@ -155,9 +171,10 @@
 
 .project-actions {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 12px;
     align-items: center;
+    justify-content: center;
 }
 
 .project-action-btn {
@@ -204,7 +221,7 @@
 .project-info p {
     line-height: 1.6;
     min-height: 52px;
-    font-size: var(--font-size-p-sm);
+    font-size: var(--font-size-p-md);
 }
 
 .project-tags {
@@ -277,14 +294,6 @@
         margin-bottom: -60px;
     }
 
-    .projects-hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .projects-hero p {
-        font-size: 1.1rem;
-    }
-
     .tabs {
         padding: 4px;
         width: 100%;
@@ -302,13 +311,12 @@
         padding: 20px;
     }
 
-    .project-info h3 {
-        font-size: 1.3rem;
+    .project-action-btn {
+        padding: 10px 26px;
     }
 
-    .project-action-btn {
-        padding: 10px 16px;
-        font-size: 0.9rem;
+    .btn.project-action-btn {
+        width: auto;
     }
 
     .project-info p {
@@ -323,36 +331,12 @@
         gap: var(--gap-between-cards-mobile);
     }
 
-    .projects-hero h1 {
-        font-size: 2rem;
-    }
-
     .project-card {
-        border-radius: 15px;
+        border-radius: 14px;
     }
 
     .project-info {
-        padding: 15px;
+        padding: 14px;
     }
 
-    .project-action-btn {
-        min-width: 100px;
-        padding: 8px 12px;
-        font-size: 0.8rem;
-    }
-}
-
-/* Плавная прокрутка для табов */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Loading state */
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-    animation: slideIn 0.5s ease;
 }

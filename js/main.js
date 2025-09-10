@@ -55,6 +55,6 @@ window.addEventListener('load', function () {
 document.querySelectorAll('img').forEach(img => {
     img.addEventListener('error', function () {
         console.warn('Не удалось загрузить изображение:', this.src);
-        this.style.backgroundColor = '#f5f5f5';
+        this.style.backgroundColor = '#dfe5ef';
     });
 });

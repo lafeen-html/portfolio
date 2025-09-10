@@ -47,7 +47,7 @@
 }
 
 /* Адаптивность */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
     .cta-buttons {
         justify-content: center;
         flex-direction: column;

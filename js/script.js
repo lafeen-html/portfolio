@@ -2,20 +2,15 @@
 let CACHED_BASE_PATH = null;
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Основная инициализация
     initializePage();
 });
 
 function initializePage() {
-    // Загружаем шапку
     loadHeader();
-
-    // Исправляем все пути на странице
+    loadFooter();
     fixAllPaths();
-
-    // Инициализируем основные функции
-    initMobileMenu();
     initSmoothScroll();
+    updateCurrentYear();
 }
 
 // Определяем, находимся ли мы на GitHub Pages
@@ -217,7 +212,6 @@ function loadHeader() {
 
             headerElement.innerHTML = processedHtml;
             highlightCurrentPage();
-            initMobileMenu();
             fixAllPaths();
         })
         .catch(error => {
@@ -298,12 +292,10 @@ function createFallbackHeader() {
     }
 
     highlightCurrentPage();
-    initMobileMenu();
-    // После вставки резервного хедера правим пути внутри него
     fixAllPaths();
 }
 
-
+// Подсветка текущей страницы
 function highlightCurrentPage() {
     const path = window.location.pathname;
     let currentPage = '';
@@ -332,34 +324,7 @@ function highlightCurrentPage() {
     });
 }
 
-function initMobileMenu() {
-    const burger = document.querySelector('.burger');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (burger && navLinks) {
-        burger.addEventListener('click', function (e) {
-            e.stopPropagation();
-            navLinks.classList.toggle('active');
-            burger.classList.toggle('active');
-        });
-
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.nav') && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                burger.classList.remove('active');
-            }
-        });
-
-        const links = document.querySelectorAll('.nav-link');
-        links.forEach(link => {
-            link.addEventListener('click', function () {
-                navLinks.classList.remove('active');
-                burger.classList.remove('active');
-            });
-        });
-    }
-}
-
+// Плавная прокрутка
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -378,4 +343,62 @@ function initSmoothScroll() {
             }
         });
     });
+}
+
+// Загрузка футера
+function loadFooter() {
+    const footerElement = document.getElementById('footer');
+    if (!footerElement) {
+        console.warn('Элемент footer не найден');
+        return;
+    }
+
+    const basePath = getBasePath();
+    const isGH = isGitHubPages();
+
+    fetch(`${basePath}/footer.html`)
+        .then(response => {
+            if (!response.ok) throw new Error('Не удалось загрузить footer.html');
+            return response.text();
+        })
+        .then(html => {
+            let processedHtml = html;
+
+            if (isGH) {
+                processedHtml = processedHtml
+                    .replace(/LOGO_PATH/g, `${basePath}/images/logo.svg`)
+                    .replace(/PROJECTS_PAGE/g, `${basePath}/pages/projects.html`)
+                    .replace(/ABOUT_PAGE/g, `${basePath}/pages/about.html`)
+                    .replace(/CONTACTS_PAGE/g, `${basePath}/pages/contacts.html`);
+            } else {
+                const isPagesFolder = window.location.pathname.includes('/pages/');
+                if (isPagesFolder) {
+                    processedHtml = processedHtml
+                        .replace(/LOGO_PATH/g, '../images/logo.svg')
+                        .replace(/PROJECTS_PAGE/g, 'projects.html')
+                        .replace(/ABOUT_PAGE/g, 'about.html')
+                        .replace(/CONTACTS_PAGE/g, 'contacts.html');
+                } else {
+                    processedHtml = processedHtml
+                        .replace(/LOGO_PATH/g, 'images/logo.svg')
+                        .replace(/PROJECTS_PAGE/g, 'pages/projects.html')
+                        .replace(/ABOUT_PAGE/g, 'pages/about.html')
+                        .replace(/CONTACTS_PAGE/g, 'pages/contacts.html');
+                }
+            }
+
+            footerElement.innerHTML = processedHtml;
+            fixAllPaths();
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки футера:', error);
+            createFallbackFooter();
+        });
+}
+
+function updateCurrentYear() {
+    const yearElement = document.getElementById('current-year');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 }

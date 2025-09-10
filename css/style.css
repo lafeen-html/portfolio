@@ -6,6 +6,7 @@
     box-sizing: border-box;
     font-family: 'Manrope', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 400;
+    font-size: 16px;
 }
 
 body {
@@ -13,7 +14,6 @@ body {
     color: var(--black);
     line-height: 1.6;
     padding-top: 80px;
-    font-size: 1rem;
 }
 
 section {
@@ -29,7 +29,7 @@ h1 {
     font-size: 5.1rem;
     font-weight: 200;
     margin-bottom: 40px;
-    line-height: 120%;
+    line-height: 110%;
     text-align: center;
 }
 
@@ -37,7 +37,7 @@ h2 {
     font-size: 4.2rem;
     font-weight: 200;
     margin-bottom: 20px;
-    line-height: 120%;
+    line-height: 110%;
     text-align: center;
 }
 
@@ -46,12 +46,13 @@ h3 {
     font-weight: 300;
     margin-bottom: 40px;
     text-align: center;
-    line-height: 150%;
+    line-height: 140%;
 }
 
 h4 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-bottom: 10px;
+    line-height: 140%;
 }
 
 p {
@@ -67,10 +68,112 @@ p:last-child {
 
 .tag {
     padding: 5px 14px 7px;
-    background: var(--secondary-color-4);
-    color: var(--secondary-color);
+    background: var(--white-40);
     border-radius: var(--border-radius-max);
-    font-size: 0.86rem;
+    font-size: 0.9rem;
+}
+
+.subtitle {
+    font-size: var(--font-size-p-lg);
+}
+
+/* Кастомный скролл */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--white-20);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-max);
+    margin: 4px 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    border-radius: var(--border-radius-max);
+    border: 2px solid var(--white);
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--secondary-color-hover), var(--black));
+    transform: scale(1.05);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(135deg, var(--secondary-color-active), var(--black));
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* Для Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) var(--white-20);
+}
+
+/* Плавная прокрутка для всего сайта */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Анимация появления скроллбара при наведении */
+body:hover ::-webkit-scrollbar-thumb {
+    opacity: 1;
+}
+
+/* Дополнительные эффекты для скролла */
+@media (prefers-reduced-motion: no-preference) {
+    ::-webkit-scrollbar-thumb {
+        animation: scrollbarPulse 3s ease-in-out infinite;
+    }
+    
+    @keyframes scrollbarPulse {
+        0%, 100% {
+            opacity: 0.9;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+}
+
+/* Эффект при скролле для всего тела */
+body {
+    overflow-x: hidden;
+    transition: scrollbar-color 0.3s ease;
+}
+
+/* Стиль для контейнеров с собственным скроллом */
+.scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) var(--white-20);
+}
+
+.scroll-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: var(--white-20);
+    border-radius: var(--border-radius-max);
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: var(--border-radius-max);
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color-hover);
+    border: 1px solid transparent;
+    background-clip: content-box;
 }
 
 /* Адаптивность */
@@ -78,7 +181,9 @@ p:last-child {
     section {
         padding: 40px 4%;
     }
+}
 
+@media (max-width: 768px) {
     h1 {
         font-size: 4rem;
     }
@@ -90,15 +195,36 @@ p:last-child {
     h3 {
         font-size: 2rem;
     }
+
+    h4 {
+        font-size: 1.1rem;
+    }
+
+      ::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        margin: 2px 0;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        border-width: 1px;
+    }
 }
 
-@media (max-width: 768px) {
-    h4 {
-        font-size: var(--font-size-p-md);
+@media (max-width: 480px) {
+    h1 {
+        font-size: 3.4rem;
     }
 
     p {
         font-size: var(--font-size-p-sm);
         margin-bottom: 14px;
     }
+
+    .subtitle {
+        font-size: var(--font-size-p-md);
+    }
+
 }

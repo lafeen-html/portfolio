@@ -14,7 +14,6 @@
 }
 
 .contacts-hero p {
-    font-size: var(--font-size-p-lg);
     max-width: 640px;
     margin: 0 auto;
 }
@@ -67,6 +66,10 @@
     transition: all 0.3s ease;
 }
 
+.contact-icon i {
+   font-size: 2rem;
+}
+
 .contact-icon img {
     width: 80px;
     height: 80px;
@@ -91,6 +94,7 @@
 .behance-card .contact-icon {
     background: rgba(1, 87, 255, 0.1);
     color: #0057FF;
+
 }
 
 .email-card .contact-icon {
@@ -99,7 +103,6 @@
 }
 
 .contact-card p {
-    font-size: var(--font-size-p-sm);
     max-width: 300px;
     margin-bottom: 25px;
 
@@ -209,23 +212,9 @@
 }
 
 /* Адаптивность */
-@media (max-width: 1024px) {
-    .contacts-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-}
-
 @media (max-width: 768px) {
     .contacts-hero {
         margin-bottom: -20px;
-    }
-
-    .contacts-hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .contacts-hero p {
-        font-size: 1.1rem;
     }
 
     .contact-card {

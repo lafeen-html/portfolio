@@ -16,8 +16,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1;
-    overflow: hidden;
+    z-index: -2;
 }
 
 .hero-video video {
@@ -25,6 +24,20 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+}
+
+.hero-video::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.directions-section {
+    margin-bottom: 0 !important;
 }
 
 .highlight {
@@ -36,7 +49,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--gap-between-cards-desktop);
-    margin-bottom: var(--margin-bottom-page-1920);
 }
 
 .direction-item {
