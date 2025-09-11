@@ -10,7 +10,42 @@ document.addEventListener('DOMContentLoaded', function () {
     initCardAnimations();
     initLazyLoading();
     initProjectActions();
+    initModalTriggers();
 });
+
+// Модальное окно
+function initModalTriggers() {
+    document.addEventListener('click', function (e) {
+        const actionBtn = e.target.closest('.project-action-btn');
+        if (actionBtn && actionBtn.querySelector('.fa-circle-info')) {
+            e.preventDefault();
+
+            const projectCard = actionBtn.closest('.project-card');
+            const projectTitle = projectCard.querySelector('h4').textContent;
+            const modalId = getModalIdFromTitle(projectTitle);
+
+            if (window.modalManager) {
+                window.modalManager.openModal(modalId);
+            }
+        }
+    });
+}
+
+function getModalIdFromTitle(title) {
+    // Преобразуем название проекта в ID модального окна
+    const idMap = {
+        'RabotaYou': 'rabotaYou-modal',
+        'DynaOL': 'dynaOl-modal',
+        'Юсупово Village': 'usupovo-village-modal',
+        'Le Santi': 'lesanti-modal',
+        'Металл Навес': 'metall-naves-modal',
+        'Vitamin D': 'vitaminD-modal',
+        'Evensa': 'evensa-modal',
+        'МыслеЛис': 'mindfox-modal'
+    };
+
+    return idMap[title] || null;
+}
 
 // Изображения проектов
 function ProjectImages() {

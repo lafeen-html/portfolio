@@ -148,7 +148,7 @@ html {
 }
 
 .project-card:hover .project-image img {
-    transform: scale(1.1);
+    transform: var(--transform-scale);
 }
 
 .project-overlay {

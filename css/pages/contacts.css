@@ -51,7 +51,7 @@
 }
 
 .contact-card:hover::before {
-    transform: scaleX(1);
+    transform: var(--transform-scale);
 }
 
 .contact-icon {
@@ -82,7 +82,7 @@
 }
 
 .contact-card:hover .contact-icon {
-    transform: scale(1.1) rotate(5deg);
+    transform: var(--transform-scale) rotate(5deg);
 }
 
 /* Стили для разных типов контактов */

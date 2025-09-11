@@ -36,10 +36,9 @@ nav {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: var(--black);
-    transition: all 0.3s ease;
     padding: 10px 16px;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-max);
+    color: var(--black-70);
 }
 
 .nav-links a:hover {
@@ -57,32 +56,58 @@ nav {
     pointer-events: none;
 }
 
-.nav-links i {
-    font-size: 1.4rem;
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    filter: grayscale(100%) saturate(0) contrast(4) opacity(1);
+}
+
+.nav-link:hover .nav-icon {
+    filter: none;
+}
+
+.nav-link:hover .nav-text {
+    color: var(--primary-color-hover);
+}
+
+.nav-link.active .nav-icon {
+    filter: none;
 }
 
 .nav-text {
     font-size: 0.9rem;
     font-weight: 500;
+
 }
 
 /* Адаптивность для мобильных устройств - только иконки */
 @media (max-width: 900px) {
+    header {
+        padding: 10px 4%;
+    }
+
+    .logo img {
+        height: 36px;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
     .nav-links a {
         padding: 10px;
     }
 
-    .nav-links i {
+    .nav-links img {
         margin-bottom: 0;
     }
 
     .nav-text {
         display: none;
     }
-}
 
-@media (max-width: 480px) {
-.logo img {
-    height: 32px;
-}
+    .nav-icon {
+        width: 28px;
+        height: 28px;
+    }
 }

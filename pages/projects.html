@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="../js/script.js" defer></script>
     <script src="../js/projects.js" defer></script>
+    <script src="../js/modal-manager.js" defer></script>
 </head>
 
 <body>
@@ -64,9 +65,13 @@
                     <!-- Карточка -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="../images/projects/sites/rabotaYou.png" alt="">
+                            <img src="../images/projects/sites/rabotaYou/rabotaYou.png" alt="">
                             <div class="project-overlay">
                                 <div class="project-actions">
+                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
+                                        <i class="fas fa-circle-info"></i>
+                                        О проекте
+                                    </a>
                                     <a href="https://www.behance.net/gallery/224315595/Job-search-site" target="_blank"
                                         class="btn btn-primary project-action-btn">
                                         <i class="fab fa-behance"></i>
@@ -96,6 +101,10 @@
                             <img src="../images/projects/sites/dynaOl.png" alt="">
                             <div class="project-overlay">
                                 <div class="project-actions">
+                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
+                                        <i class="fas fa-circle-info"></i>
+                                        О проекте
+                                    </a>
                                     <a href="https://www.behance.net/gallery/231064869/DynaOL" target="_blank"
                                         class="btn btn-primary project-action-btn">
                                         <i class="fab fa-behance"></i>
@@ -126,6 +135,10 @@
                             <img src="../images/projects/sites/usupovo-village.png" alt="">
                             <div class="project-overlay">
                                 <div class="project-actions">
+                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
+                                        <i class="fas fa-circle-info"></i>
+                                        О проекте
+                                    </a>
                                     <a href="https://www.usupovo-village.ru/" target="_blank"
                                         class="btn btn-primary project-action-btn">
                                         <i class="fas fa-arrow-up-right-from-square"></i></i>
@@ -150,6 +163,10 @@
                             <img src="../images/projects/sites/lesanti.png" alt="">
                             <div class="project-overlay">
                                 <div class="project-actions">
+                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
+                                        <i class="fas fa-circle-info"></i>
+                                        О проекте
+                                    </a>
                                     <a href="https://le-santi.com/" target="_blank"
                                         class="btn btn-primary project-action-btn">
                                         <i class="fas fa-arrow-up-right-from-square"></i></i>
@@ -178,6 +195,10 @@
                             <img src="../images/projects/sites/metall-naves.png" alt="">
                             <div class="project-overlay">
                                 <div class="project-actions">
+                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
+                                        <i class="fas fa-circle-info"></i>
+                                        О проекте
+                                    </a>
                                     <a href="https://metall-naves.ru/" target="_blank"
                                         class="btn btn-primary project-action-btn">
                                         <i class="fas fa-arrow-up-right-from-square"></i></i>
@@ -210,6 +231,10 @@
                             <img src="../images/projects/mobile-apps/vitaminD.png" alt="">
                             <div class="project-overlay">
                                 <div class="project-actions">
+                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
+                                        <i class="fas fa-circle-info"></i>
+                                        О проекте
+                                    </a>
                                     <a href="https://www.behance.net/gallery/222650641/Vitamin-D-mobile-app"
                                         target="_blank" class="btn btn-primary project-action-btn">
                                         <i class="fab fa-behance"></i>
@@ -240,6 +265,10 @@
                             <img src="../images/projects/mobile-apps/evensa.png" alt="">
                             <div class="project-overlay">
                                 <div class="project-actions">
+                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
+                                        <i class="fas fa-circle-info"></i>
+                                        О проекте
+                                    </a>
                                     <a href="https://www.behance.net/gallery/214363593/Mobile-app-presentation"
                                         target="_blank" class="btn btn-primary project-action-btn">
                                         <i class="fab fa-behance"></i>
@@ -273,6 +302,10 @@
                             <img src="../images/projects/mobile-apps/mindfox.png" alt="">
                             <div class="project-overlay">
                                 <div class="project-actions">
+                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
+                                        <i class="fas fa-circle-info"></i>
+                                        О проекте
+                                    </a>
                                     <a href="" target="_blank" class="btn btn-primary project-action-btn">
                                         <i class="fab fa-figma"></i>
                                         Figma
@@ -333,6 +366,31 @@
 
     <!-- Подвал -->
     <div id="footer"></div>
+
+    <div id="modals-container"></div>
+
+    <!-- Лайтбокс для полноэкранного просмотра -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-overlay"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <!-- Скрываем навигацию на мобильных -->
+            <button class="lightbox-nav lightbox-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-nav lightbox-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="lightbox-image-container">
+                <img class="lightbox-image" src="" alt="">
+            </div>
+            <!-- Контейнер для биатлона -->
+            <div class="lightbox-pagination"></div>
+            <div class="lightbox-caption"></div>
+        </div>
+    </div>
 
 </body>
 

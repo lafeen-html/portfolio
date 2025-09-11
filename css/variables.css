@@ -15,6 +15,7 @@
     --secondary-color-4: #FFF8F6;
     --secondary-color-hover: #FE572A;
     --secondary-color-active: #E0390C;
+    --background-color: #dfe5ef;
 
     /* Шрифты */
     --font-size-p-lg: 1.2rem;
@@ -31,7 +32,9 @@
     --border: 1px solid var(--white-40);
     --border-radius-lg: 30px;
     --border-radius-md: 20px;
+    --border-radius-xs: 4px;
     --border-radius-max: 500px;
     --border-color-hover: var(--white);
     --box-shadow-hover: 0 8px 30px var(--white-40);
+    --transform-scale: scale(1.1);
 }

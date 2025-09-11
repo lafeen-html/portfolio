@@ -48,7 +48,7 @@
 }
 
 .about-image:hover img {
-    transform: scale(1.05);
+    transform: var(--transform-scale);
     filter: brightness(1.1);
 }
 
@@ -115,8 +115,8 @@
 }
 
 .education-item:hover .education-image img {
-    transform: scale(1.1);
-        filter: brightness(1.1);
+    transform: var(--transform-scale);
+    filter: brightness(1.1);
 }
 
 .education-item:hover .education-image::after {
@@ -246,6 +246,7 @@
 
 .accordion-item h4 {
     margin-bottom: 0;
+    font-size: 1.2rem;
 }
 
 .accordion-item p {
