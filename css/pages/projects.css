@@ -175,6 +175,7 @@ html {
     gap: 12px;
     align-items: center;
     justify-content: center;
+    padding: 10px;
 }
 
 .project-action-btn {
@@ -281,18 +282,75 @@ html {
     }
 }
 
+/* Состояние загрузки */
+.loading-state {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--white-40);
+    border-top: 3px solid var(--secondary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Состояние ошибки */
+.error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--black-600);
+}
+
+.error-state i {
+    font-size: 4rem;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+.error-state h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--black);
+}
+
+.error-state p {
+    font-size: 1.1rem;
+}
+
 /* Адаптивность */
 @media (max-width: 1024px) {
     .projects-grid {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
-}
 
-@media (max-width: 768px) {
     .tabs-section {
         margin-top: -40px;
         margin-bottom: -60px;
     }
+}
+
+@media (max-width: 768px) {
 
     .tabs {
         padding: 4px;
@@ -338,5 +396,4 @@ html {
     .project-info {
         padding: 14px;
     }
-
 }

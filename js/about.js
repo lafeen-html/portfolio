@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initFaq();
     initFadeInAnimations();
     initEducationAnimations();
+    initSkillsAnimation();
 });
 
 // Анимация появления карточек инструментов
@@ -169,3 +170,56 @@ window.addEventListener('load', function() {
         }
     });
 });
+
+// Анимация прогресс-баров
+function initSkillsAnimation() {
+    const progressBars = document.querySelectorAll('.progress-bar');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const progressBar = entry.target;
+                const progressFill = progressBar.querySelector('.progress-fill');
+                const level = progressBar.getAttribute('data-level');
+                
+                // Задержка для последовательной анимации
+                const index = Array.from(progressBars).indexOf(progressBar);
+                const delay = index * 200;
+                
+                setTimeout(() => {
+                    progressFill.style.width = level + '%';
+                }, delay);
+                
+                observer.unobserve(progressBar);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    progressBars.forEach(bar => observer.observe(bar));
+}
+
+// Обновлите функцию initFadeInAnimations
+function initFadeInAnimations() {
+    const fadeElements = document.querySelectorAll('.fade-in-element');
+    
+    if (!fadeElements.length) return;
+    
+    function checkFadeElements() {
+        fadeElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementTop < window.innerHeight - elementVisible) {
+                const delay = getComputedStyle(element).getPropertyValue('--delay') || '0s';
+                element.style.transitionDelay = delay;
+                element.classList.add('visible');
+            }
+        });
+    }
+    
+    checkFadeElements();
+    window.addEventListener('scroll', checkFadeElements);
+    
+    // Инициализируем анимацию навыков
+    initSkillsAnimation();
+}

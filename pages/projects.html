@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NK</title>
+    <title>NK - Мои проекты</title>
     <link type="image/x-icon" href="../images/logo.svg" rel="shortcut icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages/projects.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="../js/script.js" defer></script>
@@ -32,22 +33,22 @@
             <div class="tabs-container">
                 <div class="tabs-scroll">
                     <div class="tabs">
-                        <button class="tab-button active" data-category="sites">
+                        <button class="tab-button active" data-category="sites" data-file="sites.html">
                             <span>Сайты</span>
                         </button>
-                        <button class="tab-button" data-category="mobile">
+                        <button class="tab-button" data-category="mobile" data-file="mobile.html">
                             <span>Мобильные приложения</span>
                         </button>
-                        <button class="tab-button" data-category="crm">
+                        <button class="tab-button" data-category="crm" data-file="crm.html">
                             <span>CRM-системы</span>
                         </button>
-                        <button class="tab-button" data-category="presentations">
+                        <button class="tab-button" data-category="presentations" data-file="presentations.html">
                             <span>Презентации</span>
                         </button>
-                        <button class="tab-button" data-category="other">
+                        <button class="tab-button" data-category="other" data-file="other.html">
                             <span>Прочее</span>
                         </button>
-                        <button class="tab-button" data-category="mentoring">
+                        <button class="tab-button" data-category="mentoring" data-file="mentoring.html">
                             <span>Наставничество</span>
                         </button>
                     </div>
@@ -57,310 +58,13 @@
 
         <!-- Контент табов -->
         <section class="projects-content">
-
-            <!-- Сайты -->
-            <div class="tab-content active" id="sites-content">
-                <div class="projects-grid">
-
-                    <!-- Карточка -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="../images/projects/sites/rabotaYou/rabotaYou.png" alt="">
-                            <div class="project-overlay">
-                                <div class="project-actions">
-                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-circle-info"></i>
-                                        О проекте
-                                    </a>
-                                    <a href="https://www.behance.net/gallery/224315595/Job-search-site" target="_blank"
-                                        class="btn btn-primary project-action-btn">
-                                        <i class="fab fa-behance"></i>
-                                        Behance
-                                    </a>
-                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fab fa-figma"></i>
-                                        Figma
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h4>RabotaYou</h4>
-                            <p>Сайт для быстрого поиска работы и подбора квалифицированных сотрудников.</p>
-                            <div class="project-tags">
-                                <span class="tag">HR</span>
-                                <span class="tag">Рекрутинг</span>
-                                <span class="tag">Карьера</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Карточка -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="../images/projects/sites/dynaOl.png" alt="">
-                            <div class="project-overlay">
-                                <div class="project-actions">
-                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-circle-info"></i>
-                                        О проекте
-                                    </a>
-                                    <a href="https://www.behance.net/gallery/231064869/DynaOL" target="_blank"
-                                        class="btn btn-primary project-action-btn">
-                                        <i class="fab fa-behance"></i>
-                                        Behance
-                                    </a>
-                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fab fa-figma"></i>
-                                        Figma
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h4>DynaOL</h4>
-                            <p>Дизайн-концепт для платформы бизнес-анализа, который подчеркивает технологичность
-                                и надёжность продукта.</p>
-                            <div class="project-tags">
-                                <span class="tag">B2B</span>
-                                <span class="tag">Data analytics</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Карточка -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="../images/projects/sites/usupovo-village.png" alt="">
-                            <div class="project-overlay">
-                                <div class="project-actions">
-                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-circle-info"></i>
-                                        О проекте
-                                    </a>
-                                    <a href="https://www.usupovo-village.ru/" target="_blank"
-                                        class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-arrow-up-right-from-square"></i></i>
-                                        Сайт
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h4>Юсупово Village</h4>
-                            <p>Сайт для современного коттеджного поселка бизнес-класса.</p>
-                            <div class="project-tags">
-                                <span class="tag">Элитная недвижимость</span>
-                                <span class="tag">Загородная жизнь</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Карточка -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="../images/projects/sites/lesanti.png" alt="">
-                            <div class="project-overlay">
-                                <div class="project-actions">
-                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-circle-info"></i>
-                                        О проекте
-                                    </a>
-                                    <a href="https://le-santi.com/" target="_blank"
-                                        class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-arrow-up-right-from-square"></i></i>
-                                        Сайт
-                                    </a>
-                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fab fa-figma"></i>
-                                        Figma
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h4>Le Santi</h4>
-                            <p>Сайт для косметического бренда.</p>
-                            <div class="project-tags">
-                                <span class="tag">Микробиом</span>
-                                <span class="tag">Уходовая косметика</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Карточка -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="../images/projects/sites/metall-naves.png" alt="">
-                            <div class="project-overlay">
-                                <div class="project-actions">
-                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-circle-info"></i>
-                                        О проекте
-                                    </a>
-                                    <a href="https://metall-naves.ru/" target="_blank"
-                                        class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-arrow-up-right-from-square"></i></i>
-                                        Сайт
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h4>Металл Навес</h4>
-                            <p>Сайт для производителя металлических навесов и откатных ворот.</p>
-                            <div class="project-tags">
-                                <span class="tag">B2C</span>
-                                <span class="tag">Металлоконструкции</span>
-                                <span class="tag">Навесы</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Загрузка проектов...</p>
             </div>
 
-            <!-- Мобильные приложения -->
-            <div id="mobile-content" class="tab-content">
-                <div class="projects-grid">
-
-                    <!-- Карточка -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="../images/projects/mobile-apps/vitaminD.png" alt="">
-                            <div class="project-overlay">
-                                <div class="project-actions">
-                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-circle-info"></i>
-                                        О проекте
-                                    </a>
-                                    <a href="https://www.behance.net/gallery/222650641/Vitamin-D-mobile-app"
-                                        target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fab fa-behance"></i>
-                                        Behance
-                                    </a>
-                                    <a href="" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fab fa-figma"></i>
-                                        Figma
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h4>Vitamin D</h4>
-                            <p>Концепт персонального трекера для поддержания оптимального уровня витамина D в организме.
-                            </p>
-                            <div class="project-tags">
-                                <span class="tag">Здоровье</span>
-                                <span class="tag">Трекер</span>
-                                <span class="tag">Концепт</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Карточка -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="../images/projects/mobile-apps/evensa.png" alt="">
-                            <div class="project-overlay">
-                                <div class="project-actions">
-                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-circle-info"></i>
-                                        О проекте
-                                    </a>
-                                    <a href="https://www.behance.net/gallery/214363593/Mobile-app-presentation"
-                                        target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fab fa-behance"></i>
-                                        Behance
-                                    </a>
-                                    <a href="" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fab fa-figma"></i>
-                                        Figma
-                                    </a>
-                                    <a href="https://dzen.ru/a/ZlNW3WM7bmYgID6U" target="_blank"
-                                        class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-file-alt"></i>
-                                        Статья на Дзене
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h4>Evensa</h4>
-                            <p>Мобильное приложение и веб-сервис для организации мероприятий.</p>
-                            <div class="project-tags">
-                                <span class="tag">B2C</span>
-                                <span class="tag">Мероприятия</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Карточка -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="../images/projects/mobile-apps/mindfox.png" alt="">
-                            <div class="project-overlay">
-                                <div class="project-actions">
-                                    <a href="#" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fas fa-circle-info"></i>
-                                        О проекте
-                                    </a>
-                                    <a href="" target="_blank" class="btn btn-primary project-action-btn">
-                                        <i class="fab fa-figma"></i>
-                                        Figma
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h4>МыслеЛис</h4>
-                            <p>КПТ-дневник с инструментами для самонаблюдения и анализа мыслей.</p>
-                            <div class="project-tags">
-                                <span class="tag">Психология</span>
-                                <span class="tag">Геймификация</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CRM-системы -->
-            <div class="tab-content" id="crm-content">
-                <div class="empty-state">
-                    <img class="tab-img" src="../images/icons/crm.svg" alt="crm">
-                    <h3>CRM-системы</h3>
-                    <p>Проекты в этом разделе скоро появятся.</p>
-                </div>
-            </div>
-
-            <!-- Презентации -->
-            <div class="tab-content" id="presentations-content">
-                <div class="empty-state">
-                    <img class="tab-img" src="../images/icons/presentations.svg" alt="crm">
-                    <h3>Презентации</h3>
-                    <p>Проекты в этом разделе скоро появятся.</p>
-                </div>
-            </div>
-
-            <!-- Прочее -->
-            <div class="tab-content" id="other-content">
-                <div class="empty-state">
-                    <img class="tab-img" src="../images/icons/other.svg" alt="crm">
-                    <h3>Прочее</h3>
-                    <p>Проекты в этом разделе скоро появятся.</p>
-                </div>
-            </div>
-
-            <!-- Наставничество -->
-            <div class="tab-content" id="mentoring-content">
-                <div class="empty-state">
-                    <img class="tab-img" src="../images/icons/mentoring.svg" alt="crm">
-                    <h3>Наставничество</h3>
-                    <p>Проекты в этом разделе скоро появятся.</p>
-                </div>
-            </div>
-
+            <!-- Контент будет загружаться динамически -->
+            <div id="tab-content-container"></div>
         </section>
     </main>
 
@@ -386,7 +90,7 @@
             <div class="lightbox-image-container">
                 <img class="lightbox-image" src="" alt="">
             </div>
-            <!-- Контейнер для биатлона -->
+            <!-- Контейнер для пагинации -->
             <div class="lightbox-pagination"></div>
             <div class="lightbox-caption"></div>
         </div>

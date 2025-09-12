@@ -219,8 +219,7 @@ function loadHeader() {
             createFallbackHeader();
         });
 }
-
-// Резервная шапка
+/* Резервная шапка
 function createFallbackHeader() {
     const headerElement = document.getElementById('header');
     if (!headerElement) return;
@@ -294,6 +293,7 @@ function createFallbackHeader() {
     highlightCurrentPage();
     fixAllPaths();
 }
+    */
 
 // Подсветка текущей страницы
 function highlightCurrentPage() {

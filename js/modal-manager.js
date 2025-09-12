@@ -20,14 +20,14 @@ class ModalManager {
         try {
             // Загружаем все модальные окна проектов
             const modalFiles = [
-                'rabotaYou-modal.html',
-                'dynaOl-modal.html',
-                'usupovo-village-modal.html',
-                'lesanti-modal.html',
-                'metall-naves-modal.html',
-                'vitaminD-modal.html',
-                'evensa-modal.html',
-                'mindfox-modal.html'
+                './sites/rabotaYou-modal.html',
+                './sites/dynaOl-modal.html',
+                './sites/usupovo-village-modal.html',
+                './sites/lesanti-modal.html',
+                './sites/metall-naves-modal.html',
+                './mobile/vitaminD-modal.html',
+                './mobile/evensa-modal.html',
+                './mobile/mindfox-modal.html'
             ];
 
             for (const file of modalFiles) {

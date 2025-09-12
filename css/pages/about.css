@@ -213,6 +213,162 @@
     transition: transform 600ms ease, opacity 600ms ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
+/* Навыки */
+.skills-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin: 40px 0;
+}
+
+.skills-category {
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+    border: var(--border);
+    border-radius: var(--border-radius-lg);
+    padding: 30px;
+    transition: all 0.4s ease;
+}
+
+.skills-category:hover {
+    border-color: var(--border-color-hover);
+}
+
+.skills-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.skills-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 1.5rem;
+    color: var(--white);
+}
+
+.skills-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    background: var(--white-20);
+    border-radius: var(--border-radius-md);
+}
+
+.skill-item:hover {
+    background: var(--white-40);
+}
+
+.skill-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 60px;
+}
+
+.progress-bar {
+    width: 60px;
+    height: 8px;
+    border-radius: var(--border-radius-xs);
+    background: var(--secondary-color-10);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: var(--secondary-color);
+    border-radius: var(--border-radius-xs);
+    transition: width 1.5s ease-in-out;
+}
+
+.skill-percentage {
+    font-size: var(--font-size-p-sm);
+    color: var(--black-70);
+}
+
+.skill-info {
+    flex: 1;
+}
+
+.skill-info h5 {
+    margin-bottom: 5px;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.skill-info p {
+    font-size: 0.9rem;
+    margin: 0;
+    color: var(--black-70);
+}
+
+/* Облако тегов */
+.additional-skills {
+    background: var(--card-bg);
+    backdrop-filter: blur(100px);
+    border: var(--border);
+    border-radius: var(--border-radius-lg);
+    padding: 30px;
+    text-align: center;
+}
+
+.additional-skills h4 {
+    margin-bottom: 20px;
+}
+
+.tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.skill-tag {
+    padding: 10px 20px;
+    background: var(--white-40);
+    border: 1px solid var(--white-40);
+    border-radius: var(--border-radius-max);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.skill-tag:hover {
+    background: var(--secondary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+    border-color: var(--secondary-color);
+}
+
+/* Анимации прогресс-баров */
+@keyframes fillProgress {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: var(--progress-width);
+    }
+}
+
 /* FAQ */
 .accordion-section {
     display: flex;
@@ -333,6 +489,20 @@
         height: 200px;
     }
 
+    .skills-container {
+        gap: 20px;
+    }
+
+    .skill-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 14px;
+    }
+
+    .skill-info {
+        text-align: center;
+    }
+
     .accordion {
         max-width: none;
     }
@@ -383,6 +553,27 @@
         font-size: 0.9rem;
     }
 
+    .skills-section {
+        margin: 60px auto;
+    }
+
+    .skills-category {
+        padding: 20px;
+    }
+
+    .tags-cloud {
+        gap: 8px;
+    }
+
+    .skill-tag {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+
+     .skills-container {
+        grid-template-columns: 1fr;
+    }
+
     .faq-question,
     .accordion-btn {
         padding: 16px;
@@ -397,6 +588,25 @@
 
     .faq-answer-content p {
         padding: 6px 0 0 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .progress-bar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .skill-percentage {
+        font-size: 0.8rem;
+    }
+
+    .skill-info h5 {
+        font-size: 1rem;
+    }
+
+    .skill-info p {
+        font-size: 0.8rem;
     }
 }
 

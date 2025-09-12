@@ -3,13 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('category');
 
-    ProjectImages();
-
     // Инициализируем табы с учетом категории
     initTabs(category);
-    initCardAnimations();
-    initLazyLoading();
-    initProjectActions();
     initModalTriggers();
 });
 
@@ -47,53 +42,73 @@ function getModalIdFromTitle(title) {
     return idMap[title] || null;
 }
 
-// Изображения проектов
-function ProjectImages() {
-    const basePath = window.location.pathname.includes('/pages/') ? '..' : '.';
-    const projectImages = document.querySelectorAll('.project-image img');
-
-    projectImages.forEach(img => {
-        const src = img.getAttribute('src');
-        if (src && !src.startsWith('http') && !src.startsWith('data:')) {
-            // Если путь уже начинается с ../, оставляем как есть
-            if (src.startsWith('../')) {
-                return;
-            }
-            // Если путь начинается с ./, исправляем в зависимости от basePath
-            if (src.startsWith('./')) {
-                const newSrc = src.replace('./', basePath === '.' ? './' : '../');
-                img.setAttribute('src', newSrc);
-                return;
-            }
-            // Если путь абсолютный (начинается с /) или без префикса
-            const newSrc = basePath === '.' ? `./${src.replace(/^\//, '')}` : `../${src.replace(/^\//, '')}`;
-            img.setAttribute('src', newSrc);
-        }
-    });
-}
-
 // Функция активации таба по категории
-function activateTabByCategory(category) {
+function activateTabByCategory(category, file) {
     const tabButton = document.querySelector(`.tab-button[data-category="${category}"]`);
-    const tabContent = document.getElementById(`${category}-content`);
-
-    if (tabButton && tabContent) {
-        // Убираем активный класс у всех кнопок и контента
+    
+    if (tabButton) {
+        // Убираем активный класс у всех кнопок
         document.querySelectorAll('.tab-button').forEach(btn => {
             btn.classList.remove('active');
             btn.style.opacity = '0.7';
         });
 
-        document.querySelectorAll('.tab-content').forEach(content => {
-            content.classList.remove('active');
-            content.style.display = 'none';
-        });
-
         // Активируем нужный таб
         tabButton.classList.add('active');
         tabButton.style.opacity = '1';
-        tabContent.classList.add('active');
-        tabContent.style.display = 'block';
+        
+        // Загружаем контент для этого таба
+        loadTabContent(category, file);
+    }
+}
+
+// Функция загрузки контента таба
+async function loadTabContent(category, file) {
+    const container = document.getElementById('tab-content-container');
+    const loadingState = document.querySelector('.loading-state');
+
+    // Показываем состояние загрузки
+    container.innerHTML = '';
+    loadingState.style.display = 'flex';
+
+    try {
+        // Загружаем контент из файла
+        const response = await fetch(file);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const content = await response.text();
+
+        // Скрываем состояние загрузки
+        loadingState.style.display = 'none';
+
+        // Вставляем контент
+        container.innerHTML = content;
+        
+        // Добавляем класс active к загруженному контенту
+        const tabContent = container.querySelector('.tab-content');
+        if (tabContent) {
+            tabContent.classList.add('active');
+        }
+
+        // Инициализируем анимации и обработчики для нового контента
+        initCardAnimations();
+        initLazyLoading();
+        initProjectActions();
+        ProjectImages();
+
+    } catch (error) {
+        console.error('Error loading tab content:', error);
+        loadingState.style.display = 'none';
+        container.innerHTML = `
+            <div class="error-state">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Ошибка загрузки</h3>
+                <p>Не удалось загрузить проекты: ${error.message}</p>
+                <p>Файл: ${file}</p>
+            </div>
+        `;
     }
 }
 
@@ -103,19 +118,25 @@ function initTabs(initialCategory) {
 
     // Активируем начальную категорию или первую
     if (initialCategory) {
-        activateTabByCategory(initialCategory);
+        const tabButton = document.querySelector(`.tab-button[data-category="${initialCategory}"]`);
+        if (tabButton) {
+            const file = tabButton.getAttribute('data-file');
+            activateTabByCategory(initialCategory, file);
+        }
     } else {
         // Активируем первый таб, если категория не указана
         const firstTab = tabButtons[0];
         const firstCategory = firstTab?.getAttribute('data-category');
-        if (firstCategory) {
-            activateTabByCategory(firstCategory);
+        const firstFile = firstTab?.getAttribute('data-file');
+        if (firstCategory && firstFile) {
+            activateTabByCategory(firstCategory, firstFile);
         }
     }
 
     tabButtons.forEach(button => {
         button.addEventListener('click', function () {
             const category = this.getAttribute('data-category');
+            const file = this.getAttribute('data-file');
 
             // Обновляем URL без перезагрузки страницы
             const url = new URL(window.location);
@@ -126,7 +147,7 @@ function initTabs(initialCategory) {
             }
             window.history.pushState({}, '', url);
 
-            activateTabByCategory(category);
+            activateTabByCategory(category, file);
         });
     });
 
@@ -134,14 +155,20 @@ function initTabs(initialCategory) {
     window.addEventListener('popstate', function () {
         const urlParams = new URLSearchParams(window.location.search);
         const category = urlParams.get('category');
+        
         if (category) {
-            activateTabByCategory(category);
+            const tabButton = document.querySelector(`.tab-button[data-category="${category}"]`);
+            if (tabButton) {
+                const file = tabButton.getAttribute('data-file');
+                activateTabByCategory(category, file);
+            }
         } else {
             // Активируем первый таб, если категория не указана
             const firstTab = tabButtons[0];
             const firstCategory = firstTab?.getAttribute('data-category');
-            if (firstCategory) {
-                activateTabByCategory(firstCategory);
+            const firstFile = firstTab?.getAttribute('data-file');
+            if (firstCategory && firstFile) {
+                activateTabByCategory(firstCategory, firstFile);
             }
         }
     });
@@ -205,7 +232,7 @@ function initLazyLoading() {
         lazyImages.forEach(img => {
             // Устанавливаем placeholder, если нужно
             if (!img.getAttribute('src')) {
-                img.setAttribute('src', 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOHB4IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5Mb2FkaW5nLi4uPC90ZXh0Pjwvc3ZnPg==');
+                img.setAttribute('src', 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI�MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOHB4IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5Mb2FkaW5nLi4uPC90ZXh0Pjwvc3ZnPg==');
             }
             imageObserver.observe(img);
         });
@@ -225,6 +252,31 @@ function initProjectActions() {
     });
 }
 
+// Изображения проектов
+function ProjectImages() {
+    const basePath = window.location.pathname.includes('/pages/') ? '..' : '.';
+    const projectImages = document.querySelectorAll('.project-image img');
+
+    projectImages.forEach(img => {
+        const src = img.getAttribute('src');
+        if (src && !src.startsWith('http') && !src.startsWith('data:')) {
+            // Если путь уже начинается с ../, оставляем как есть
+            if (src.startsWith('../')) {
+                return;
+            }
+            // Если путь начинается с ./, исправляем в зависимости от basePath
+            if (src.startsWith('./')) {
+                const newSrc = src.replace('./', basePath === '.' ? './' : '../');
+                img.setAttribute('src', newSrc);
+                return;
+            }
+            // Если путь абсолютный (начинается с /) или без префикса
+            const newSrc = basePath === '.' ? `./${src.replace(/^\//, '')}` : `../${src.replace(/^\//, '')}`;
+            img.setAttribute('src', newSrc);
+        }
+    });
+}
+
 // Обработка ошибок загрузки изображений
 function handleImageErrors() {
     const images = document.querySelectorAll('.project-image img');
@@ -233,7 +285,7 @@ function handleImageErrors() {
         img.addEventListener('error', function () {
             console.warn('Не удалось загрузить изображение:', this.src);
             // Устанавливаем placeholder при ошибке
-            this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSI gaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOHB4IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
+            this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOHB4IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
             this.alt = 'Изображение не найдено';
         });
     });
@@ -245,16 +297,6 @@ window.addEventListener('load', function () {
 
     // Добавляем обработчики ошибок изображений после загрузки
     handleImageErrors();
-
-    // Принудительно запускаем анимации для видимых элементов
-    const visibleCards = document.querySelectorAll('.project-card');
-    visibleCards.forEach(card => {
-        const rect = card.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-        }
-    });
 });
 
 // Обновление табов при изменении размера окна (для адаптивности)
@@ -263,7 +305,7 @@ window.addEventListener('resize', function () {
     initCardAnimations();
 });
 
-// Экспортируем функции для глобального доступа (если нужно)
+// Экспортируем функции для глобального доступа
 window.projectsModule = {
     activateTabByCategory,
     initTabs,
