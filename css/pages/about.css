@@ -405,10 +405,6 @@
     font-size: 1.2rem;
 }
 
-.accordion-item p {
-    font-size: var(--font-size-p-sm);
-}
-
 .accordion-item.open h4 {
     color: var(--secondary-color);
 }
@@ -609,9 +605,8 @@
     }
 
     .additional-skills {
-    padding: 30px 16px;
-
-}
+        padding: 30px 10px;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -389,10 +389,6 @@ html {
         gap: var(--gap-between-cards-mobile);
     }
 
-    .project-card {
-        border-radius: 14px;
-    }
-
     .project-info {
         padding: 14px;
     }

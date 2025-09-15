@@ -45,7 +45,7 @@ function getModalIdFromTitle(title) {
 // Функция активации таба по категории
 function activateTabByCategory(category, file) {
     const tabButton = document.querySelector(`.tab-button[data-category="${category}"]`);
-    
+
     if (tabButton) {
         // Убираем активный класс у всех кнопок
         document.querySelectorAll('.tab-button').forEach(btn => {
@@ -56,7 +56,7 @@ function activateTabByCategory(category, file) {
         // Активируем нужный таб
         tabButton.classList.add('active');
         tabButton.style.opacity = '1';
-        
+
         // Загружаем контент для этого таба
         loadTabContent(category, file);
     }
@@ -85,7 +85,7 @@ async function loadTabContent(category, file) {
 
         // Вставляем контент
         container.innerHTML = content;
-        
+
         // Добавляем класс active к загруженному контенту
         const tabContent = container.querySelector('.tab-content');
         if (tabContent) {
@@ -97,6 +97,12 @@ async function loadTabContent(category, file) {
         initLazyLoading();
         initProjectActions();
         ProjectImages();
+
+        // Инициализируем наставничество, если это соответствующая вкладка
+        if (category === 'mentoring') {
+            initMentoringAnimations();
+            initFaq();
+        }
 
     } catch (error) {
         console.error('Error loading tab content:', error);
@@ -155,7 +161,7 @@ function initTabs(initialCategory) {
     window.addEventListener('popstate', function () {
         const urlParams = new URLSearchParams(window.location.search);
         const category = urlParams.get('category');
-        
+
         if (category) {
             const tabButton = document.querySelector(`.tab-button[data-category="${category}"]`);
             if (tabButton) {
@@ -313,3 +319,96 @@ window.projectsModule = {
     initLazyLoading,
     ProjectImages
 };
+
+// Функция загрузки контента таба
+async function loadTabContent(category, file) {
+    const container = document.getElementById('tab-content-container');
+    const loadingState = document.querySelector('.loading-state');
+
+    // Показываем состояние загрузки
+    container.innerHTML = '';
+    loadingState.style.display = 'flex';
+
+    try {
+        // Загружаем контент из файла
+        const response = await fetch(file);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const content = await response.text();
+
+        // Скрываем состояние загрузки
+        loadingState.style.display = 'none';
+
+        // Вставляем контент
+        container.innerHTML = content;
+
+        // Добавляем класс active к загруженному контенту
+        const tabContent = container.querySelector('.tab-content');
+        if (tabContent) {
+            tabContent.classList.add('active');
+        }
+
+        // Инициализируем анимации и обработчики для нового контента
+        initCardAnimations();
+        initLazyLoading();
+        initProjectActions();
+        ProjectImages();
+
+        // Инициализируем наставничество, если это соответствующая вкладка
+        if (category === 'mentoring') {
+            initMentoringAnimations();
+        }
+
+    } catch (error) {
+        console.error('Error loading tab content:', error);
+        loadingState.style.display = 'none';
+        container.innerHTML = `
+            <div class="error-state">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Ошибка загрузки</h3>
+                <p>Не удалось загрузить проекты: ${error.message}</p>
+                <p>Файл: ${file}</p>
+            </div>
+        `;
+    }
+}
+
+function initMentoringAnimations() {
+    const fadeElements = document.querySelectorAll('#tab-content-container .fade-in-element');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = entry.target.style.getPropertyValue('--delay') || '0s';
+                entry.target.style.transitionDelay = delay;
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    fadeElements.forEach(element => {
+        observer.observe(element);
+    });
+
+    // Инициализация плавной прокрутки
+    initSmoothScroll();
+
+    initFaq();
+}
+
+// Плавная прокрутка к контактам
+function initSmoothScroll() {
+    const contactLinks = document.querySelectorAll('#tab-content-container a[href="#contact"]');
+
+    contactLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+}
