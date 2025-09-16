@@ -330,35 +330,64 @@ async function loadTabContent(category, file) {
     loadingState.style.display = 'flex';
 
     try {
-        // Загружаем контент из файла
         const response = await fetch(file);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const content = await response.text();
-
-        // Скрываем состояние загрузки
         loadingState.style.display = 'none';
-
-        // Вставляем контент
         container.innerHTML = content;
 
-        // Добавляем класс active к загруженному контенту
         const tabContent = container.querySelector('.tab-content');
         if (tabContent) {
             tabContent.classList.add('active');
         }
 
-        // Инициализируем анимации и обработчики для нового контента
+        // Основные инициализации
         initCardAnimations();
         initLazyLoading();
         initProjectActions();
         ProjectImages();
 
-        // Инициализируем наставничество, если это соответствующая вкладка
+        // Специфичные инициализации для разных категорий
         if (category === 'mentoring') {
             initMentoringAnimations();
+            if (typeof initFaq === 'function') {
+                initFaq();
+            }
+        }
+
+        // Инициализация для презентаций
+        if (category === 'presentations') {
+            // Даем время для рендера DOM
+            setTimeout(() => {
+                // Проверяем, загружен ли модуль презентаций
+                if (typeof window.presentationsModule !== 'undefined' &&
+                    typeof window.presentationsModule.initPresentations === 'function') {
+                    window.presentationsModule.initPresentations();
+                } else {
+                    console.warn('Presentations module not loaded');
+                    // Fallback: базовые инициализации
+                    initCardAnimations();
+                    initLazyLoading();
+
+                    // Простая обработка кнопок просмотра
+                    const viewButtons = document.querySelectorAll('.preview-action');
+                    viewButtons.forEach(button => {
+                        const pdfUrl = button.getAttribute('data-pdf');
+                        if (pdfUrl && pdfUrl !== '#') {
+                            button.addEventListener('click', function () {
+                                this.classList.add('loading');
+                                setTimeout(() => {
+                                    window.open(pdfUrl, '_blank');
+                                    this.classList.remove('loading');
+                                }, 1000);
+                            });
+                        }
+                    });
+                }
+            }, 300);
         }
 
     } catch (error) {
@@ -374,6 +403,7 @@ async function loadTabContent(category, file) {
         `;
     }
 }
+
 
 function initMentoringAnimations() {
     const fadeElements = document.querySelectorAll('#tab-content-container .fade-in-element');

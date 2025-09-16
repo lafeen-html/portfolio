@@ -67,7 +67,7 @@
 }
 
 .contact-icon i {
-   font-size: 2rem;
+    font-size: 2rem;
 }
 
 .contact-icon img {
@@ -110,7 +110,7 @@
 
 /* Дополнительная информация */
 .contacts-extra {
-    background: var(--card-bg);
+    background: linear-gradient(0deg, var(--secondary-color-10), var(--card-bg));
     backdrop-filter: blur(100px);
     border: var(--border);
     border-radius: var(--border-radius-lg);

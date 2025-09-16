@@ -1,7 +1,6 @@
 .mentoring-hero {
     display: flex;
     gap: 40px;
-    margin-top: -80px;
     align-items: center;
     justify-content: space-between;
 }
@@ -47,7 +46,7 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, var(--white-20), transparent);
-    transition: left 0.5s ease;
+    transition: left 0.7s ease;
 }
 
 .offer-card:hover::before {
@@ -81,22 +80,7 @@
     height: 100%;
 }
 
-.offer-features {
-    list-style: none;
-    padding: 0;
-}
-
-.offer-features li {
-    padding: 8px 0;
-    border-bottom: 1px solid var(--white-20);
-    transition: color 0.3s ease;
-}
-
-.offer-features li:last-child {
-    border-bottom: none;
-}
-
-.offer-features li:hover {
+.offer-features p:hover {
     color: var(--secondary-color);
 }
 
@@ -128,11 +112,6 @@
     font-weight: 100;
     color: var(--secondary-color);
     opacity: 0.7;
-}
-
-.benefit-item h4 {
-    margin-bottom: 15px;
-    color: var(--primary-color);
 }
 
 /* Требования */
@@ -180,11 +159,6 @@
     flex-shrink: 0;
 }
 
-.step-content h4 {
-    margin-bottom: 10px;
-    color: var(--primary-color);
-}
-
 /* CTA */
 .mentoring-cta {
     display: flex;
@@ -216,88 +190,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.mentoring-accordion {
-    max-width: 800px;
-    margin-bottom: -80px;
-}
-
-.accordion-item {
-    margin-bottom: 20px;
-    overflow: hidden;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background: var(--card-bg);
-    backdrop-filter: blur(100px);
-    border: var(--border);
-    border-radius: var(--border-radius-md);
-}
-
-.accordion-item:hover {
-    border-color: var(--border-color-hover);
-}
-
-.accordion-item.open {
-    border-color: var(--border-color-hover);
-    box-shadow: var(--box-shadow-hover);
-}
-
-.accordion-item h4 {
-    margin-bottom: 0;
-    font-size: 1.2rem;
-}
-
-.accordion-item.open h4 {
-    color: var(--secondary-color);
-}
-
-.accordion-btn {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 20px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font: inherit;
-    text-align: left;
-}
-
-.accordion-btn:hover {
-    color: var(--secondary-color);
-}
-
-.accordion-item.open .accordion-btn {
-    color: var(--secondary-color);
-}
-
-.accordion-btn i {
-    transition: transform 0.3s ease;
-}
-
-.accordion-btn h4 {
-    margin-right: 20px;
-}
-
-.accordion-item.open .accordion-btn i {
-    transform: rotate(180deg);
-}
-
-.accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease;
-}
-
-.accordion-item.open .accordion-content {
-    max-height: 500px;
-}
-
-.accordion-content p {
-    padding: 0 20px 18px 20px;
-    margin: 0;
-    max-width: 780px;
 }
 
 /* Анимации */
@@ -340,10 +232,6 @@
         text-align: center;
     }
 
-    .offers-grid {
-        grid-template-columns: 1fr;
-    }
-
     .benefits-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
@@ -356,10 +244,6 @@
     .mentoring-cta {
         padding: 30px;
     }
-
-    .accordion {
-        max-width: none;
-    }
 }
 
 @media (max-width: 768px) {
@@ -367,15 +251,9 @@
         gap: 30px;
     }
 
-    .mentoring-container {
-        padding: 16px;
-    }
-
-
     .offer-img {
     height: 140px;
 }
-
     .requirement-step {
         flex-direction: column;
         gap: 20px;
@@ -383,29 +261,13 @@
 
     .offer-card,
     .benefit-item,
-    .requirement-step,
-    .faq-item {
+    .requirement-step {
         padding: 20px;
-    }
-
-    .accordion-btn {
-        padding: 16px;
-    }
-
-    .accordion-content p {
-        padding-left: 16px;
-        padding-right: 16px;
-        padding-bottom: 16px;
     }
 
 }
 
 @media (max-width: 480px) {
-    .mentoring-hero {
-        gap: 30px;
-    }
-
-
     .offers-grid,
     .benefits-grid {
         gap: 20px;
@@ -421,9 +283,5 @@
         width: 40px;
         height: 40px;
         font-size: 1.1rem;
-    }
-
-    .cta-content p {
-        font-size: 1rem;
     }
 }
