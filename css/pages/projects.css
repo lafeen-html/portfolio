@@ -85,7 +85,6 @@ html {
     margin-bottom: 24px;
 }
 
-/* Анимация для карточек при смене таба */
 .projects-grid {
     transition: opacity 0.3s ease;
     margin-bottom: var(--margin-bottom-page-1920);
