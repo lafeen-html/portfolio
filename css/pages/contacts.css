@@ -124,17 +124,18 @@
 .availability-status {
     display: flex;
     justify-content: center;
-    gap: 14px;
+    align-items: center;
+    gap: 10px;
     margin-top: 20px;
 }
 
 .status-indicator {
-    width: 10px;
-    height: 10px;
-    margin-top: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: #4be19b;
     position: relative;
+    flex-shrink: 0;
 }
 
 .status-indicator::after {
@@ -145,6 +146,8 @@
     border-radius: 50%;
     background: #4be19b;
     animation: pulse 2s infinite;
+    top: 0;
+    left: 0;
 }
 
 @keyframes pulse {
@@ -228,10 +231,6 @@
     .availability-status p {
         text-align: left;
     }
-
-    .status-indicator {
-        margin-top: 8px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -252,5 +251,15 @@
 
     .time-slot {
         width: 100%;
+    }
+}
+
+@media (max-width: 330px) {
+    .availability-status {
+        align-items: flex-start;
+    }
+
+    .status-indicator {
+        margin-top: 6px;
     }
 }
