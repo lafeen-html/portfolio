@@ -7,9 +7,11 @@
 }
 
 .footer-copyright p {
-    font-size: var(--font-size-p-sm) !important;
+    font-size: var(--font-size-p-sm);
     max-width: none;
     margin: 0;
     text-align: center;
     color: var(--black-70);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
