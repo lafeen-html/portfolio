@@ -95,6 +95,10 @@
 }
 
 @media (max-width: 768px) {
+    .accordion-section {
+        margin-bottom: 0;
+    }
+
     .accordion-btn {
         padding: 16px;
     }
