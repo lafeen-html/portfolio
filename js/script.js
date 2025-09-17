@@ -11,6 +11,7 @@ function initializePage() {
     fixAllPaths();
     initSmoothScroll();
     updateCurrentYear();
+    initFaq();
 }
 
 // Определяем, находимся ли мы на GitHub Pages
@@ -402,3 +403,55 @@ function updateCurrentYear() {
         yearElement.textContent = new Date().getFullYear();
     }
 }
+
+// FAQ
+function initFaq() {
+    const accordions = document.querySelectorAll('.accordion');
+
+    accordions.forEach(accordion => {
+        initSingleAccordion(accordion);
+    });
+}
+
+// Инициализация отдельного аккордеона
+function initSingleAccordion(accordion) {
+    const accordionItems = accordion.querySelectorAll('.accordion-item');
+
+    if (!accordionItems.length) {
+        console.log('No accordion items found in this accordion');
+        return;
+    }
+
+    // Открываем первый элемент по умолчанию
+    const firstItem = accordionItems[0];
+    if (firstItem && !firstItem.classList.contains('open')) {
+        firstItem.classList.add('open');
+    }
+
+    accordionItems.forEach((item) => {
+        const btn = item.querySelector('.accordion-btn');
+        if (!btn) return;
+
+        // Удаляем предыдущие обработчики, чтобы избежать дублирования
+        btn.replaceWith(btn.cloneNode(true));
+        const newBtn = item.querySelector('.accordion-btn');
+
+        newBtn.addEventListener('click', () => {
+            const isCurrentlyOpen = item.classList.contains('open');
+
+            // Закрываем все элементы в этом аккордеоне
+            accordionItems.forEach(otherItem => {
+                otherItem.classList.remove('open');
+            });
+
+            // Если элемент был закрыт - открываем его
+            if (!isCurrentlyOpen) {
+                item.classList.add('open');
+            }
+        });
+    });
+}
+
+// Делаем функцию глобально доступной
+window.initFaq = initFaq;
+window.initSingleAccordion = initSingleAccordion;

@@ -72,36 +72,33 @@ async function loadTabContent(category, file) {
     loadingState.style.display = 'flex';
 
     try {
-        // Загружаем контент из файла
         const response = await fetch(file);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const content = await response.text();
-
-        // Скрываем состояние загрузки
         loadingState.style.display = 'none';
-
-        // Вставляем контент
         container.innerHTML = content;
 
-        // Добавляем класс active к загруженному контенту
         const tabContent = container.querySelector('.tab-content');
         if (tabContent) {
             tabContent.classList.add('active');
         }
 
-        // Инициализируем анимации и обработчики для нового контента
+        // Основные инициализации
         initCardAnimations();
         initLazyLoading();
         initProjectActions();
         ProjectImages();
 
-        // Инициализируем наставничество, если это соответствующая вкладка
+        // Специфичные инициализации для разных категорий
         if (category === 'mentoring') {
             initMentoringAnimations();
-            initFaq();
+            // Инициализируем FAQ после загрузки контента
+            setTimeout(() => {
+                initMentoringFaq();
+            }, 100);
         }
 
     } catch (error) {
@@ -115,6 +112,47 @@ async function loadTabContent(category, file) {
                 <p>Файл: ${file}</p>
             </div>
         `;
+    }
+}
+
+// Добавьте эту функцию для инициализации FAQ наставничества
+function initMentoringFaq() {
+    const mentoringAccordion = document.querySelector('#tab-content-container .accordion');
+    
+    if (mentoringAccordion) {
+        console.log('Initializing mentoring FAQ');
+        if (typeof initSingleAccordion === 'function') {
+            initSingleAccordion(mentoringAccordion);
+        } else {
+            // Fallback
+            const accordionItems = mentoringAccordion.querySelectorAll('.accordion-item');
+            
+            // Открываем первый элемент
+            if (accordionItems[0]) {
+                accordionItems[0].classList.add('open');
+            }
+
+            accordionItems.forEach((item) => {
+                const btn = item.querySelector('.accordion-btn');
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        const isCurrentlyOpen = item.classList.contains('open');
+                        
+                        // Закрываем все элементы
+                        accordionItems.forEach(otherItem => {
+                            otherItem.classList.remove('open');
+                        });
+                        
+                        // Открываем текущий, если был закрыт
+                        if (!isCurrentlyOpen) {
+                            item.classList.add('open');
+                        }
+                    });
+                }
+            });
+        }
+    } else {
+        console.log('No mentoring accordion found');
     }
 }
 
@@ -353,9 +391,12 @@ async function loadTabContent(category, file) {
         // Специфичные инициализации для разных категорий
         if (category === 'mentoring') {
             initMentoringAnimations();
-            if (typeof initFaq === 'function') {
-                initFaq();
-            }
+            // Даем время для рендера DOM перед инициализацией FAQ
+            setTimeout(() => {
+                if (typeof initFaq === 'function') {
+                    initFaq();
+                }
+            }, 300);
         }
 
         // Инициализация для презентаций
@@ -404,7 +445,6 @@ async function loadTabContent(category, file) {
     }
 }
 
-
 function initMentoringAnimations() {
     const fadeElements = document.querySelectorAll('#tab-content-container .fade-in-element');
     const observer = new IntersectionObserver((entries) => {
@@ -425,7 +465,12 @@ function initMentoringAnimations() {
     // Инициализация плавной прокрутки
     initSmoothScroll();
 
-    initFaq();
+    // Инициализация FAQ после небольшой задержки, чтобы DOM успел обновиться
+    setTimeout(() => {
+        if (typeof initFaq === 'function') {
+            initFaq();
+        }
+    }, 100);
 }
 
 // Плавная прокрутка к контактам
