@@ -16,11 +16,3 @@
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
 }
-
-@media (max-width: 768px) {
-
-    .footer-copyright p,
-    .footer-copyright span {
-        font-size: 12px !important;
-    }
-}
