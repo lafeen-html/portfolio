@@ -126,7 +126,7 @@
 }
 
 .requirements-steps {
-    max-width: 800px;
+    max-width: 780px;
     display: flex;
     flex-direction: column;
     gap: 20px;

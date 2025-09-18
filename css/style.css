@@ -60,6 +60,8 @@ p {
     margin-bottom: 16px;
     color: var(--black-70);
     max-width: 720px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 p:last-child {
@@ -130,11 +132,14 @@ body:hover ::-webkit-scrollbar-thumb {
     ::-webkit-scrollbar-thumb {
         animation: scrollbarPulse 3s ease-in-out infinite;
     }
-    
+
     @keyframes scrollbarPulse {
-        0%, 100% {
+
+        0%,
+        100% {
             opacity: 0.9;
         }
+
         50% {
             opacity: 1;
         }
@@ -200,14 +205,14 @@ body {
         font-size: 1.2rem;
     }
 
-      ::-webkit-scrollbar {
+    ::-webkit-scrollbar {
         width: 4px;
     }
-    
+
     ::-webkit-scrollbar-track {
         margin: 2px 0;
     }
-    
+
     ::-webkit-scrollbar-thumb {
         border-width: 1px;
     }
@@ -221,6 +226,8 @@ body {
     p {
         font-size: var(--font-size-p-sm);
         margin-bottom: 14px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
     }
 
     .subtitle {

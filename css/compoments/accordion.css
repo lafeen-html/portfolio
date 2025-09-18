@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: var(--margin-bottom-page-1920);
 }
 
 .accordion {

@@ -118,7 +118,7 @@ async function loadTabContent(category, file) {
 // Добавьте эту функцию для инициализации FAQ наставничества
 function initMentoringFaq() {
     const mentoringAccordion = document.querySelector('#tab-content-container .accordion');
-    
+
     if (mentoringAccordion) {
         console.log('Initializing mentoring FAQ');
         if (typeof initSingleAccordion === 'function') {
@@ -126,7 +126,7 @@ function initMentoringFaq() {
         } else {
             // Fallback
             const accordionItems = mentoringAccordion.querySelectorAll('.accordion-item');
-            
+
             // Открываем первый элемент
             if (accordionItems[0]) {
                 accordionItems[0].classList.add('open');
@@ -137,12 +137,12 @@ function initMentoringFaq() {
                 if (btn) {
                     btn.addEventListener('click', () => {
                         const isCurrentlyOpen = item.classList.contains('open');
-                        
+
                         // Закрываем все элементы
                         accordionItems.forEach(otherItem => {
                             otherItem.classList.remove('open');
                         });
-                        
+
                         // Открываем текущий, если был закрыт
                         if (!isCurrentlyOpen) {
                             item.classList.add('open');
@@ -389,17 +389,6 @@ async function loadTabContent(category, file) {
         ProjectImages();
 
         // Специфичные инициализации для разных категорий
-        if (category === 'mentoring') {
-            initMentoringAnimations();
-            // Даем время для рендера DOM перед инициализацией FAQ
-            setTimeout(() => {
-                if (typeof initFaq === 'function') {
-                    initFaq();
-                }
-            }, 300);
-        }
-
-        // Инициализация для презентаций
         if (category === 'presentations') {
             // Даем время для рендера DOM
             setTimeout(() => {
@@ -427,6 +416,35 @@ async function loadTabContent(category, file) {
                             });
                         }
                     });
+                }
+            }, 300);
+        }
+
+        if (category === 'other') {
+            setTimeout(() => {
+                if (typeof window.otherModule !== 'undefined' &&
+                    typeof window.otherModule.initOtherTab === 'function') {
+                    window.otherModule.initOtherTab();
+                } else {
+                    initCardAnimations();
+                    initLazyLoading();
+                }
+
+                // Переинициализируем обработчики для новых элементов
+                // (убираем вызов несуществующего метода)
+                if (window.modalManager && window.modalManager.initGalleryImages) {
+                    // Просто переинициализируем обработчики галереи
+                    window.modalManager.initGalleryImages();
+                }
+            }, 300);
+        }
+
+        if (category === 'mentoring') {
+            initMentoringAnimations();
+            // Даем время для рендера DOM перед инициализацией FAQ
+            setTimeout(() => {
+                if (typeof initFaq === 'function') {
+                    initFaq();
                 }
             }, 300);
         }

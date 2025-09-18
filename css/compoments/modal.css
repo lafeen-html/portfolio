@@ -466,14 +466,7 @@
 
 /* Стили для индикатора пагинации (точек) */
 .lightbox-pagination {
-    position: absolute;
-    bottom: 70px;
-    /* Размещаем над заголовком */
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 10;
+    display: none;
 }
 
 .lightbox-pagination-dot {
@@ -555,8 +548,7 @@
     }
 
     .lightbox-caption {
-        font-size: 0.9rem;
-        max-width: 90%;
+        display: none;
     }
 
     .lightbox-nav {
@@ -572,6 +564,16 @@
     /* Корректируем положение индикатора, если нужно */
     .lightbox-pagination {
         bottom: 0;
+    }
+
+    .lightbox-pagination {
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 10;
     }
 }
 
