@@ -167,10 +167,10 @@ class ModalManager {
         // Находим все изображения в этой галерее
         const galleryImages = document.querySelectorAll(`.gallery-image[data-gallery="${galleryId}"]`);
         this.currentGallery = Array.from(galleryImages);
-        
+
         // Находим индекс текущего изображения
         this.currentImageIndex = this.currentGallery.findIndex(img => img.src === imageElement.src);
-        
+
         if (this.currentImageIndex === -1) {
             this.currentImageIndex = 0;
         }
@@ -231,13 +231,13 @@ class ModalManager {
             if (index === this.currentImageIndex) {
                 dot.classList.add('active');
             }
-            
+
             dot.addEventListener('click', () => {
                 this.currentImageIndex = index;
                 this.updateLightboxImage();
                 this.updatePagination();
             });
-            
+
             paginationContainer.appendChild(dot);
         });
     }
@@ -256,7 +256,7 @@ class ModalManager {
 
     nextImage() {
         if (!this.currentGallery) return;
-        
+
         this.currentImageIndex = (this.currentImageIndex + 1) % this.currentGallery.length;
         this.updateLightboxImage();
         this.updatePagination();
@@ -264,7 +264,7 @@ class ModalManager {
 
     prevImage() {
         if (!this.currentGallery) return;
-        
+
         this.currentImageIndex = (this.currentImageIndex - 1 + this.currentGallery.length) % this.currentGallery.length;
         this.updateLightboxImage();
         this.updatePagination();
@@ -276,7 +276,7 @@ class ModalManager {
             document.body.style.overflow = '';
             this.currentGallery = null;
             this.currentImageIndex = 0;
-            
+
             // Удаляем обработчики свайпа
             this.removeSwipeHandlers();
         }
@@ -286,7 +286,7 @@ class ModalManager {
         this.handleTouchStart = this.handleTouchStart.bind(this);
         this.handleTouchMove = this.handleTouchMove.bind(this);
         this.handleTouchEnd = this.handleTouchEnd.bind(this);
-        
+
         this.lightbox.addEventListener('touchstart', this.handleTouchStart, { passive: true });
         this.lightbox.addEventListener('touchmove', this.handleTouchMove, { passive: true });
         this.lightbox.addEventListener('touchend', this.handleTouchEnd, { passive: true });
@@ -309,7 +309,7 @@ class ModalManager {
 
         const touchX = e.touches[0].clientX;
         const touchY = e.touches[0].clientY;
-        
+
         const diffX = this.touchStartX - touchX;
         const diffY = this.touchStartY - touchY;
 
@@ -324,7 +324,7 @@ class ModalManager {
 
         this.touchEndX = e.changedTouches[0].clientX;
         this.handleSwipe();
-        
+
         this.touchStartX = 0;
         this.touchStartY = 0;
         this.isSwiping = false;
@@ -333,7 +333,7 @@ class ModalManager {
     handleSwipe() {
         const swipeThreshold = 50;
         const diffX = this.touchStartX - this.touchEndX;
-        
+
         if (diffX > swipeThreshold) {
             this.nextImage(); // Свайп влево
         } else if (diffX < -swipeThreshold) {
@@ -343,12 +343,12 @@ class ModalManager {
 
     initScrollIndicators() {
         const modalWrappers = document.querySelectorAll('.modal-content-wrapper');
-        
+
         modalWrappers.forEach(wrapper => {
             wrapper.addEventListener('scroll', () => {
                 this.updateScrollIndicators(wrapper);
             });
-            
+
             // Инициализируем начальное состояние
             this.updateScrollIndicators(wrapper);
         });
@@ -357,10 +357,10 @@ class ModalManager {
     updateScrollIndicators(wrapper) {
         const container = wrapper.closest('.modal-container');
         if (!container) return;
-        
+
         const isAtTop = wrapper.scrollTop === 0;
         const isAtBottom = wrapper.scrollTop + wrapper.clientHeight >= wrapper.scrollHeight - 1;
-        
+
         container.classList.toggle('scroll-top', !isAtTop);
         container.classList.toggle('scroll-bottom', !isAtBottom);
     }
@@ -374,16 +374,16 @@ class ModalManager {
         const modal = document.getElementById(modalId);
         if (modal) {
             modal.style.display = 'flex';
-            
+
             // Блокируем скролл body
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
-            
+
             // Анимация открытия
             requestAnimationFrame(() => {
                 modal.classList.add('active');
                 this.activeModal = modal;
-                
+
                 // Обновляем индикаторы скролла
                 const wrapper = modal.querySelector('.modal-content-wrapper');
                 if (wrapper) {
@@ -396,11 +396,11 @@ class ModalManager {
     closeModal() {
         if (this.activeModal) {
             this.activeModal.classList.remove('active');
-            
+
             // Разблокируем скролл body
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
-            
+
             // Задержка перед скрытием для анимации
             setTimeout(() => {
                 if (this.activeModal) {
@@ -430,7 +430,7 @@ class ModalManager {
             'Evensa': 'evensa-modal',
             'МыслеЛис': 'mindfox-modal'
         };
-        
+
         return idMap[title] || null;
     }
 }
@@ -455,7 +455,7 @@ function closeModal() {
 
 // Обработка ошибок загрузки изображений в модальных окнах
 function initModalImageHandling() {
-    document.addEventListener('error', function(e) {
+    document.addEventListener('error', function (e) {
         if (e.target.tagName === 'IMG' && e.target.closest('.modal')) {
             console.warn('Modal image failed to load:', e.target.src);
             e.target.style.display = 'none';
@@ -464,6 +464,6 @@ function initModalImageHandling() {
 }
 
 // Инициализация при полной загрузке страницы
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     initModalImageHandling();
 });

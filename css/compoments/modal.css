@@ -429,7 +429,7 @@
 }
 
 .lightbox-nav:hover {
-    background: var(--secondary-color);
+    border-color: var(--border-color-hover);
     transform: translateY(-50%) scale(1.1);
 }
 
