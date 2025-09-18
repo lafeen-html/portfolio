@@ -117,4 +117,8 @@
     .banner-item {
         margin-bottom: 14px;
     }
+
+    .view-banner-btn {
+        width: auto;
+    }
 }
