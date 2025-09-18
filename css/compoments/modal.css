@@ -68,7 +68,7 @@
 
 .modal-close i {
     font-weight: 600;
-    color: var(--black-40);
+    color: var(--white);
 }
 
 .modal-close:hover {
