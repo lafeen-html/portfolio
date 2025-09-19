@@ -283,18 +283,7 @@ function initLazyLoading() {
     }
 }
 
-// Инициализация действий для проектов
-function initProjectActions() {
-    const projectCards = document.querySelectorAll('.project-card');
 
-    projectCards.forEach(card => {
-        const actions = card.querySelectorAll('.project-action-btn');
-        // Показываем варианты просмотра проекта
-        if (actions.length >= 1) {
-            card.style.cursor = 'pointer';
-        }
-    });
-}
 
 // Изображения проектов
 function ProjectImages() {
@@ -385,7 +374,6 @@ async function loadTabContent(category, file) {
         // Основные инициализации
         initCardAnimations();
         initLazyLoading();
-        initProjectActions();
         ProjectImages();
 
         // Специфичные инициализации для разных категорий

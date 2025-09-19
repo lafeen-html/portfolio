@@ -17,7 +17,6 @@
     border-radius: var(--border-radius-md);
     overflow: hidden;
     transition: all 0.4s ease;
-    cursor: pointer;
     position: relative;
 }
 
