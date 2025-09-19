@@ -85,6 +85,18 @@ html {
     margin-bottom: 24px;
 }
 
+.tab-icon {
+    display: none;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    filter: grayscale(100%) saturate(0) contrast(4) opacity(1);
+}
+
+.tab-button.active .tab-icon {
+  filter: brightness(0) invert(1);
+}
+
 .projects-grid {
     transition: opacity 0.3s ease;
     margin-bottom: var(--margin-bottom-page-1920);
@@ -388,5 +400,23 @@ html {
 
     .project-info {
         padding: 14px;
+    }
+
+    .tab-button {
+        flex-direction: column;
+        padding: 12px;
+        min-width: auto;
+    }
+
+    .tab-icon {
+        display: block;
+    }
+
+    .tab-button span {
+        display: none;
+    }
+
+    .tabs {
+        justify-content: space-between;
     }
 }
