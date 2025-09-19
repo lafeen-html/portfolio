@@ -381,9 +381,9 @@
 }
 
 .lightbox-close {
-    position: absolute;
-    top: 0px;
-    right: -60px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
     width: 44px;
     height: 44px;
     display: flex;
@@ -399,7 +399,7 @@
 }
 
 .lightbox-nav {
-    position: absolute;
+    position: fixed;
     top: 50%;
     transform: translateY(-50%);
     width: 44px;
@@ -419,14 +419,12 @@
 }
 
 .lightbox-prev {
-    left: -60px;
+    left: 20px;
 }
 
 .lightbox-next {
-    right: -60px;
+    right: 20px;
 }
-
-
 
 .lightbox-counter {
     color: var(--white);
@@ -485,10 +483,70 @@
     transform: scale(1.2);
 }
 
-/* Адаптивность для навигационных кнопок */
-/* На десктопе они видны */
 .lightbox-nav {
     display: flex;
+}
+
+/* Стили скролла для модального окна */
+.modal-content-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) var(--white-20);
+}
+
+/* Стили скролла для Webkit браузеров */
+.modal-content-wrapper::-webkit-scrollbar {
+    width: 4px;
+}
+
+.modal-content-wrapper::-webkit-scrollbar-track {
+    background: var(--white-20);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-max);
+    margin: 4px 0;
+}
+
+.modal-content-wrapper::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    border-radius: var(--border-radius-max);
+    border: 2px solid var(--white);
+    transition: all 0.3s ease;
+}
+
+.modal-content-wrapper::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--secondary-color-hover), var(--black));
+    transform: scale(1.05);
+}
+
+.modal-content-wrapper::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(135deg, var(--secondary-color-active), var(--black));
+}
+
+.modal-content-wrapper::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+.modal-container {
+    overflow: hidden !important;
+}
+
+.modal-content-wrapper {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Анимации для модального скролла */
+@media (prefers-reduced-motion: no-preference) {
+    .modal-content-wrapper::-webkit-scrollbar-thumb {
+        animation: scrollbarPulse 3s ease-in-out infinite;
+    }
+}
+
+/* Для Firefox  */
+@supports (scrollbar-width: thin) {
+    .modal-content-wrapper {
+        scrollbar-width: thin !important;
+        scrollbar-color: var(--secondary-color) var(--white-20) !important;
+    }
 }
 
 /* Адаптивность */
@@ -555,13 +613,11 @@
         display: none;
     }
 
-    /* Можно немного увеличить область клика для закрытия на мобильных */
     .lightbox-close {
         top: -30px;
         right: -30px;
     }
 
-    /* Корректируем положение индикатора, если нужно */
     .lightbox-pagination {
         bottom: 0;
     }
@@ -626,67 +682,5 @@
 
     .modal-content-wrapper::-webkit-scrollbar {
         width: 6px;
-    }
-}
-
-/* Стили скролла для модального окна */
-.modal-content-wrapper {
-    scrollbar-width: thin;
-    scrollbar-color: var(--secondary-color) var(--white-20);
-}
-
-/* Стили скролла для Webkit браузеров */
-.modal-content-wrapper::-webkit-scrollbar {
-    width: 4px;
-}
-
-.modal-content-wrapper::-webkit-scrollbar-track {
-    background: var(--white-20);
-    backdrop-filter: blur(10px);
-    border-radius: var(--border-radius-max);
-    margin: 4px 0;
-}
-
-.modal-content-wrapper::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-    border-radius: var(--border-radius-max);
-    border: 2px solid var(--white);
-    transition: all 0.3s ease;
-}
-
-.modal-content-wrapper::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, var(--secondary-color-hover), var(--black));
-    transform: scale(1.05);
-}
-
-.modal-content-wrapper::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(135deg, var(--secondary-color-active), var(--black));
-}
-
-.modal-content-wrapper::-webkit-scrollbar-corner {
-    background: transparent;
-}
-
-.modal-container {
-    overflow: hidden !important;
-}
-
-.modal-content-wrapper {
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-}
-
-/* Анимации для модального скролла */
-@media (prefers-reduced-motion: no-preference) {
-    .modal-content-wrapper::-webkit-scrollbar-thumb {
-        animation: scrollbarPulse 3s ease-in-out infinite;
-    }
-}
-
-/* Для Firefox  */
-@supports (scrollbar-width: thin) {
-    .modal-content-wrapper {
-        scrollbar-width: thin !important;
-        scrollbar-color: var(--secondary-color) var(--white-20) !important;
     }
 }
