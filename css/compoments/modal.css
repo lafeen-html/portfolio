@@ -613,11 +613,6 @@
         display: none;
     }
 
-    .lightbox-close {
-        top: -30px;
-        right: -30px;
-    }
-
     .lightbox-pagination {
         bottom: 0;
     }
