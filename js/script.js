@@ -10,7 +10,6 @@ function initializePage() {
     loadFooter();
     fixAllPaths();
     initSmoothScroll();
-    updateCurrentYear();
     initFaq();
 }
 
@@ -389,6 +388,7 @@ function loadFooter() {
             }
 
             footerElement.innerHTML = processedHtml;
+            updateCurrentYear();
             fixAllPaths();
         })
         .catch(error => {
