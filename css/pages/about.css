@@ -52,6 +52,10 @@
     filter: brightness(1.1);
 }
 
+.about-content span {
+    font-size: var(--font-size-p-md);
+}
+
 /* Образование */
 .education-section {
     margin-top: -60px;
